@@ -1,0 +1,166 @@
+{
+
+  //////////////////////////////////////////////////////////////////////////////
+  // VS Code behavior
+  //////////////////////////////////////////////////////////////////////////////
+
+  "workbench.startupEditor": "none",
+  "workbench.colorTheme": "Gruvbox Dark Hard",
+  "update.showReleaseNotes": false,
+  "update.mode": "none",
+  "window.newWindowProfile": "matt",
+  "application.shellEnvironmentResolutionTimeout": 60,
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Basic functionality
+  //////////////////////////////////////////////////////////////////////////////
+
+  "explorer.confirmPasteNative": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "workbench.editor.doubleClickTabToToggleEditorGroupSizes": "maximize",
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Autocomplete & editor
+  //////////////////////////////////////////////////////////////////////////////
+
+  "editor.inlineSuggest.enabled": false,
+  "editor.parameterHints.enabled": false,
+  "editor.autoClosingBrackets": "never",
+  "editor.autoClosingQuotes": "never",
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Tab completion
+  // NOTE: VSCodeVim intercepts Tab in insert mode for snippet expansion — verify
+  // that tab completion works as expected. Add vim.handleKeys for <tab> if needed.
+  // Return to this when reviewing tab completion in setup_tasks.md.
+  //////////////////////////////////////////////////////////////////////////////
+
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.tabCompletion": "on",
+  "editor.suggestSelection": "recentlyUsedByPrefix",
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "off"
+  },
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Markdown
+  //////////////////////////////////////////////////////////////////////////////
+
+  "markdown.validate.enabled": true,
+  "markdown.validate.referenceLinks.enabled": "ignore",
+  "markdownlint.config": {
+    "default": true,
+    "MD033": false, // no inline HTML
+    "MD045": false, // images require alt text
+    "MD036": false, // no emphasis as headings
+    "MD024": false  // no duplicate heading text
+  },
+  "[markdown]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.rulers": []
+  },
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Formatting
+  //////////////////////////////////////////////////////////////////////////////
+
+  "[json]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.rulers": []
+  },
+  "[python]": {
+    "editor.codeLens": false,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.indentSize": 4,
+    "editor.detectIndentation": false,
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  
+  //////////////////////////////////////////////////////////////////////////////
+  // Appearance
+  //////////////////////////////////////////////////////////////////////////////
+
+  "editor.fontFamily": "JetBrainsMono Nerd Font",
+  "editor.rulers": [88],
+  "editor.minimap.enabled": false,
+
+  //////////////////////////////////////////////////////////////////////////////
+  // VIM
+  //////////////////////////////////////////////////////////////////////////////
+
+  "vim.useSystemClipboard": true,
+  "vim.cursorStylePerMode.normal": "block",
+  "vim.cursorStylePerMode.insert": "line",
+  "vim.cursorStylePerMode.visual": "block-outline",
+  "vim.cursorStylePerMode.replace": "underline",
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Git
+  //////////////////////////////////////////////////////////////////////////////
+
+  "git.autofetch": true,
+  "git.countBadge": "off",
+  "git.rebaseWhenSync": true,
+  "git.openRepositoryInParentFolders": "never",
+  "git.showActionButton": {
+    "commit": false,
+    "publish": false,
+    "sync": false
+  },
+  "githubPullRequests.quickDiff": true,
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Jupyter
+  //////////////////////////////////////////////////////////////////////////////
+
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+  "jupyter.askForKernelRestart": false,
+  "jupyter.interactiveWindow.codeLens.commands": "",
+  "jupyter.interactiveWindow.cellMarker.decorateCells": "allCells",
+  "interactiveWindow.collapseCellInputCode": "never",
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Project Manager
+  //////////////////////////////////////////////////////////////////////////////
+
+  "projectManager.git.baseFolders": [
+    "/mnt/ssd2_data/documents"
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Inline fold (markdown)
+  // Folds the URL in markdown links [link text](url), leaving only the link
+  // text visible while editing. Reduces visual noise in markdown files.
+  //////////////////////////////////////////////////////////////////////////////
+
+  "inlineFold.regex": "\\[([^\\]]*)\\]\\(([^\\s]+)\\)[^\\)\\s]*\\s",
+  "inlineFold.regexFlags": "g",
+  "inlineFold.regexGroup": 2,
+  "inlineFold.supportedLanguages": [
+    "markdown"
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Spell check
+  //////////////////////////////////////////////////////////////////////////////
+
+  "cSpell.userWords": [
+    "datasheet",
+    "Panelmate",
+    "Starlink"
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Misc
+  //////////////////////////////////////////////////////////////////////////////
+
+  "vscode-pets.theme": "forest"
+
+}

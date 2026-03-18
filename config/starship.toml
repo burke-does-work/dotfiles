@@ -3,33 +3,33 @@ $directory$git_branch$git_status$python$line_break$character"""
 
 [directory]
 style = "fg:#8ec07c bold"
-format = "[ $path$read_only ]($style)[](fg:#8ec07c) "
+format = "[ $path$read_only ]($style)"
 truncation_length = 3
-truncate_to_repo = true
-read_only = " 󰌾"
+truncate_to_repo = false
+read_only = " [ro]"
 read_only_style = "fg:#fb4934"
 
 [git_branch]
-format = "[ $symbol$branch]($style)"
-symbol = " "
-style = "fg:#8ec07c"
+format = "[·](fg:#665c54)[ $branch ]($style)"
+symbol = ""
+style = "fg:#fabd2f"
 
 [git_status]
-format = '[$all_status]($style)[](fg:#8ec07c) '
+format = '([$all_status ]($style))'
 conflicted = "✗"
-ahead = ""
-behind = ""
-diverged = ""
+ahead = "↑"
+behind = "↓"
+diverged = "↕"
 untracked = "✗"
-stashed = ""
+stashed = "~"
 modified = "✗"
 staged = "✗"
 renamed = "✗"
 deleted = "✗"
-style = "fg:#8ec07c"
+style = "fg:#fabd2f"
 
 [python]
-format = '([ $virtualenv]($style)[](fg:#d3869b) )'
+format = '([·](fg:#665c54)[ $virtualenv ]($style))'
 style = "fg:#d3869b"
 detect_extensions = []
 detect_files = []
