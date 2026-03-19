@@ -130,11 +130,22 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 ##### Aliases
 ##### ──────────────────────────────────────────────────────────────────────────
 
-# Mount local SSD
-alias mountlocal='sudo bash /home/matt/ssd2_drive_mount.sh'
+# Mount the encrypted external SSD at /mnt/ssd2_data.
+# GNOME auto-mounts the drive at /media/matt/ssd2_world when it's plugged in, blocking our mount.
+# Steps: dismiss GNOME's mount → close GNOME's LUKS device → open LUKS using /etc/crypttab
+# (key file: /etc/cryptsetup-keys.d/ssd2_world.key) → mount via /etc/fstab.
+# The first two steps use ; and suppress errors so they no-op cleanly if GNOME hasn't auto-mounted.
+alias mountlocal='sudo umount /media/matt/ssd2_world 2>/dev/null; sudo cryptsetup close luks-3efbea31-d5bb-493b-ac77-b747808217b3 2>/dev/null; sudo cryptdisks_start ssd2_world && sudo mount /mnt/ssd2_data'
 
-# Mount NFS network drive
-alias mountnfs='sudo bash /home/matt/nfs_mount.sh'
+# Unmount the encrypted SSD and close the LUKS device.
+alias umountlocal='sudo umount /mnt/ssd2_data && sudo cryptdisks_stop ssd2_world'
+
+# Mount NFS shares exported by the Raspberry Pi (192.168.8.154).
+# Entries are defined in /etc/fstab with noauto,_netdev — not mounted at boot.
+alias mountnfs='sudo mount /mnt/nfs/drive_data && sudo mount /mnt/nfs/hdd_data'
+
+# Unmount NFS shares.
+alias umountnfs='sudo umount /mnt/nfs/drive_data && sudo umount /mnt/nfs/hdd_data'
 
 # Open keybindings reference
 alias keybindings='nvim ~/dotfiles/keybindings.md'
