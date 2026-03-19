@@ -1,0 +1,210 @@
+// Place your key bindings in this file to override the defaults
+
+[
+ ///// ──────────────────────────────────────────────────────────────────────
+///// Global navigation
+///// ──────────────────────────────────────────────────────────────────────
+
+// Change view size
+  {
+    "key": "ctrl+shift+-",
+    "command": "workbench.action.decreaseViewSize",
+  },
+  {
+    "key": "ctrl+shift+=",
+    "command": "workbench.action.increaseViewSize",
+  },
+
+  // Sidebar toggle
+  {
+    "key": "ctrl+shift+b",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+shift+b",
+    "command": "-workbench.action.tasks.build",
+    "when": "taskCommandsRegistered"
+  },
+  {
+    "key": "ctrl+b",
+    "command": "-workbench.action.toggleSidebarVisibility"
+  },
+
+// Ctrl+Tab to navigate editors
+
+{"key": "ctrl+tab",
+"command": "-workbench.action.quickOpenNavigateNextInEditorPicker",
+},
+
+{"key": "ctrl+tab",
+"command": "-workbench.action.previousEditorInGroup",
+},
+
+{ "key": "ctrl+tab",
+  "command": "workbench.action.nextEditorInGroup",
+  "when": "editorFocus || notebookEditorFocused"
+},
+{ "key": "ctrl+shift+tab",
+  "command": "workbench.action.previousEditorInGroup",
+  "when": "editorFocus || notebookEditorFocused"
+},
+
+//Panel
+
+{
+  "key": "ctrl+tab",
+  "command": "workbench.action.nextPanelView",
+  "when": "panelFocus || !editorFocus || (activePanel == 'workbench.panel.jupyter' || activePanel == 'workbench.panel.ports')"
+},
+{
+  "key": "ctrl+shift+tab",
+  "command": "workbench.action.previousPanelView",
+  "when": "panelFocus || !editorFocus || (activePanel == 'workbench.panel.jupyter' || activePanel == 'workbench.panel.ports')"
+},
+
+///// ──────────────────────────────────────────────────────────────────────
+///// Tab completion and intellisense
+///// ──────────────────────────────────────────────────────────────────────
+{
+"key": "tab",
+"command": "tab",
+"when": "editorTextFocus && !suggestWidgetVisible"
+},
+{
+"key": "ctrl+g",
+"command": "hideSuggestWidget",
+"when": "editorTextFocus && suggestWidgetVisible"
+},
+
+///// ──────────────────────────────────────────────────────────────────────
+///// Other
+///// ──────────────────────────────────────────────────────────────────────
+
+{
+  "key": "",
+  "command": "merge-conflict.accept.selection"
+},
+
+///// ──────────────────────────────────────────────────────────────────────
+///// Jupyter Interactive Window
+///// ──────────────────────────────────────────────────────────────────────
+{
+  "key": "enter",
+  "command": "interactive.execute",
+  "when": "activeEditor == 'workbench.editor.interactive' && editorTextFocus && !suggestWidgetVisible"
+},
+{
+  "key": "shift+enter",
+  "command": "-interactive.execute",
+  "when": "activeEditor == 'workbench.editor.interactive'"
+},
+{
+  "key": "shift+enter",
+  "command": "type",
+  "args": { "text": "\n" },
+  "when": "activeEditor == 'workbench.editor.interactive' && editorTextFocus && !suggestWidgetVisible"
+},
+
+///// ──────────────────────────────────────────────────────────────────────
+///// Retired bindings - keeping in case I realize I wanted something
+///// ──────────────────────────────────────────────────────────────────────
+
+// { 
+// "key": "shift+o",
+// "command": "notebook.cell.insertCodeCellAbove",
+
+// "when": "notebookEditorFocused && !inputFocus && !notebookOutputInputFocused",
+// },
+// { 
+// "key": "o",
+
+// "command": "notebook.cell.insertCodeCellBelow",
+// "when": "notebookEditorFocused && !inputFocus && !notebookOutputInputFocused",
+// },
+// {
+// "key": "o",
+// "command": "-notebook.cell.toggleOutputs",
+
+// "when": "notebookEditorFocused && !inputFocus && !notebookOutputInputFocused"
+// },
+// {
+// "key": "g g",
+// "command": "notebook.focusTop",
+// "when": "notebookEditorFocused && !inputFocus",
+// },
+// {
+// "key": "ctrl+home",
+// "command": "-notebook.focusTop",
+// "when": "notebookEditorFocused && !inputFocus",
+// // Do not know how to also remove "home" as a keybinding.
+// },
+// { "key": "shift+g",
+// "command": "notebook.focusBottom",
+
+// "when": "notebookEditorFocused && !inputFocus"
+// },
+// {
+// "key": 
+// "ctrl+end",
+// "command": "-notebook.focusBottom",
+// "when": "notebookEditorFocused && !inputFocus"
+// },
+// {
+// "key": "shift+k",
+// "command": "list.expandSelectionUp",
+// "when": "listFocus && listSupportsMultiselect && !inputFocus && !treestickyScrollFocused"
+// },
+// {
+// "key": "shift+j",
+// "command": "list.expandSelectionDown",
+// "when": "listFocus && listSupportsMultiselect && !inputFocus && !treestickyScrollFocused"
+// },
+// {
+//   "key": "ctrl+k escape",
+//   "command": "notebook.cell.quitEdit",
+//   "when": "inputFocus && notebookEditorFocused && !editorHasMultipleSelections && !editorHasSelection && !editorHoverVisible && !inlineChatFocused"
+// },
+// {
+//   "key": "escape",
+//   "command": "-notebook.cell.quitEdit",
+//   "when": "inputFocus && notebookEditorFocused && !editorHasMultipleSelections && !editorHasSelection && !editorHoverVisible && !inlineChatFocused"
+// },
+// {
+// "key": "escape",
+// "command": "-leaveSnippet",
+// "when": "editorTextFocus && inSnippetMode"
+// },
+// {
+// "key": "c",
+// "command": "notebook.cell.changeToCode",
+// "when": "notebookEditorFocused && !inputFocus && !notebookOutputFocused && activeEditor == 'workbench.editor.notebook' && notebookCellType == 'markup'"
+// },
+// {
+// "key": "ctrl+k ctrl+r",
+// "command": "jupyter.restartkernelandrunallcells"
+// },
+// {
+// "key": "ctrl+k ctrl+r",
+// "command": "-workbench.action.keybindingsReference"
+
+// },
+
+// // Not sure why these are here but leaving for now
+// {
+// "key": "u",
+// "command": "undo",
+// "when": "notebookEditorFocused && !inputFocus && !notebookOutputInputFocused"
+// },
+// {
+// "key": "z",
+// "command": "undo",
+// "when": "notebookEditorFocused && !inputFocus && !notebookOutputInputFocused"
+// }, 
+// {
+// "key": "x",
+// "command": "-notebook.cell.cut",
+// "when": "notebookEditorFocused && !inputFocus && !notebookOutputInputFocused"
+// },
+
+
+]

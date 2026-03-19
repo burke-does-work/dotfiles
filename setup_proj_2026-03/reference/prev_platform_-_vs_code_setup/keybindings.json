@@ -1,0 +1,184 @@
+//// Place your key bindings in this file to override the defaultsauto[]
+
+//// Where keybindings are changed to accomodate a new keybinding, the new keybinding is placed first, followed by the changes needed.
+//// Remember to remove replaced key bindings with a '-'.
+
+[
+    ///// ──────────────────────────────────────────────────────────────────────
+    ///// Global navigation
+    ///// ──────────────────────────────────────────────────────────────────────
+    {
+        "key": "ctrl+shift+-",
+        "command": "workbench.action.decreaseViewSize", 
+    },
+    {
+        "key": "ctrl+shift+=",
+        "command": "workbench.action.increaseViewSize",
+    },
+    {
+        "key": "ctrl+shift+b",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "ctrl+shift+b",
+        "command": "-workbench.action.tasks.build",
+        "when": "taskCommandsRegistered"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "-workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+pagedown",
+        "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+pageup",
+        "command": "-workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextPanelView",
+        "when": "panelFocus"
+      },
+      {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousPanelView",
+        "when": "panelFocus"
+      },
+      
+    ///// ──────────────────────────────────────────────────────────────────────
+    ///// Tab completion and intellisense
+    ///// ──────────────────────────────────────────────────────────────────────
+
+    // {
+    //     "key": "enter",
+    //     "command": "acceptSelectedSuggestion",
+    //     "when": "editorTextFocus && suggestWidgetVisible"
+    // },
+    {
+        "key": "tab",
+        "command": "tab",
+        "when": "editorTextFocus && !suggestWidgetVisible"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "hideSuggestWidget",
+        "when": "editorTextFocus && suggestWidgetVisible"
+    },
+    
+    ///// ──────────────────────────────────────────────────────────────────────
+    ///// Jupyter
+    ///// ──────────────────────────────────────────────────────────────────────
+
+    {
+        "key": "enter",
+        "command": "interactive.execute",
+        "when": "!notebookKernel && activeEditor == 'workbench.editor.interactive' || activeEditor == 'workbench.editor.interactive' && notebookKernel =~ /^ms-toolsai.jupyter\\//"
+    },
+    { 
+        "key": "shift+o",
+        "command": "notebook.cell.insertCodeCellAbove",
+        "when": "notebookEditorFocused && !inputFocus && !notebookOutputInputFocused",
+    },
+    { 
+        "key": "o",
+        "command": "notebook.cell.insertCodeCellBelow",
+        "when": "notebookEditorFocused && !inputFocus && !notebookOutputInputFocused",
+    },
+    {
+        "key": "o",
+        "command": "-notebook.cell.toggleOutputs",
+        "when": "notebookEditorFocused && !inputFocus && !notebookOutputInputFocused"
+    },
+    {
+        "key": "g g",
+        "command": "notebook.focusTop",
+        "when": "notebookEditorFocused && !inputFocus",
+    },
+    {
+        "key": "ctrl+home",
+        "command": "-notebook.focusTop",
+        "when": "notebookEditorFocused && !inputFocus",
+
+        // Do not know how to also remove "home" as a keybinding.
+    },
+    {   "key": "shift+g",
+        "command": "notebook.focusBottom",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "ctrl+end",
+        "command": "-notebook.focusBottom",
+        "when": "notebookEditorFocused && !inputFocus"
+    },
+    {
+        "key": "u",
+        "command": "undo",
+        "when": "notebookEditorFocused && !inputFocus && !notebookOutputInputFocused"
+    },
+    {
+        "key": "z",
+        "command": "undo",
+        "when": "notebookEditorFocused && !inputFocus && !notebookOutputInputFocused"
+    },   
+    {
+        "key": "x",
+        "command": "-notebook.cell.cut",
+        "when": "notebookEditorFocused && !inputFocus && !notebookOutputInputFocused"
+    },
+    {
+        "key": "shift+k",
+        "command": "list.expandSelectionUp",
+        "when": "listFocus && listSupportsMultiselect && !inputFocus && !treestickyScrollFocused"
+    },
+    {
+        "key": "shift+j",
+        "command": "list.expandSelectionDown",
+        "when": "listFocus && listSupportsMultiselect && !inputFocus && !treestickyScrollFocused"
+    },
+    {
+        "key": "ctrl+k escape",
+        "command": "notebook.cell.quitEdit",
+        "when": "inputFocus && notebookEditorFocused && !editorHasMultipleSelections && !editorHasSelection && && !editorHoverVisible && !inlineChatFocused"
+    },
+    {
+        "key": "escape",
+        "command": "-notebook.cell.quitEdit",
+        "when": "inputFocus && notebookEditorFocused && !editorHasMultipleSelections && !editorHasSelection && && !editorHoverVisible && !inlineChatFocused"
+    },
+    {
+        "key": "escape",
+        "command": "-leaveSnippet",
+        "when": "editorTextFocus && inSnippetMode"
+    },
+    {
+        "key": "c",
+        "command": "notebook.cell.changeToCode",
+        "when": "notebookEditorFocused && !inputFocus && !notebookOutputFocused && activeEditor == 'workbench.editor.notebook' && notebookCellType == 'markup'"
+    },
+    {
+        "key": "ctrl+k ctrl+r",
+        "command": "jupyter.restartkernelandrunallcells"
+    },
+    {
+        "key": "ctrl+k ctrl+r",
+        "command": "-workbench.action.keybindingsReference"
+    },
+
+    ///// ──────────────────────────────────────────────────────────────────────
+    ///// Misc. extensions
+    ///// ──────────────────────────────────────────────────────────────────────
+    {
+        "key": "ctrl+shift+l",
+        "command": "markdownlint.toggleLinting"
+    },
+]
