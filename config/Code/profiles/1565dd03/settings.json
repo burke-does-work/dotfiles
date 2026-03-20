@@ -64,6 +64,17 @@
     "editor.insertSpaces": true,
     "editor.rulers": []
   },
+"editor.tokenColorCustomizations": {
+    "textMateRules": [
+        {
+            "scope": "heading.1.markdown entity.name.section.markdown",
+            "settings": {
+                "foreground": "#928374",
+                "fontStyle": "bold"
+            }
+        }
+    ]
+},
 
   //////////////////////////////////////////////////////////////////////////////
   // Formatting
@@ -100,6 +111,22 @@
   "vim.cursorStylePerMode.insert": "line",
   "vim.cursorStylePerMode.visual": "block-outline",
   "vim.cursorStylePerMode.replace": "underline",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": ["d"], "after": ["\"", "_", "d"] },
+    { "before": ["D"], "after": ["\"", "_", "D"] },
+    { "before": ["x"], "after": ["\"", "_", "x"] },
+    { "before": ["X"], "after": ["\"", "_", "X"] },
+    { "before": ["c"], "after": ["\"", "_", "c"] },
+    { "before": ["C"], "after": ["\"", "_", "C"] },
+    { "before": ["<leader>", "d", "d"], "after": ["d", "d"] },
+    { "before": ["<leader>", "D"], "after": ["D"] }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    { "before": ["d"], "after": ["\"", "_", "d"] },
+    { "before": ["x"], "after": ["\"", "_", "x"] },
+    { "before": ["c"], "after": ["\"", "_", "c"] },
+    { "before": ["<leader>", "d"], "after": ["d"] }
+  ],
 
   //////////////////////////////////////////////////////////////////////////////
   // Git

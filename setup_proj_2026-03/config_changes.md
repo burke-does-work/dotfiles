@@ -91,7 +91,7 @@ Note: base `~/.config/Code/User/settings.json` is empty — all settings live in
   - Markdown: validation on, referenceLinks ignored, markdownlint rules configured (MD033/045/036/024), inline fold for links, language overrides
   - Formatting: per-language rules for json, python (black formatter)
   - Appearance: font JetBrains Mono Nerd Font, ruler at 88, minimap off
-  - VIM: `vim.useSystemClipboard: true`
+  - VIM: `vim.useSystemClipboard: true`; `d`/`D`/`x`/`X`/`c`/`C` remapped to black hole register in normal and visual mode; `\dd`/`\D` cut line/to-EOL in normal mode; `\d` cuts selection in visual mode
   - Git: autofetch on, count badge off, rebase on sync, action buttons hidden, no parent folder scanning
   - Jupyter: notebookFileRoot, askForKernelRestart, interactiveWindow codeLens/cellMarker/collapse settings
   - Project Manager: baseFolders set to `/mnt/ssd2_data/documents`
@@ -110,7 +110,7 @@ Note: base `~/.config/Code/User/settings.json` is empty — all settings live in
 
 - Terminal switching: Super+1 raises Kitty (GNOME-level, no VS Code config needed)
 - Theme: Gruvbox Dark Hard (pending: set JetBrains Mono Nerd Font)
-- Pending: keybindings cleanup and expansion
+- Pending: keybindings cleanup and expansion (partial progress — see keybindings.md update below)
 
 ## Sublime Text
 
@@ -136,12 +136,21 @@ Repo: `~/dotfiles` → `https://github.com/burke-does-work/dotfiles` (public)
 - GitHub CLI (`gh`) installed and authenticated
 - ssh-agent: GNOME Keyring manages the agent (`SSH_AUTH_SOCK=/run/user/1000/keyring/ssh`); key added with `ssh-add`, passphrase cached — no prompt required after login
 
+## keybindings.md (updated)
+
+- Universal section populated with high-impact vim motions (navigation, editing, search, visual mode)
+- VS Code section restructured with subsections: Global Navigation, Intellisense, Jupyter
+- Zsh section updated to note "uses zsh defaults"
+
 ## Neovim (updated)
 
 Config file: `~/.config/nvim/init.lua`
 
 - lazy.nvim bootstrapped (installs to `~/.local/share/nvim/lazy/`)
 - Plugin: `dhruvasagar/vim-table-mode` — for managing markdown tables in `keybindings.md`
+- `vim.opt.clipboard = "unnamedplus"` — links `y`/`p` to OS clipboard
+- `d`/`D`/`x`/`X`/`c`/`C` remapped to black hole register (normal and visual mode)
+- `<leader>d` / `<leader>D` cut to clipboard (operator in normal mode, selection in visual)
 
 ## zsh (updated)
 
