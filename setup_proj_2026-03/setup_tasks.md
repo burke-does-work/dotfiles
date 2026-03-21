@@ -10,12 +10,13 @@
 - Kitty — full keybindings and splits configuration
 - Kitty — Neovim integration
 - Antidote — review and expand plugins as needed
+- Chrome workspaces troubleshooting - sometimes Wayland prevents switching Chrome windows
 
 ## Default applications
 
 ### Pending
 
-- Set EDITOR and VISUAL env vars in `.zshrc`
+- [x] Set EDITOR and VISUAL env vars in `.zshrc`
 
 ## Neovim
 
@@ -46,8 +47,6 @@
 
 - VIM extension — VSCodeVim (`vscodevim.vim`); `vim.useSystemClipboard: true` for clipboard integration
 - Terminal switching — Super+1 raises Kitty (GNOME-level); no VS Code config needed
-- File roles — `nvim -R` for read-only inspection, nvim for single file edits, VS Code for projects
-- Inline suggestions — disabled globally (`editor.inlineSuggest.enabled: false`); Copilot next edit suggestions not used
 - VS Code terminal — not used; all execution happens in Kitty to avoid confusion about which terminal to use. VS Code is passive (editing, viewing Claude Code changes); Kitty is active (running scripts, Claude Code). VS Code terminal panel kept closed to remove temptation.
 
 ### Pending
@@ -99,7 +98,8 @@
 
 ### Decisions
 
-- File roles — nvim for single file edits, VS Code for projects
+- File roles — `nvim -R` for read-only inspection, nvim for single file edits, VS Code for projects
+- Inline suggestions — disabled globally (`editor.inlineSuggest.enabled: false`); Copilot next edit suggestions not used
 
 ### Shell setup
 

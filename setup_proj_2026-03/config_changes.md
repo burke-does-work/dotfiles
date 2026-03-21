@@ -158,6 +158,10 @@ Config file: `~/.config/nvim/init.lua`
 
 - Alias: `keybindings` — opens `~/dotfiles/keybindings.md` in nvim
 
+## zsh (updated — EDITOR/VISUAL)
+
+- `EDITOR=nvim` and `VISUAL=nvim` set for single-file CLI invocations (git commit, crontab -e, etc.)
+
 ## zsh (updated — Wayland clipboard integration)
 
 - Installed `wl-clipboard` (`wl-copy`/`wl-paste`) for Wayland clipboard access
