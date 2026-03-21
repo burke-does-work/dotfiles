@@ -87,6 +87,33 @@ zle -N zle-keymap-select
 zle -N zle-line-init
 
 ##### ──────────────────────────────────────────────────────────────────────────
+##### Vi mode — Wayland clipboard integration
+##### ──────────────────────────────────────────────────────────────────────────
+
+_zle-to-clipboard()   { echo -n "$CUTBUFFER" | wl-copy }
+_zle-from-clipboard() { CUTBUFFER=$(wl-paste -n 2>/dev/null) }
+
+# Yank → system clipboard
+_zle-vi-yank()            { zle .vi-yank;            _zle-to-clipboard }
+_zle-vi-yank-whole-line() { zle .vi-yank-whole-line; _zle-to-clipboard }
+zle -N vi-yank            _zle-vi-yank
+zle -N vi-yank-whole-line _zle-vi-yank-whole-line
+
+# Delete → system clipboard
+# vi-backward-delete-char (X in normal, Backspace in insert) is intentionally not overridden
+# to avoid freezing on repeated backspace.
+_zle-vi-delete-char() { zle .vi-delete-char; [[ $KEYMAP == vicmd ]] && _zle-to-clipboard }
+_zle-kill-whole-line() { zle .kill-whole-line; _zle-to-clipboard }
+zle -N vi-delete-char  _zle-vi-delete-char
+zle -N kill-whole-line _zle-kill-whole-line
+
+# Paste ← system clipboard (p / P always paste from system clipboard)
+_zle-vi-put-after()  { _zle-from-clipboard; zle .vi-put-after  }
+_zle-vi-put-before() { _zle-from-clipboard; zle .vi-put-before }
+zle -N vi-put-after  _zle-vi-put-after
+zle -N vi-put-before _zle-vi-put-before
+
+##### ──────────────────────────────────────────────────────────────────────────
 ##### Tab completion
 ##### ──────────────────────────────────────────────────────────────────────────
 

@@ -13,10 +13,6 @@
 
 ## Default applications
 
-### Decisions
-
-- File roles — nvim for single file edits, VS Code for projects
-
 ### Pending
 
 - Set EDITOR and VISUAL env vars in `.zshrc`
@@ -39,10 +35,10 @@
 
 ## Vim clipboard / black-hole deletes
 
-### Pending
+### Completed
 
-- Revisit black-hole delete implementation (VS Code + Neovim) — review what was done, verify behavior, and augment as needed
-- Zsh vi-mode — test clipboard behavior and align with black-hole delete approach if needed; determine whether kill buffer / yank paste behavior is consistent with VS Code and Neovim workflow
+- Inverted pattern: `d`/`x`/`c` are now standard vim (cut to clipboard); `<Space>d`/`x`/`c` send to blackhole register. Space is leader in nvim and VS Code.
+- Zsh vi-mode: full Wayland clipboard integration via `wl-clipboard`; yank/delete syncs to system clipboard, `p`/`P` paste from system clipboard. Blackhole bindings not implemented in zsh (ZLE limitation).
 
 ## VS Code
 
@@ -63,7 +59,8 @@
 
 ### Pending
 
-- Add keybinding to jump directly to the `proj_dev` tab — purpose: reduce cognitive load when switching from VS Code to run a quick command; eliminates having to scan open tabs and navigate manually. Workflow: Super+1 raises Kitty (already configured), then this shortcut lands on `proj_dev` immediately. Candidate: `ctrl+3` via `goto_tab 3` in `kitty.conf` (proj_dev is always the 3rd tab in startup.conf).
+- Add keybinding to jump directly to the `proj_dev` tab
+- Explore Kitty `hints` kitten for keyboard-driven text selection — lets you select URLs, paths, and words from terminal output without the mouse; invoked via a Kitty shortcut (default `ctrl+shift+p`) — purpose: reduce cognitive load when switching from VS Code to run a quick command; eliminates having to scan open tabs and navigate manually. Workflow: Super+1 raises Kitty (already configured), then this shortcut lands on `proj_dev` immediately. Candidate: `ctrl+3` via `goto_tab 3` in `kitty.conf` (proj_dev is always the 3rd tab in startup.conf).
 
 ## Keyboard shortcuts
 
@@ -77,7 +74,7 @@
 
 ### Pending
 
-- Claude Code — vim mode available via `/vim` or `/config` (not yet enabled); cursor shape not configurable — block cursor is hardcoded regardless of mode
+- Claude Code — cursor shape not configurable — block cursor is hardcoded regardless of mode
 - Re-upgrade zlib1g and libbz2 security patches
 
 ## Context for continuation
@@ -99,6 +96,10 @@
 ---
 
 ## Completed
+
+### Decisions
+
+- File roles — nvim for single file edits, VS Code for projects
 
 ### Shell setup
 
@@ -146,7 +147,7 @@
 
 - Install neovim (v0.9.5 already present)
 - Minimal init.lua for nvim -R (read-only viewing): line numbers, no swapfile, termguicolors
-- Clipboard: `unnamedplus` set; black-hole deletes (`d`/`x`/`c`); `<leader>d`/`<leader>D` for cut
+- Clipboard: `unnamedplus` set; Space as leader (all bindings including table-mode use `<Space>`); `d`/`x`/`c` standard vim (cut to clipboard); `<Space>d`/`x`/`c` → blackhole register
 
 ### Ranger
 
@@ -155,7 +156,7 @@
 
 ### VS Code
 
-- Black-hole deletes: `d`/`x`/`c` remapped to `"_` register in normal and visual mode; `\dd`/`\D`/`\d` for explicit cut to clipboard
+- Vim keybindings: Space as leader; `d`/`x`/`c` standard vim (cut to clipboard); `<Space>d`/`D`/`x`/`X`/`c`/`C` → blackhole register in normal and visual mode
 - Install VSCodeVim (vscodevim.vim)
 - Install ms-python.black-formatter (pulled in Python, Pylance, debugpy)
 - Tab completion: acceptSuggestionOnEnter off, tabCompletion on, quickSuggestions configured, suggestSelection recentlyUsedByPrefix
@@ -177,7 +178,7 @@
 
 - Set up dotfiles repo on GitHub (`~/dotfiles` → `github.com/burke-does-work/dotfiles`)
 - SSH key (ed25519) generated, added to GitHub as "matt-9000", GNOME Keyring caching passphrase via ssh-agent
-- Claude Code — install and configure
+- Claude Code — install, configure, and enable vim mode (`"vim": true` in `~/.claude/settings.json`)
 - Ranger — install and configure
 
 ### Drive mounting

@@ -1,19 +1,17 @@
+vim.g.mapleader = " "
+
 vim.opt.number = true
 vim.opt.swapfile = false
 vim.opt.termguicolors = true
 vim.opt.clipboard = "unnamedplus"
 
--- Black-hole deletes/changes (d/x/c never touch clipboard)
-vim.keymap.set({'n', 'x'}, 'd', '"_d', { noremap = true })
-vim.keymap.set('n', 'D', '"_D', { noremap = true })
-vim.keymap.set({'n', 'x'}, 'x', '"_x', { noremap = true })
-vim.keymap.set('n', 'X', '"_X', { noremap = true })
-vim.keymap.set({'n', 'x'}, 'c', '"_c', { noremap = true })
-vim.keymap.set('n', 'C', '"_C', { noremap = true })
-
--- Cut to clipboard
-vim.keymap.set({'n', 'x'}, '<leader>d', 'd', { noremap = true })
-vim.keymap.set('n', '<leader>D', 'D', { noremap = true })
+-- <Space>d/x/c: send to blackhole register (no clipboard effect)
+vim.keymap.set({'n', 'x'}, '<leader>d', '"_d', { noremap = true })
+vim.keymap.set('n',        '<leader>D', '"_D', { noremap = true })
+vim.keymap.set({'n', 'x'}, '<leader>x', '"_x', { noremap = true })
+vim.keymap.set('n',        '<leader>X', '"_X', { noremap = true })
+vim.keymap.set({'n', 'x'}, '<leader>c', '"_c', { noremap = true })
+vim.keymap.set('n',        '<leader>C', '"_C', { noremap = true })
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

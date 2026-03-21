@@ -106,26 +106,24 @@
   // VIM
   //////////////////////////////////////////////////////////////////////////////
 
+  "vim.leader": " ",
   "vim.useSystemClipboard": true,
   "vim.cursorStylePerMode.normal": "block",
   "vim.cursorStylePerMode.insert": "line",
   "vim.cursorStylePerMode.visual": "block-outline",
   "vim.cursorStylePerMode.replace": "underline",
   "vim.normalModeKeyBindingsNonRecursive": [
-    { "before": ["d"], "after": ["\"", "_", "d"] },
-    { "before": ["D"], "after": ["\"", "_", "D"] },
-    { "before": ["x"], "after": ["\"", "_", "x"] },
-    { "before": ["X"], "after": ["\"", "_", "X"] },
-    { "before": ["c"], "after": ["\"", "_", "c"] },
-    { "before": ["C"], "after": ["\"", "_", "C"] },
-    { "before": ["<leader>", "d", "d"], "after": ["d", "d"] },
-    { "before": ["<leader>", "D"], "after": ["D"] }
+    { "before": ["<leader>", "d"], "after": ["\"", "_", "d"] },
+    { "before": ["<leader>", "D"], "after": ["\"", "_", "D"] },
+    { "before": ["<leader>", "x"], "after": ["\"", "_", "x"] },
+    { "before": ["<leader>", "X"], "after": ["\"", "_", "X"] },
+    { "before": ["<leader>", "c"], "after": ["\"", "_", "c"] },
+    { "before": ["<leader>", "C"], "after": ["\"", "_", "C"] }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
-    { "before": ["d"], "after": ["\"", "_", "d"] },
-    { "before": ["x"], "after": ["\"", "_", "x"] },
-    { "before": ["c"], "after": ["\"", "_", "c"] },
-    { "before": ["<leader>", "d"], "after": ["d"] }
+    { "before": ["<leader>", "d"], "after": ["\"", "_", "d"] },
+    { "before": ["<leader>", "x"], "after": ["\"", "_", "x"] },
+    { "before": ["<leader>", "c"], "after": ["\"", "_", "c"] }
   ],
 
   //////////////////////////////////////////////////////////////////////////////

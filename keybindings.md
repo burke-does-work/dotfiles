@@ -23,10 +23,22 @@ Vim motions — apply across VS Code (vim extension) and Neovim unless overridde
 
 Note:
 
-- Vim delete keybindings (d / x / c) updated so they don't cut to the clipboard.
-- A.K.A send to the blackhole registry
-- For a ctrl+x behavior, yank, then delete (2 steps).
-- This is the simplest update to avoid a custom keybinding rabbit hole.
+- `d`, `x`, `c` are standard vim — cut to clipboard.
+- `<Space>d`, `<Space>x`, `<Space>c` (and uppercase variants) send to the blackhole register — no clipboard effect.
+- `<Space>` is the leader key in normal mode.
+
+## Leader key (Space)
+
+Applies in VS Code and Neovim only. Not implemented in zsh (ZLE has no operator-pending mode).
+
+| Shortcut       | Action                                    |
+| -------------- | ----------------------------------------- |
+| \<Space\>d     | Delete (operator) to blackhole            |
+| \<Space\>D     | Delete to end of line to blackhole        |
+| \<Space\>x     | Delete char to blackhole                  |
+| \<Space\>X     | Delete char before to blackhole           |
+| \<Space\>c     | Change (operator) to blackhole            |
+| \<Space\>C     | Change to end of line to blackhole        |
 
 ## GNOME
 
@@ -49,7 +61,7 @@ Note:
 
 ## Zsh
 
-Uses zsh defaults.
+Vi-mode with Wayland clipboard integration. Yank/delete operations sync to the system clipboard; `p`/`P` paste from system clipboard.
 
 ## VS Code
 
@@ -85,12 +97,12 @@ Uses Vim keybindings — see Universal. Tool-specific overrides listed below.
 
 | Shortcut | Action              |
 | -------- | ------------------- |
-| \tm      | Toggle vim-table-mode |
-| \tdd     | Delete row          |
-| \tdc     | Delete column       |
-| \tic     | Insert column       |
-| \ts      | Sort table by column |
-| \tt      | Realign table       |
+| \<Space\>tm  | Toggle vim-table-mode     |
+| \<Space\>tdd | Delete row                |
+| \<Space\>tdc | Delete column             |
+| \<Space\>tic | Insert column             |
+| \<Space\>ts  | Sort table by column      |
+| \<Space\>tt  | Realign table             |
 
 ## Ranger
 
