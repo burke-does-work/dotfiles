@@ -1,0 +1,21 @@
+{
+
+  //////////////////////////////////////////////////////////////////////////////
+  // VIM — application-scope settings (must live in Default profile settings)
+  //////////////////////////////////////////////////////////////////////////////
+
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": ["<leader>", "d"], "after": ["\"", "_", "d"] },
+    { "before": ["<leader>", "D"], "after": ["\"", "_", "D"] },
+    { "before": ["<leader>", "x"], "after": ["\"", "_", "x"] },
+    { "before": ["<leader>", "X"], "after": ["\"", "_", "X"] },
+    { "before": ["<leader>", "c"], "after": ["\"", "_", "c"] },
+    { "before": ["<leader>", "C"], "after": ["\"", "_", "C"] }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    { "before": ["<leader>", "d"], "after": ["\"", "_", "d"] },
+    { "before": ["<leader>", "x"], "after": ["\"", "_", "x"] },
+    { "before": ["<leader>", "c"], "after": ["\"", "_", "c"] }
+  ]
+
+}

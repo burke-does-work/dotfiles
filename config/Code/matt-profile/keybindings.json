@@ -1,0 +1,112 @@
+//// Place your key bindings in this file to override the defaults auto[]
+
+//// Where keybindings are changed to accommodate a new keybinding, the new keybinding is placed first, followed by the changes needed.
+//// Remember to remove replaced key bindings with a '-'.
+
+[
+
+///// ──────────────────────────────────────────────────────────────────────
+///// Global navigation
+///// ──────────────────────────────────────────────────────────────────────
+
+// Change view size
+  {
+    "key": "ctrl+shift+-",
+    "command": "workbench.action.decreaseViewSize",
+  },
+  {
+    "key": "ctrl+shift+=",
+    "command": "workbench.action.increaseViewSize",
+  },
+
+  // Sidebar toggle
+  {
+    "key": "ctrl+shift+b",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+shift+b",
+    "command": "-workbench.action.tasks.build",
+    "when": "taskCommandsRegistered"
+  },
+  {
+    "key": "ctrl+b",
+    "command": "-workbench.action.toggleSidebarVisibility"
+  },
+
+// Ctrl+Tab to navigate editors
+
+{"key": "ctrl+tab",
+"command": "-workbench.action.quickOpenNavigateNextInEditorPicker",
+},
+
+{"key": "ctrl+tab",
+"command": "-workbench.action.previousEditorInGroup",
+},
+
+{ "key": "ctrl+tab",
+  "command": "workbench.action.nextEditorInGroup",
+  "when": "editorFocus || notebookEditorFocused"
+},
+{ "key": "ctrl+shift+tab",
+  "command": "workbench.action.previousEditorInGroup",
+  "when": "editorFocus || notebookEditorFocused"
+},
+
+//Panel
+
+{
+  "key": "ctrl+tab",
+  "command": "workbench.action.nextPanelView",
+  "when": "panelFocus || !editorFocus || (activePanel == 'workbench.panel.jupyter' || activePanel == 'workbench.panel.ports')"
+},
+{
+  "key": "ctrl+shift+tab",
+  "command": "workbench.action.previousPanelView",
+  "when": "panelFocus || !editorFocus || (activePanel == 'workbench.panel.jupyter' || activePanel == 'workbench.panel.ports')"
+},
+
+///// ──────────────────────────────────────────────────────────────────────
+///// Tab completion and intellisense
+///// ──────────────────────────────────────────────────────────────────────
+{
+"key": "tab",
+"command": "tab",
+"when": "editorTextFocus && !suggestWidgetVisible"
+},
+{
+"key": "ctrl+g",
+"command": "hideSuggestWidget",
+"when": "editorTextFocus && suggestWidgetVisible"
+},
+
+///// ──────────────────────────────────────────────────────────────────────
+///// Other
+///// ──────────────────────────────────────────────────────────────────────
+
+{
+  "key": "",
+  "command": "merge-conflict.accept.selection"
+},
+
+///// ──────────────────────────────────────────────────────────────────────
+///// Jupyter Interactive Window
+///// ──────────────────────────────────────────────────────────────────────
+{
+  "key": "enter",
+  "command": "interactive.execute",
+  "when": "activeEditor == 'workbench.editor.interactive' && editorTextFocus && !suggestWidgetVisible"
+},
+{
+  "key": "shift+enter",
+  "command": "-interactive.execute",
+  "when": "activeEditor == 'workbench.editor.interactive'"
+},
+{
+  "key": "shift+enter",
+  "command": "type",
+  "args": { "text": "\n" },
+  "when": "activeEditor == 'workbench.editor.interactive' && editorTextFocus && !suggestWidgetVisible"
+}
+
+]   
