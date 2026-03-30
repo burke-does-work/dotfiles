@@ -1,0 +1,10 @@
+[manager]
+ratio          = [1, 4, 3]
+sort_by        = "natural"
+sort_sensitive = false
+sort_reverse   = false
+show_hidden    = false
+
+[preview]
+image_filter  = "triangle"
+image_quality = 75

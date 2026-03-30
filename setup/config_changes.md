@@ -2,6 +2,20 @@
 
 # Config Changes
 
+## Documentation (2026-03-29)
+
+- Created `README.md`, `docs/system.md`, `docs/diagram.md`, `docs/workflows.md`, `docs/pickle-pi.md`
+
+## SSH
+
+Config file: `~/dotfiles/ssh/config` → symlinked to `~/.ssh/config`
+
+- Added `Host pickle-pi` entry: hostname `192.168.8.154`, user `matt`, key `~/.ssh/id_ed25519`
+- Copied public key to pickle-pi with `ssh-copy-id` — key-based auth only, no password required
+- Disabled password authentication on pickle-pi: `PasswordAuthentication no` in `/etc/ssh/sshd_config`
+- SSH config moved to dotfiles repo and symlinked (same pattern as other dotfiles configs)
+- Passphrase caching: GNOME Keyring manages `ssh-agent`; key unlocked once at login, cached for session
+
 ## zsh
 
 Config file: `~/.zshrc`
@@ -10,6 +24,8 @@ Config file: `~/.zshrc`
 - PATH: added `~/.local/bin` (kitty, etc.), `~/helper_scripts` (personal scripts), and `~/.npm-global/bin` (claude code, etc.)
 - Pyenv: set `PYENV_ROOT`, added to PATH, initialized shell integration and virtualenv management
 - Plugins: load Antidote from `~/.antidote/antidote.zsh`, then `antidote load` (reads `~/.zsh_plugins.txt`)
+- Added `zsh-users/zsh-completions kind:fpath` — extends `$fpath` with additional completions (git, docker, etc.) before `compinit` runs
+- Added `Aloxaf/fzf-tab` — replaces the default zsh tab completion menu with an fzf popup; ordered after zsh-completions and before autosuggestions
 - Prompt: initialized Starship with `starship init zsh`
 - fzf: sourced key-bindings and completion from `/usr/share/doc/fzf/examples/`
 - Vi mode: enabled with `bindkey -v`, reduced ESC delay to 0.1s (`KEYTIMEOUT=1`)
@@ -70,6 +86,20 @@ Config file: `~/.zsh_plugins.txt`
   - `zsh-users/zsh-autosuggestions`
   - `zsh-users/zsh-syntax-highlighting`
 
+## Yazi
+
+Config files: `~/dotfiles/config/yazi/yazi.toml`, `keymap.toml`, `theme.toml` → symlinked to `~/.config/yazi/`
+
+- Replaced ranger as file manager
+- Installed via GitHub release binary to `~/.local/bin/` (yazi + ya)
+- Dependencies: `fd-find` (symlinked as `fd`), `ripgrep`, `ffmpegthumbnailer`, `imagemagick`, `unar`, `zoxide`, `trash-cli`
+- Image preview: Kitty protocol auto-detected via `$KITTY_WINDOW_ID` — no config needed
+- Colorscheme: Gruvbox Dark Hard (`#1d2021` background) written manually in `theme.toml`
+- Keybindings: `dd` → trash, `D` → permanent delete, `<Delete>` → trash (via `prepend_keymap`)
+- Shell wrapper: `yy` function in `.zshrc` — launches yazi and `cd`s to last visited directory on exit
+- Zoxide: initialized in `.zshrc` with `eval "$(zoxide init zsh)"` for `z` jump inside and outside yazi
+- Kitty startup: yazi tab added as tab 1 in `startup.conf`
+
 ## Ranger
 
 Config files: `~/.config/ranger/rc.conf`, `~/.config/ranger/rifle.conf`, `~/.config/ranger/colorschemes/gruvbox.py`
@@ -118,13 +148,6 @@ Note: base `~/.config/Code/User/settings.json` is empty — all settings live in
 
 - Terminal switching: Super+1 raises Kitty (GNOME-level, no VS Code config needed)
 - Theme: Gruvbox Dark Hard, font JetBrains Mono Nerd Font
-
-## Sublime Text
-
-Config path: TBD
-
-- Pending: match color palette to Gruvbox Dark Hard
-- Note: titlebar removal is not possible on Wayland (investigated — no workaround exists; was X11-only)
 
 ## GNOME
 
@@ -210,7 +233,7 @@ Config file: `~/.config/nvim/init.lua`
 
 ## Kitty (updated — startup tabs)
 
-- `startup.conf` reordered and updated: `1: ranger` (no split), `2: keybindings` (no split, opens keybindings.md in nvim), `3: terminal` (vsplit, two zsh windows), `4: dev_01` (vsplit, two zsh windows). Removed `proj_dev` tab with claude launch.
+- `startup.conf` reordered and updated: `1: keybindings` (no split, opens keybindings.md in nvim), `2: yazi` (no split), `3: terminal` (vsplit, two zsh windows), `4: dev_01` (single zsh), `5: dev_02` (single zsh). Removed `proj_dev` tab with claude launch.
 
 ## Kitty (updated — tab title persistence)
 
@@ -223,6 +246,8 @@ Config file: `~/.config/nvim/init.lua`
 ## Kitty (updated — split focus navigation)
 
 - Added `ctrl+shift+h/j/k/l` mapped to `neighboring_window left/down/up/right` — directional split focus movement without shell binding conflicts
+- Added `ctrl+shift+[` / `ctrl+shift+]` mapped to `move_window_backward` / `move_window_forward` — cycles current split backward/forward through positions in the layout
+- Explored visually rotating/swapping split positions — not possible in the `splits` layout; `move_window_forward`/`backward` only changes internal window order (focus), not visual position; `swap_with_window` requires a fixed index and is too fragile to be useful
 
 ## Kitty (updated — split resize and tab switching)
 
@@ -257,6 +282,11 @@ Config: `~/.pyenv/`
 - `updatetime = 250` — reduce default 4000ms delay for snappier response
 - `hlsearch = false` — clear search highlights immediately after search
 
+## Neovim (updated — LSP removed)
+
+- Removed `mason.nvim`, `mason-lspconfig.nvim`, `nvim-lspconfig` — caused errors on startup due to plugin API incompatibility; unnecessary since Python work is done in VS Code
+- nvim plugins: vim-table-mode only
+
 ## VS Code (updated — scrolloff equivalent)
 
 - `editor.cursorSurroundingLines: 8` — equivalent to nvim `scrolloff 8`; keeps 8 lines visible above/below cursor
@@ -267,8 +297,41 @@ Config: `~/.pyenv/`
 Config file: `~/.claude/settings.json`
 
 - Installed and configured; vim mode enabled (`"vim": true`)
-- VIM mode keybindings evaluated — clipboard paste does not work in VIM mode; forced to use `Ctrl+Shift+V/C/X` (standard terminal clipboard shortcuts)
+- VIM mode keybindings evaluated — clipboard paste does not work in VIM mode; use `Ctrl+V` to paste (mapped in kitty.conf)
 - Cursor shape not configurable — block cursor is hardcoded regardless of mode
+
+## pickle-pi external HDD mount
+
+Config files: `pickle-pi:/etc/crypttab`, `pickle-pi:/etc/fstab`, `pickle-pi:/etc/cryptsetup-keys.d/hdd_data.key`
+Setup script: `~/dotfiles/setup_proj_2026-03/setup_pickle_pi_mounts.sh`
+
+- External HDD (`/dev/sda1`) is LUKS-encrypted; generated a random key file and added it to the LUKS device with `cryptsetup luksAddKey`
+- Key file stored at `/etc/cryptsetup-keys.d/hdd_data.key` (root-only, mode 400)
+- Added `crypttab` entry: `hdd_data UUID=b7cef311... /etc/cryptsetup-keys.d/hdd_data.key luks` — auto-unlocks on boot
+- Added `fstab` entry: inner filesystem UUID (`9d170708...`) → `/mnt/hdd_data`, ext4, `nofail` — same pattern as matt-9000
+- NFS export `/mnt/hdd_data` already existed in `/etc/exports`; ran `exportfs -ra` to activate it
+- `/mnt/nfs/hdd_data` now accessible from matt-9000 (7.3T drive, 2.4T used)
+- `setup_pickle_pi_mounts.sh` added to dotfiles — idempotent server-side setup script, mirrors `setup_crypttab_fstab.sh`
+
+## pickle-pi zsh setup
+
+Config file: `~/dotfiles/zshrc_pickle-pi` → deployed to `pickle-pi:~/.zshrc`
+
+- Installed `git` (was missing), `antidote` (cloned to `~/.antidote`), and `starship` (v1.24.2 via install.sh)
+- Created `zshrc_pickle-pi` — based on main `.zshrc` with desktop-specific items removed (pyenv, fzf, npm PATH, Wayland clipboard ZLE functions, ranger config, GNOME aliases, startup `cd`)
+- Kept: `TERM=xterm-256color`, PATH (`~/.local/bin`, `~/helper_scripts`), antidote plugins, starship, vi mode, cursor shape, tab completion, history, `EDITOR`/`VISUAL`
+- Deployed `zshrc_pickle-pi` → `~/.zshrc` and `zsh_plugins.txt` → `~/.zsh_plugins.txt` via scp
+- Set zsh as default shell via `sudo chsh -s /usr/bin/zsh matt`
+- Antidote cloned autosuggestions and syntax-highlighting plugins on first zsh invocation
+
+## zsh (updated — AUTO_CD)
+
+- `setopt auto_cd` added to `zshrc` and `zshrc_pickle-pi` — navigate to a directory by typing its path without `cd`
+
+## Kitty (updated — clipboard keybindings)
+
+- `ctrl+c` mapped to `copy_or_interrupt` — copies selected text to clipboard; sends SIGINT if no selection
+- `ctrl+v` mapped to `paste_from_clipboard` — unifies paste with GUI convention; fixes paste in Claude Code
 
 ## VS Code (decisions)
 

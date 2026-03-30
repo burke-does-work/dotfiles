@@ -1,5 +1,11 @@
+# Additional completions (adds to fpath before compinit)
+zsh-users/zsh-completions kind:fpath
+
+# fzf-powered tab completion menu (must come before autosuggestions)
+Aloxaf/fzf-tab
+
 # Autosuggestions
 zsh-users/zsh-autosuggestions
 
-# Syntax highlighting
+# Syntax highlighting (must be last)
 zsh-users/zsh-syntax-highlighting

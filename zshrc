@@ -146,12 +146,11 @@ setopt share_history
 setopt hist_ignore_dups
 
 ##### ──────────────────────────────────────────────────────────────────────────
-##### Ranger
+##### Directory navigation
 ##### ──────────────────────────────────────────────────────────────────────────
 
-# Prevent ranger from loading both the default and custom rc.conf
-export RANGER_LOAD_DEFAULT_RC=FALSE
-
+# Navigate to a directory by typing its path without 'cd'
+setopt auto_cd
 
 ##### ──────────────────────────────────────────────────────────────────────────
 ##### Editor
@@ -186,7 +185,29 @@ alias umountnfs='sudo umount /mnt/nfs/drive_data && sudo umount /mnt/nfs/hdd_dat
 alias keybindings='nvim ~/dotfiles/keybindings.md'
 
 ##### ──────────────────────────────────────────────────────────────────────────
-##### Startup behaviour
+##### Yazi
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Shell wrapper: launch yazi and cd to the last directory visited on exit
+function yy() {
+    local tmp cwd
+    tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Zoxide
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Initialize zoxide (smart directory jump with frecency)
+eval "$(zoxide init zsh)"
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Startup behavior
 ##### ──────────────────────────────────────────────────────────────────────────
 
 # Change to data drive on startup if mounted

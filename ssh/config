@@ -1,0 +1,17 @@
+
+Host pickle-pi
+    HostName 192.168.8.154
+    User matt
+    IdentityFile ~/.ssh/id_ed25519
+
+# Ping the server to keep the connection alive.
+#
+Host *
+    ServerAliveInterval 120
+#
+# Allow for multiplexing.
+#
+Host *
+    ControlMaster auto
+    ControlPath ~/.ssh/multiplex/%r@%h:%p
+    ControlPersist 1

@@ -20,13 +20,14 @@ Vim motions — apply across VS Code (vim extension) and Neovim unless overridde
 | ciw / diw   | Change / delete inner word    |
 | v / V       | Visual char / line mode       |
 | > / <       | Indent / dedent selection     |
+| J           | Combine lines (esp. useful in CLI)    |
 
 Copy/paste/delete notes:
 
 - `d`, `x`, `c` are standard vim — cut to clipboard.
 - `<Space>d`, `<Space>x`, `<Space>c` (and uppercase variants) send to the blackhole register — no clipboard effect.
 - `<Space>` is the leader key in normal mode.
-- `Ctrl+C` / `Ctrl+V` for copy/paste — use in Chrome only. Do not use in terminal, Claude, Neovim, or VS Code (these intercept the keys).
+- `Ctrl+C` / `Ctrl+V` for copy/paste — use in Chrome, and in Kitty (terminal). `Ctrl+C` copies if text is selected, sends SIGINT otherwise. `Ctrl+V` pastes from clipboard. Do not use in Neovim or VS Code (these intercept the keys).
 - Vi-mode with Wayland clipboard integration. Yank/delete operations sync to the system clipboard; `p`/`P` paste from system clipboard.
 
 ## Leader key (Space)
@@ -62,10 +63,13 @@ Applies in VS Code and Neovim only. Not implemented in zsh (ZLE has no operator-
 | Ctrl+Shift+H/J/K/L    | Move focus left/down/up/right |
 | Ctrl+Shift+Left/Right | Resize split narrower/wider   |
 | Ctrl+Shift+Up/Down    | Resize split taller/shorter   |
+| Ctrl+Shift+]/[        | Move windows within the tab   |
 | Ctrl+Shift+0          | Reset split sizes             |
 | Ctrl+=                | Font size increase            |
 | Ctrl+-                | Font size decrease            |
 | Ctrl+0                | Font size reset               |
+| Ctrl+C                | Copy (if selection); SIGINT (if none) |
+| Ctrl+V                | Paste from clipboard          |
 
 ## VS Code
 
@@ -102,15 +106,8 @@ Uses Vim keybindings — see Universal. Tool-specific overrides listed below.
 | Shortcut     | Action                                     |
 | ------------ | ------------------------------------------ |
 | \<Space\>tm  | Toggle vim-table-mode                      |
-| \<Space\>tr  | Realign table                              |
-| \<Space\>tt  | Tableize (convert delimited text to table) |
 | \<Space\>tdd | Delete row                                 |
 | \<Space\>tdc | Delete column                              |
 | \<Space\>tic | Insert column                              |
 | \<Space\>ts  | Sort table by column                       |
 
-## Ranger
-
-| Shortcut | Action        |
-| -------- | ------------- |
-| Delete   | Move to trash |

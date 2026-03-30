@@ -24,7 +24,7 @@
   // Autocomplete & editor
   //////////////////////////////////////////////////////////////////////////////
 
-  "editor.inlineSuggest.enabled": false,
+  "editor.inlineSuggest.enabled": false,  // disabled — inline AI suggestions are distracting
   "editor.parameterHints.enabled": false,
   "editor.autoClosingBrackets": "never",
   "editor.autoClosingQuotes": "never",

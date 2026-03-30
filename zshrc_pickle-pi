@@ -1,0 +1,109 @@
+# ~/.zshrc — pickle-pi
+# Author: MTB
+
+export TERM=xterm-256color
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### PATH
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Add user local binaries to PATH
+path=($HOME/.local/bin $path)
+
+# Add personal helper scripts to PATH
+path=($HOME/helper_scripts $path)
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Plugins
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Load antidote plugin manager
+source ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
+
+# Load plugins from ~/.zsh_plugins.txt
+antidote load
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Prompt
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Initialize Starship prompt
+eval "$(starship init zsh)"
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Vi mode
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Enable vi keybindings
+bindkey -v
+
+# Reduce ESC delay from 0.4s to 0.1s
+export KEYTIMEOUT=1
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Cursor shape
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Block cursor in normal mode, line cursor in insert mode
+function zle-keymap-select {
+    if [[ $KEYMAP == vicmd ]]; then
+        echo -ne '\e[1 q'  # Block cursor for normal mode
+    else
+        echo -ne '\e[5 q'  # Line cursor for insert mode
+    fi
+}
+
+# Line cursor for insert mode on startup
+function zle-line-init {
+    echo -ne '\e[5 q'
+}
+
+zle -N zle-keymap-select
+zle -N zle-line-init
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Tab completion
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Initialize zsh completion system
+autoload -Uz compinit && compinit
+
+# Use cache for faster completion
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+
+# Case insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# Highlight selected option in completion menu
+zstyle ':completion:*' menu select
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### History
+##### ──────────────────────────────────────────────────────────────────────────
+
+# History file location and size
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Share history across all zsh sessions
+setopt share_history
+
+# Don't save duplicate commands
+setopt hist_ignore_dups
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Directory navigation
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Navigate to a directory by typing its path without 'cd'
+setopt auto_cd
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Editor
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Default editor for single-file CLI invocations (git commit, crontab -e, etc.)
+export EDITOR=nvim
+export VISUAL=nvim

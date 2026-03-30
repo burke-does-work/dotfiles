@@ -1,0 +1,7 @@
+[manager]
+prepend_keymap = [
+  # Trash-based deletion (safe default)
+  { on = ["d", "d"],    run = "remove",                desc = "Move to trash" },
+  { on = ["D"],         run = "remove --permanently",  desc = "Delete permanently" },
+  { on = ["<Delete>"],  run = "remove",                desc = "Move to trash" },
+]
