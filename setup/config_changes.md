@@ -339,3 +339,18 @@ Config file: `~/dotfiles/zshrc_pickle-pi` → deployed to `pickle-pi:~/.zshrc`
 - **Terminal switching:** Super+1 raises Kitty at GNOME level — no VS Code keybinding needed
 - **VS Code terminal:** not used; all script execution happens in Kitty to avoid confusion about which terminal is active. VS Code is passive (editing, reviewing changes); Kitty is active (running scripts, Claude Code). Terminal panel kept closed.
 - **Clipboard/blackhole inverted pattern:** `d`/`x`/`c` are standard vim (cut to clipboard); `<Space>d`/`x`/`c` send to blackhole register — inverted from the original design where leader did the clipboard op
+- **`<Space>dd` blackhole line delete:** added to nvim (`init.lua`) and VSCode (`global/settings.json`) to complete the `dd` / `<Space>dd` mirror pattern
+
+## Vimium (Chrome)
+
+- Enabled advanced setting: **"Don't let pages steal the focus on load"** — fixes ChatGPT (and other sites) auto-stealing cursor focus, allowing Vimium keybindings to work normally
+- Key shortcuts in use: `Shift+T` tab search, `o` open URL, `Shift+O` open URL in new tab, `yf` copy link
+- Also improves `yf` on any page that previously stole focus
+- Known limitation: Google Sheets keybindings conflict with Vimium when active — workaround TBD
+
+## Yazi (keybinding overhaul)
+
+- `dd` → cut (`yank --cut`); `yy` → copy (`yank`); `p` → paste — vim-consistent
+- `<Space>dd` → move to trash (`remove`)
+- `D` → permanent delete; `<Delete>` → move to trash (unchanged)
+- `d`, `y`, `x` explicitly nooped to prevent default single-key bindings firing before multi-key sequences

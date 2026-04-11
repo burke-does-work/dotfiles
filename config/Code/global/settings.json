@@ -6,6 +6,7 @@
 
   "vim.normalModeKeyBindingsNonRecursive": [
     { "before": ["<leader>", "d"], "after": ["\"", "_", "d"] },
+    { "before": ["<leader>", "d", "d"], "after": ["\"", "_", "d", "d"] },
     { "before": ["<leader>", "D"], "after": ["\"", "_", "D"] },
     { "before": ["<leader>", "x"], "after": ["\"", "_", "x"] },
     { "before": ["<leader>", "X"], "after": ["\"", "_", "X"] },
@@ -16,6 +17,7 @@
     { "before": ["<leader>", "d"], "after": ["\"", "_", "d"] },
     { "before": ["<leader>", "x"], "after": ["\"", "_", "x"] },
     { "before": ["<leader>", "c"], "after": ["\"", "_", "c"] }
-  ]
+  ],
+  "workbench.colorTheme": "Dark Modern"
 
 }

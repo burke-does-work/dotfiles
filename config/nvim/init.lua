@@ -13,6 +13,7 @@ vim.opt.hlsearch = false
 
 -- <Space>d/x/c: send to blackhole register (no clipboard effect)
 vim.keymap.set({'n', 'x'}, '<leader>d', '"_d', { noremap = true })
+vim.keymap.set('n',        '<leader>dd', '"_dd', { noremap = true })
 vim.keymap.set('n',        '<leader>D', '"_D', { noremap = true })
 vim.keymap.set({'n', 'x'}, '<leader>x', '"_x', { noremap = true })
 vim.keymap.set('n',        '<leader>X', '"_X', { noremap = true })

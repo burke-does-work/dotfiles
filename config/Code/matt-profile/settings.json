@@ -52,6 +52,9 @@
 
   "markdown.validate.enabled": true,
   "markdown.validate.referenceLinks.enabled": "ignore",
+  
+  // Archived - Markdown linter no longer used
+
   "markdownlint.config": {
     "default": true,
     "MD033": false, // no inline HTML
@@ -65,7 +68,7 @@
     "editor.insertSpaces": true,
     "editor.rulers": [],
 
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+   "editor.defaultFormatter": "yzhang.markdown-all-in-one",
     "editor.formatOnSave": true
   },
 "editor.tokenColorCustomizations": {
@@ -169,8 +172,10 @@
   //////////////////////////////////////////////////////////////////////////////
 
   "cSpell.userWords": [
+    "Boeshield",
     "datasheet",
     "Panelmate",
+    "Powerpole",
     "Starlink"
   ]
 

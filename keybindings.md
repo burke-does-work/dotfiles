@@ -71,6 +71,14 @@ Applies in VS Code and Neovim only. Not implemented in zsh (ZLE has no operator-
 | Ctrl+C                | Copy (if selection); SIGINT (if none) |
 | Ctrl+V                | Paste from clipboard          |
 
+## fzf (shell)
+
+| Shortcut | Action                                                              |
+| -------- | ------------------------------------------------------------------- |
+| Ctrl+T   | File path picker — fuzzy search files; pastes selected path(s) into command line |
+| Ctrl+R   | Command history — fuzzy search history; pastes selected command into command line |
+| Alt+C    | CD into directory — fuzzy search dirs; changes to selected directory |
+
 ## VS Code
 
 ### Global Navigation
@@ -96,6 +104,21 @@ Applies in VS Code and Neovim only. Not implemented in zsh (ZLE has no operator-
 | Enter         | Execute cell             |
 | Shift+Enter   | New line in cell         |
 | Ctrl+K Ctrl+R | Restart kernel + run all |
+
+## Vimium (Chrome)
+
+Advanced setting enabled: **"Don't let pages steal the focus on load"** — prevents sites like ChatGPT from auto-focusing their input box, allowing Vimium to take precedence.
+
+| Shortcut    | Action                          |
+| ----------- | ------------------------------- |
+| o           | Open URL in current tab         |
+| O           | Open URL in new tab             |
+| T           | Search open tabs                |
+| yf          | Copy link (works on focus-stealing pages) |
+| f           | Open link in current tab        |
+| F           | Open link in new tab            |
+
+**Known limitation:** Vimium conflicts with Google Sheets — Sheets keybindings won't work while Vimium is active. Workaround TBD.
 
 ## Neovim
 
