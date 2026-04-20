@@ -79,6 +79,13 @@
                 "foreground": "#928374",
                 "fontStyle": "bold"
             }
+        },
+        {
+            "scope": "markup.bold.markdown",
+            "settings": {
+                "foreground": "#8ec07c",
+                "fontStyle": "bold"
+            }
         }
     ]
 },
