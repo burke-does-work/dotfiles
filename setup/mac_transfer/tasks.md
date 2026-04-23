@@ -16,6 +16,7 @@ Steps marked **(Claude)** mean ask Claude to do the work. All others you do your
 
 - ✅ → `files.md`: fill in the ssd2_data section — list what you're copying to USB
 - ✅ Gather USB drive, format as exFAT
+  - Note: after formatting with `parted` on Linux, must set GPT partition type to `0700` (Microsoft Basic Data) with `sudo sgdisk --typecode=1:0700 /dev/sdX` — otherwise macOS sees "Linux Filesystem" and refuses to mount
 
 ---
 
@@ -88,7 +89,9 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 - ✅ `brew install node`
 - ✅ `npm install -g @anthropic-ai/claude-code`
 - ✅ Launch `claude` — enter API key when prompted
-- 🔲 Adapt and symlink Claude settings **(Claude)** — update `config/claude/settings.json` for Mac: `/home/matt/` → `/Users/matt/`, `apt` → `brew`, `systemctl` → `launchctl`; symlink to `~/.claude/settings.json`
+- ✅ Mac Claude settings created: `config/claude/settings.mac.json`
+- ✅ Symlink: `ln -sf /Users/matt/dotfiles/config/claude/settings.mac.json /Users/matt/.claude/settings.json`
+- ✅ Linux Claude settings symlinked to dotfiles: `ln -sf /home/matt/dotfiles/config/claude/settings.json /home/matt/.claude/settings.json`
 
 ### Files from USB
 
