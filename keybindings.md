@@ -4,23 +4,25 @@
 
 Vim motions — apply across VS Code (vim extension) and Neovim unless overridden.
 
-| Shortcut    | Action                        |
-| ----------- | ----------------------------- |
-| hjkl        | Move left/down/up/right       |
-| gg / G      | Go to top / bottom of file    |
-| Ctrl+u / d  | Half-page up / down           |
-| w / b       | Next / prev word              |
-| 0 / $       | Start / end of line           |
-| / + Enter   | Search forward                |
-| n / N       | Next / prev search result     |
-| i / a       | Insert before / after cursor  |
-| o / O       | New line below / above        |
-| dd / yy / p | Delete line / yank line / put |
-| u / Ctrl+r  | Undo / redo                   |
-| ciw / diw   | Change / delete inner word    |
-| v / V       | Visual char / line mode       |
-| > / <       | Indent / dedent selection     |
-| J           | Combine lines (esp. useful in CLI)    |
+| Shortcut    | Action                             |
+| ----------- | -----------------------------      |
+| hjkl        | Move left/down/up/right            |
+| gg / G      | Go to top / bottom of file         |
+| Ctrl+u / d  | Half-page up / down                |
+| w / b       | Next / prev word                   |
+| 0 / $       | Start / end of line                |
+| / + Enter   | Search forward                     |
+| n / N       | Next / prev search result          |
+| i / a       | Insert before / after cursor       |
+| o / O       | New line below / above             |
+| dd / yy / p | Delete line / yank line / put      |
+| u / Ctrl+r  | Undo / redo                        |
+| ciw / diw   | Change / delete inner word         |
+| v / V       | Visual char / line mode            |
+| > / <       | Indent / dedent selection          |
+| J           | Combine lines (esp. useful in CLI) |
+| yl          | copy one character                 |
+| vp          | paste over one character           |
 
 Copy/paste/delete notes:
 

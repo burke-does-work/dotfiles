@@ -1,18 +1,19 @@
 {
-  "vim": true,
+  "env": {
+    "DISABLE_AUTOUPDATER": "1"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "permissions": {
-    "_comment": "STRATEGY: Allow everything routine. Anything NOT listed here gets prompted.",
-    "_comment_reads": "Read(**/...) covers project-relative paths. Specific absolute paths listed for safe system locations. SSH keys (~/.ssh), cloud credentials (~/.aws, ~/.gnupg), and API credential files are intentionally absent → Claude will prompt before reading them.",
-    "_comment_edits": "Edit/Write/MultiEdit are NOT listed here → Claude will always prompt before modifying files.",
     "allow": [
       "WebFetch(*)",
       "WebSearch(*)",
-
       "Read(**)",
       "Glob(**)",
       "Grep(**)",
       "LS(**)",
-
       "Read(/etc/**)",
       "Read(/usr/**)",
       "Read(/opt/**)",
@@ -34,7 +35,6 @@
       "Grep(/opt/**)",
       "Grep(/home/matt/.config/**)",
       "Grep(/home/matt/.local/**)",
-
       "Bash(echo *)",
       "Bash(pwd)",
       "Bash(grep *)",
@@ -62,7 +62,6 @@
       "Bash(fc-list *)",
       "Bash(fc-list)",
       "Bash(man *)",
-
       "Bash(git log *)",
       "Bash(git status)",
       "Bash(git status *)",
@@ -71,7 +70,6 @@
       "Bash(git branch *)",
       "Bash(git remote *)",
       "Bash(git stash list*)",
-
       "Bash(ps *)",
       "Bash(uname *)",
       "Bash(lsb_release *)",
@@ -81,7 +79,6 @@
       "Bash(htop)",
       "Bash(lsblk *)",
       "Bash(ldd *)",
-
       "Bash(mkdir *)",
       "Bash(cp *)",
       "Bash(mv *)",
@@ -89,7 +86,6 @@
       "Bash(chmod *)",
       "Bash(ln *)",
       "Bash(source *)",
-
       "Bash(pip list)",
       "Bash(pip show *)",
       "Bash(pip freeze)",
@@ -106,7 +102,6 @@
       "Bash(sudo apt-get *)",
       "Bash(npm install *)",
       "Bash(pip install *)",
-
       "Bash(ssh *)",
       "Bash(scp *)",
       "Bash(gh *)",
@@ -115,14 +110,14 @@
       "Bash(node *)",
       "Bash(kitty *)",
       "Bash(yazi *)"
-    ]
+    ],
+    "_comment": "STRATEGY: Allow everything routine. Anything NOT listed here gets prompted.",
+    "_comment_reads": "Read(**/...) covers project-relative paths. Specific absolute paths listed for safe system locations. SSH keys (~/.ssh), cloud credentials (~/.aws, ~/.gnupg), and API credential files are intentionally absent → Claude will prompt before reading them.",
+    "_comment_edits": "Edit/Write/MultiEdit are NOT listed here → Claude will always prompt before modifying files."
   },
-  "additionalDirectories": ["/"],
-  "env": {
-    "DISABLE_AUTOUPDATER": "1"
-  },
-  "attribution": {
-    "commit": "",
-    "pr": ""
-  }
+  "vim": true,
+  "additionalDirectories": [
+    "/"
+  ],
+  "model": "opus"
 }
