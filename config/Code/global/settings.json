@@ -18,6 +18,7 @@
     { "before": ["<leader>", "x"], "after": ["\"", "_", "x"] },
     { "before": ["<leader>", "c"], "after": ["\"", "_", "c"] }
   ],
-  "workbench.colorTheme": "Dark Modern"
+  "workbench.colorTheme": "Dark Modern",
+  "window.newWindowProfile": "matt"
 
 }

@@ -29,7 +29,7 @@ Copy/paste/delete notes:
 - `d`, `x`, `c` are standard vim — cut to clipboard.
 - `<Space>d`, `<Space>x`, `<Space>c` (and uppercase variants) send to the blackhole register — no clipboard effect.
 - `<Space>` is the leader key in normal mode.
-- `Ctrl+C` / `Ctrl+V` for copy/paste — use in Chrome, and in Kitty (terminal). `Ctrl+C` copies if text is selected, sends SIGINT otherwise. `Ctrl+V` pastes from clipboard. Do not use in Neovim or VS Code (these intercept the keys).
+- `Ctrl+C` / `Ctrl+V` for copy/paste — use in Chrome, and in Ghostty (terminal). `Ctrl+C` copies if text is selected, sends SIGINT otherwise. `Ctrl+V` pastes from clipboard. Do not use in Neovim or VS Code (these intercept the keys).
 - Vi-mode with Wayland clipboard integration. Yank/delete operations sync to the system clipboard; `p`/`P` paste from system clipboard.
 
 ## Leader key (Space)
@@ -47,11 +47,15 @@ Applies in VS Code and Neovim only. Not implemented in zsh (ZLE has no operator-
 
 ## GNOME
 
-| Shortcut | Action               |
-| -------- | -------------------- |
-| Super+1  | Raise Kitty terminal |
+| Shortcut | Action                  |
+| -------- | ----------------------- |
+| Super+1  | Raise Ghostty terminal  |
 
-## Kitty
+## Ghostty
+
+<!-- Keybindings to be documented -->
+
+## Kitty (reference for Ghostty setup)
 
 | Shortcut              | Action                        |
 | --------------------- | ----------------------------- |

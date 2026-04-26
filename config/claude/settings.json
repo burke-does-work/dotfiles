@@ -40,7 +40,7 @@
       "Bash(grep *)",
       "Bash(rg *)",
       "Bash(find *)",
-      "Bash(ls **)",
+      "Bash(ls *)",
       "Bash(ls)",
       "Bash(wc *)",
       "Bash(sort *)",

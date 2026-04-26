@@ -114,6 +114,8 @@ Note: most Apple apps cannot be fully uninstalled on macOS; removing from Dock i
 - ✅ Accent color: System Settings → Appearance → **(decide)** choose closest to Gruvbox orange/yellow, or multicolor
 - ✅ Wallpaper: set background to solid black — System Settings → Wallpaper → Colour → black **(known: current wallpaper is a solid black PNG, no file transfer needed)**
 - ✅ Cursor size: System Settings → Accessibility → Display → Pointer size
+- ✅ Remove animations
+  - NOTE: Removed "motions" from settings, can also reduce further through terminal config commands but didn't go that far
 
 ---
 

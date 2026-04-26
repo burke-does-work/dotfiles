@@ -19,15 +19,11 @@ The shell is the center of the environment. Key design decisions:
 
 ---
 
-## Terminal — Kitty
+## Terminal — Ghostty
 
-Config: `config/kitty/kitty.conf`, `config/kitty/startup.conf`
+Config: `config/ghostty/`
 
-Kitty replaces tmux. It handles splits and tabs natively.
-
-- **Startup session** — Kitty opens 5 tabs on launch: `keybindings` (nvim), `yazi`, `terminal`, `dev_01`, `dev_02`.
-- **Splits** — vertical (`Ctrl+Shift+R`) and horizontal (`Ctrl+Shift+B`). Navigate with `Ctrl+Shift+H/J/K/L`.
-- **No tmux** — Kitty's native tab/split system is used instead. Don't install tmux.
+Ghostty replaced Kitty. It handles splits and tabs natively, no tmux needed.
 
 ---
 
@@ -71,13 +67,31 @@ Open a file from the terminal: `nvim filename`. The `keybindings` alias opens `k
 
 Config: `config/yazi/`
 
-Terminal file manager. Launched from zsh or from the `yazi` startup tab.
+Terminal file manager. Launched from zsh or from the terminal.
 
 - `dd` — move to trash (safe, recoverable)
 - `D` — permanent delete
 - `Delete` — move to trash
 
 Yazi integrates with `zoxide` — use `z <partial-path>` to jump to frequently visited directories.
+
+---
+
+## Claude Code
+
+Config: `config/claude/settings.mac.json` — symlinked to `~/.claude/settings.json`.
+Global instructions: `config/claude/CLAUDE.md` — symlinked to `~/.claude/CLAUDE.md`, loaded for every session.
+
+Permission model:
+
+- **Read tool** is unrestricted (`Read(**)` + `additionalDirectories: ["/"]`). Deny list covers `~/.ssh`, `~/.gnupg`, and `.env*` files.
+- **Bash** uses an explicit allow list of read-only commands (`find`, `ls`, `grep`, `rg`, `wc`, `git log/status/diff`, etc.). `cat`, `head`, `tail` are intentionally excluded — Claude is instructed to use the Read tool for file content.
+- **Edit/Write** are not allow-listed, so they always prompt.
+
+Two rules in `~/.claude/CLAUDE.md` close the most common prompt gaps:
+
+1. Use the Read tool for file content — never `cat`/`head`/`tail` in Bash.
+2. One command per Bash call — no chaining with `&&`, `||`, or `;`. Compound commands don't match single-command allow patterns and will always prompt.
 
 ---
 

@@ -92,36 +92,38 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 - ✅ Mac Claude settings created: `config/claude/settings.mac.json`
 - ✅ Symlink: `ln -sf /Users/matt/dotfiles/config/claude/settings.mac.json /Users/matt/.claude/settings.json`
 - ✅ Linux Claude settings symlinked to dotfiles: `ln -sf /home/matt/dotfiles/config/claude/settings.json /home/matt/.claude/settings.json`
+- ✅ Global CLAUDE.md symlinked: `ln -sf /Users/matt/dotfiles/config/claude/CLAUDE.md /Users/matt/.claude/CLAUDE.md` (Linux: same with `/home/matt/dotfiles/...`)
 
 ### Files from USB
 
-- 🔲 Copy any projects or files you need to start working from the Mac
+- ✅ Copy any projects or files you need to start working from the Mac
 
 *You can now work from the Mac. Resume the checklist below when ready.*
 
 ---
 
-## Phase 5 — Complete macOS settings
+## Phase 5 — Terminal
 
-- 🔲 → `macos_settings.md`: resume from where Phase 2 paused — work through every remaining section
-- 🔲 Update `keybindings.md` — macOS OS-level bindings **(Claude)**
-
----
-
-## Phase 6 — Terminal
-
-- 🔲 `brew install --cask ghostty`
-- 🔲 `brew install --cask font-jetbrains-mono-nerd-font`
+- ✅ `brew install --cask ghostty`
+- ✅ `brew install --cask font-jetbrains-mono-nerd-font`
 - 🔲 Configure Ghostty — review built-in keybindings before overriding; port from Kitty config intentionally **(Claude)**
 - 🔲 Update `keybindings.md` — Ghostty section **(Claude)**
 
 ---
 
+## Phase 6 — Complete macOS settings
+
+- 🔲 → `macos_settings.md`: resume from where Phase 2 paused — work through every remaining section
+- 🔲 Update `keybindings.md` — macOS OS-level bindings **(Claude)**
+- Remove press and hold keys (breaks VIM keybindings): `defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false`
+
+---
+
 ## Phase 7 — Shell
 
-- 🔲 `brew install antidote starship fzf zoxide`
-- 🔲 Dotfiles already cloned in Phase 4
-- 🔲 Create Mac `zshrc` **(Claude)** — adapts from Linux: pbcopy/pbpaste clipboard, Homebrew PATH, NFS mount aliases; removes wl-clipboard, GNOME aliases, ssd2_data startup cd
+- ✅ `brew install antidote starship fzf zoxide`
+- ✅ Dotfiles already cloned in Phase 4
+- 🔲 Create Mac `zshrc` **(Claude)** — adapts from Linux: pbcopy/pbpaste clipboard, Homebrew PATH, NFS mount aliases; removes wl-clipboard, GNOME aliases, ssd2_data startup cd; include `export PATH="/opt/homebrew/opt/trash/bin:$PATH"` (`trash` is keg-only)
 - 🔲 Test: open new shell, verify starship prompt, fzf (`Ctrl+R`), zoxide (`z`)
 
 ---

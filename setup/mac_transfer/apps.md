@@ -8,58 +8,58 @@ Check off as you install. See `tasks.md` for when each phase happens.
 
 ## CLI tools — `brew install`
 
-- 🔲 `git`
-- 🔲 `gh`
-- 🔲 `ripgrep`
-- 🔲 `fd`
-- 🔲 `fzf`
-- 🔲 `zoxide`
-- 🔲 `unar`
-- 🔲 `ffmpegthumbnailer`
-- 🔲 `imagemagick`
-- 🔲 `trash` — replaces Linux `trash-cli`; command is `trash <file>`, not `trash-put`
-- 🔲 `antidote`
-- 🔲 `starship`
-- 🔲 `yazi`
-- 🔲 `neovim`
-- 🔲 `node`
+- ✅ `git`
+- ✅ `gh`
+- ✅ `ripgrep`
+- ✅ `fd`
+- ✅ `fzf`
+- ✅ `zoxide`
+- ✅ `unar`
+- ✅ `ffmpegthumbnailer`
+- ✅ `imagemagick`
+- ✅ `trash` — replaces Linux `trash-cli`; command is `trash <file>`, not `trash-put`; keg-only (not auto-linked) — requires PATH entry in zshrc
+- ✅ `antidote`
+- ✅ `starship`
+- ✅ `yazi`
+- ✅ `neovim`
+- ✅ `node`
 
 ---
 
 ## GUI apps — `brew install --cask`
 
-- 🔲 `ghostty`
-- 🔲 `font-jetbrains-mono-nerd-font`
-- 🔲 `visual-studio-code`
-- 🔲 `sublime-text`
-- 🔲 `google-chrome`
-- 🔲 `vlc`
-- 🔲 `drawio`
-- 🔲 `nicotine-plus`
-- 🔲 `protonvpn`
-- 🔲 `qbittorrent`
-- 🔲 `1password`
-- 🔲 `signal`
-- 🔲 `zoom`
-- 🔲 `google-drive`
+- ✅ `ghostty`
+- ✅ `font-jetbrains-mono-nerd-font`
+- ✅ `visual-studio-code`
+- ✅ `sublime-text`
+- ✅ `google-chrome`
+- ✅ `vlc`
+- ✅ `drawio`
+- 🔲 `nicotine-plus` — not available as cask; install via formula (`brew install nicotine-plus`, GTK4) or download from nicotine-plus.org
+- ✅ `protonvpn`
+- ✅ `qbittorrent` — deprecated in Homebrew; Gatekeeper issue, will be disabled 2026-09-01
+- ✅ `1password`
+- ✅ `signal`
+- ✅ `zoom`
+- ✅ `google-drive`
 - 🔲 `microsoft-excel` — requires Microsoft 365 subscription; confirm before installing
-- 🔲 `adobe-creative-cloud` — then install Lightroom from within Creative Cloud
+- ✅ `adobe-creative-cloud` — then install Lightroom from within Creative Cloud
 
 ---
 
 ## Special installs
 
-- 🔲 Claude Code: `npm install -g @anthropic-ai/claude-code`
+- ✅ Claude Code: `npm install -g @anthropic-ai/claude-code`
 - 🔲 Python 3.13: `pyenv install 3.13 && pyenv global 3.13` (after pyenv is installed)
-- 🔲 Chinese input: System Settings → Keyboard → Input Sources → add Pinyin - Simplified; install `squirrel` via Homebrew if the built-in is insufficient
+- ✅ Chinese input: System Settings → Keyboard → Input Sources → add Pinyin - Simplified; install `squirrel` via Homebrew if the built-in is insufficient
 
 ---
 
 ## Browser extensions (Chrome)
 
-- 🔲 Vimium
-- 🔲 1Password
-- 🔲 Simple New Tab URL (or set blank new tab)
+- ✅ Vimium
+- ✅ 1Password
+- ✅ Simple New Tab URL (or set blank new tab)
 
 ---
 
@@ -117,5 +117,6 @@ Once apps accumulate, the menubar gets cluttered. macOS Sequoia has some native 
 
 - Homebrew Apple Silicon path: `/opt/homebrew/bin/` — must be in PATH
 - `trash` syntax differs from Linux: `trash <file>`, not `trash-put <file>` — Yazi config updated in Phase 6
+- `trash` is keg-only — must add `export PATH="/opt/homebrew/opt/trash/bin:$PATH"` to Mac zshrc (Phase 7); without it `trash` command is not found
 - `wl-clipboard` has no place on Mac — zshrc clipboard integration rewritten with `pbcopy`/`pbpaste` in Phase 5
 - Google Docs and Sheets: web-only via Chrome

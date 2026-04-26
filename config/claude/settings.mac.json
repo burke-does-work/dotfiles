@@ -1,43 +1,25 @@
 {
-  "vim": true,
+  "env": {
+    "DISABLE_AUTOUPDATER": "1"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "permissions": {
-    "_comment": "STRATEGY: Allow everything routine. Anything NOT listed here gets prompted.",
-    "_comment_reads": "Read(**/...) covers project-relative paths. Specific absolute paths listed for safe system locations. SSH keys (~/.ssh), cloud credentials (~/.aws, ~/.gnupg), and API credential files are intentionally absent → Claude will prompt before reading them.",
-    "_comment_edits": "Edit/Write/MultiEdit are NOT listed here → Claude will always prompt before modifying files.",
     "allow": [
       "WebFetch(*)",
       "WebSearch(*)",
-
       "Read(**)",
       "Glob(**)",
       "Grep(**)",
       "LS(**)",
-
-      "Read(/etc/**)",
-      "Read(/usr/**)",
-      "Read(/opt/**)",
-      "Read(/tmp/**)",
-      "Read(/dev/**)",
-      "Read(/Users/matt/.config/**)",
-      "Read(/Users/matt/.local/**)",
-      "Read(/Users/matt/.cache/**)",
-      "Glob(/etc/**)",
-      "Glob(/usr/**)",
-      "Glob(/opt/**)",
-      "Glob(/Users/matt/.config/**)",
-      "Glob(/Users/matt/.local/**)",
-      "Grep(/etc/**)",
-      "Grep(/usr/**)",
-      "Grep(/opt/**)",
-      "Grep(/Users/matt/.config/**)",
-      "Grep(/Users/matt/.local/**)",
-
       "Bash(echo *)",
       "Bash(pwd)",
       "Bash(grep *)",
       "Bash(rg *)",
       "Bash(find *)",
-      "Bash(ls **)",
+      "Bash(ls *)",
       "Bash(ls)",
       "Bash(wc *)",
       "Bash(sort *)",
@@ -57,7 +39,6 @@
       "Bash(tr *)",
       "Bash(xargs *)",
       "Bash(man *)",
-
       "Bash(git log *)",
       "Bash(git status)",
       "Bash(git status *)",
@@ -66,7 +47,6 @@
       "Bash(git branch *)",
       "Bash(git remote *)",
       "Bash(git stash list*)",
-
       "Bash(ps *)",
       "Bash(uname *)",
       "Bash(sw_vers)",
@@ -75,7 +55,6 @@
       "Bash(diskutil list)",
       "Bash(htop)",
       "Bash(ldd *)",
-
       "Bash(mkdir *)",
       "Bash(cp *)",
       "Bash(mv *)",
@@ -83,7 +62,6 @@
       "Bash(chmod *)",
       "Bash(ln *)",
       "Bash(source *)",
-
       "Bash(pip list)",
       "Bash(pip show *)",
       "Bash(pip freeze)",
@@ -96,7 +74,6 @@
       "Bash(brew install *)",
       "Bash(npm install *)",
       "Bash(pip install *)",
-
       "Bash(ssh *)",
       "Bash(scp *)",
       "Bash(gh *)",
@@ -105,14 +82,19 @@
       "Bash(node *)",
       "Bash(ghostty *)",
       "Bash(yazi *)"
-    ]
+    ],
+    "deny": [
+      "Read(/Users/matt/.ssh/**)",
+      "Read(/Users/matt/.gnupg/**)",
+      "Read(**/.env)",
+      "Read(**/.env.*)"
+    ],
+    "additionalDirectories": [
+      "/"
+    ],
+    "_comment": "Reads: unrestricted (additionalDirectories + Read(**) cover all paths). Edits/Writes: always prompt.",
+    "_comment_deny": "Deny: SSH+GPG keys (traditional on-disk), .env files (1Password used for API keys; .env blocked as safety net)."
   },
-  "additionalDirectories": ["/"],
-  "env": {
-    "DISABLE_AUTOUPDATER": "1"
-  },
-  "attribution": {
-    "commit": "",
-    "pr": ""
-  }
+  "vim": true,
+  "model": "opus"
 }
