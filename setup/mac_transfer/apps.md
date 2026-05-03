@@ -29,13 +29,14 @@ Check off as you install. See `tasks.md` for when each phase happens.
 ## GUI apps — `brew install --cask`
 
 - ✅ `ghostty`
+- ✅ `font-commit-mono-nerd-font` — current default font (replaces JetBrains Mono Nerd Font)
 - ✅ `font-jetbrains-mono-nerd-font`
 - ✅ `visual-studio-code`
 - ✅ `sublime-text`
 - ✅ `google-chrome`
 - ✅ `vlc`
 - ✅ `drawio`
-- 🔲 `nicotine-plus` — not available as cask; install via formula (`brew install nicotine-plus`, GTK4) or download from nicotine-plus.org
+- ✅ `nicotine-plus` — not available as cask; install via formula (`brew install nicotine-plus`, GTK4) or download from nicotine-plus.org
 - ✅ `protonvpn`
 - ✅ `qbittorrent` — deprecated in Homebrew; Gatekeeper issue, will be disabled 2026-09-01
 - ✅ `1password`
@@ -43,17 +44,20 @@ Check off as you install. See `tasks.md` for when each phase happens.
 - ✅ `zoom`
 - ✅ `google-drive`
 - 🔲 `microsoft-excel` — requires Microsoft 365 subscription; confirm before installing
-- ✅ `adobe-creative-cloud` — then install Lightroom from within Creative Cloud
+- ✅ `adobe-creative-cloud` — install Lightroom CC only from within Creative Cloud; see Adobe hardening notes below
 
 ---
 
 ## Special installs
 
 - ✅ Claude Code: `npm install -g @anthropic-ai/claude-code`
-- 🔲 Python 3.13: `pyenv install 3.13 && pyenv global 3.13` (after pyenv is installed)
 - ✅ Chinese input: System Settings → Keyboard → Input Sources → add Pinyin - Simplified; install `squirrel` via Homebrew if the built-in is insufficient
 
----
+To install apps from an unknown developer (wtv that means), follow these directions:
+
+[Open a Mac app from an unknown developer](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unknown-developer-mh40616/mac)
+
+--
 
 ## Browser extensions (Chrome)
 
@@ -65,24 +69,20 @@ Check off as you install. See `tasks.md` for when each phase happens.
 
 ## Mac enhancements — decide and install
 
-These have no Linux equivalent. Decide before Phase 14.
+These have no Linux equivalent. Decide before Phase 13.
 
 ### Window tiling
 
 macOS has no built-in tiling. Without a tool, managing windows is cumbersome.
 
 - Example (free): Rectangle — `brew install --cask rectangle`
-- Note: Raycast (below) includes window management; may cover this
+- Note: Raycast includes window management — see Raycast configuration section; may cover this
 
 - 🔲 **(decide)** ___
 
 ### Launcher
 
-Replaces or augments Spotlight. Adds clipboard history, snippets, extensible actions.
-
-- Example (free): Raycast — `brew install --cask raycast`
-
-- 🔲 **(decide)** ___
+- ✅ Raycast — `brew install --cask raycast`; initial setup only — see Raycast configuration section
 
 ### Window switcher
 
@@ -100,6 +100,13 @@ Menubar CPU, RAM, network display.
 
 - 🔲 **(decide)** ___
 
+### App uninstaller
+
+AppCleaner removes apps along with their associated preference files, caches, and support files. Always use it instead of right-clicking and moving to trash — trash leaves behind config files and caches. Use for manually-installed apps only — App Store apps should be removed via Launchpad.
+
+- ✅ `brew install --cask appcleaner`
+- ✅ Went through all of `/Applications` — removed everything possible. Remaining apps are locked Apple system apps that cannot be uninstalled without disabling SIP; not worth doing.
+
 ### Menubar management
 
 Once apps accumulate, the menubar gets cluttered. macOS Sequoia has some native management — evaluate that first.
@@ -110,6 +117,61 @@ Once apps accumulate, the menubar gets cluttered. macOS Sequoia has some native 
 
 - ✅ Strategy: Time Machine → pickle-pi (primary), USB drive (interim/redundancy)
   - Restrict openclaw access on pickle-pi when backup directory is created
+
+---
+
+## Finding and browsing installed apps
+
+- `brew list --cask` — GUI apps installed via Homebrew
+- `brew list --formula` — CLI tools installed via Homebrew
+- This file (`apps.md`) — source of truth for everything else (npm installs, manual downloads)
+- `/Applications` in Finder — actual file system; matches `ls /Applications` in terminal
+- **Launchpad** (4-finger pinch) — visual overview of all apps, equivalent to GNOME Super grid; good for occasionally browsing or auditing installed apps. Not a file system view — includes Adobe's app catalogue (available-to-install apps), which clutters it
+- **Raycast** — power user launcher; replaces the need to visually browse apps day-to-day
+
+---
+
+## Raycast configuration
+
+Initial setup done. Return to this section to complete configuration.
+
+### Core settings
+- 🔲 Preferences → General → Hotkey → **(decide)** — to use `Cmd+Space`, disable Spotlight first: search "Spotlight" → uncheck "Show Spotlight search"
+- 🔲 Preferences → Advanced → "Hide Raycast in Dock" → On
+- ✅ Launch at login → On (needed — this is your app launcher)
+
+### Reduce bloat
+- 🔲 Preferences → Extensions → disable everything you won't use — defaults include many you won't need (GIF Search, Emoji Search, Confetti, etc.)
+
+### Power user features to configure
+- 🔲 **Clipboard History** — enable and set a hotkey; replaces needing a separate clipboard manager
+- 🔲 **Window Management** — enable; **(decide)** whether this replaces Rectangle
+- 🔲 **Ghostty hotkey** — assign a hotkey to launch/raise Ghostty; this is the `Super+1` equivalent from Linux. Preferences → Extensions → find Ghostty → set hotkey
+- 🔲 **Snippets** — text expansion for frequently typed strings
+- 🔲 **Quicklinks** — saved URLs opened by name; useful for frequently visited pages
+
+---
+
+## Adobe Creative Cloud hardening
+
+Adobe installs to `/Applications/Utilities`, not `/Applications` — it won't appear in a normal `ls /Applications`.
+
+After installing Lightroom, harden Creative Cloud in Preferences:
+- Launch at login → Off
+- Auto-updates → Off
+- Notifications → Off
+- File sync → Off (this is CC Files folder sync, separate from Lightroom photo sync — photo sync still works)
+
+Then remove the installer daemon that CC leaves behind:
+```
+sudo rm /Library/LaunchDaemons/com.adobe.acc.installer.v2.plist
+```
+
+Verify clean:
+```
+ls ~/Library/LaunchAgents | grep -i adobe
+ls /Library/LaunchDaemons | grep -i adobe
+```
 
 ---
 

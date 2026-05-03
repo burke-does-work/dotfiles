@@ -42,5 +42,5 @@ Copy via USB (exFAT). Fill in what you're transferring.
 
 - `/mnt/ssd2_data/` → `~/local/` — all actual files (documents, projects, media)
 - `~/` config files → `~/` (same structure, path changes from `/home/matt/` to `/Users/matt/`)
-- `/mnt/nfs/drive_data/` → NFS mount from pickle-pi (Phase 12)
-- `/mnt/nfs/hdd_data/` → NFS mount from pickle-pi (Phase 12)
+- `/mnt/nfs/drive_data/` → NFS mount from pickle-pi (Phase 11)
+- `/mnt/nfs/hdd_data/` → NFS mount from pickle-pi (Phase 11)

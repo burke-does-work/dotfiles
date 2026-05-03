@@ -30,7 +30,7 @@ Copy/paste/delete notes:
 - `<Space>d`, `<Space>x`, `<Space>c` (and uppercase variants) send to the blackhole register — no clipboard effect.
 - `<Space>` is the leader key in normal mode.
 - `Ctrl+C` / `Ctrl+V` for copy/paste — use in Chrome, and in Ghostty (terminal). `Ctrl+C` copies if text is selected, sends SIGINT otherwise. `Ctrl+V` pastes from clipboard. Do not use in Neovim or VS Code (these intercept the keys).
-- Vi-mode with Wayland clipboard integration. Yank/delete operations sync to the system clipboard; `p`/`P` paste from system clipboard.
+- Vi-mode with macOS clipboard integration. Yank/delete operations sync to the system clipboard via `pbcopy`/`pbpaste`; `p`/`P` paste from system clipboard.
 
 ## Leader key (Space)
 

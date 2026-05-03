@@ -95,6 +95,5 @@
     "_comment": "Reads: unrestricted (additionalDirectories + Read(**) cover all paths). Edits/Writes: always prompt.",
     "_comment_deny": "Deny: SSH+GPG keys (traditional on-disk), .env files (1Password used for API keys; .env blocked as safety net)."
   },
-  "vim": true,
-  "model": "opus"
+  "vim": true
 }

@@ -1,0 +1,178 @@
+# ~/.zshrc — maodou-mac
+# Author: MTB
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### PATH
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Homebrew (Apple Silicon) — sets PATH, MANPATH, INFOPATH, HOMEBREW_PREFIX, etc.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Keg-only Homebrew formulae
+# trash: macOS replacement for trash-put (cf. trash-cli on Linux)
+export PATH="/opt/homebrew/opt/trash/bin:$PATH"
+
+# Add user local binaries to PATH
+path=($HOME/.local/bin $path)
+
+# Add personal helper scripts to PATH
+path=($HOME/helper_scripts $path)
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Plugins
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Load antidote plugin manager (Homebrew install)
+source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
+
+# Load plugins from ~/.zsh_plugins.txt
+antidote load
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Prompt
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Initialize Starship prompt
+eval "$(starship init zsh)"
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### fzf
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Load fzf keybindings and completion (Homebrew install path)
+source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+source /opt/homebrew/opt/fzf/shell/completion.zsh
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Vi mode
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Enable vi keybindings
+bindkey -v
+
+# Reduce ESC delay from 0.4s to 0.1s
+export KEYTIMEOUT=1
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Cursor shape
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Block cursor in normal mode, line cursor in insert mode
+function zle-keymap-select {
+    if [[ $KEYMAP == vicmd ]]; then
+        echo -ne '\e[1 q'  # Block cursor for normal mode
+    else
+        echo -ne '\e[5 q'  # Line cursor for insert mode
+    fi
+}
+
+# Line cursor for insert mode on startup
+function zle-line-init {
+    echo -ne '\e[5 q'
+}
+
+zle -N zle-keymap-select
+zle -N zle-line-init
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Vi mode — macOS clipboard integration
+##### ──────────────────────────────────────────────────────────────────────────
+
+_zle-to-clipboard()   { echo -n "$CUTBUFFER" | pbcopy }
+_zle-from-clipboard() { CUTBUFFER=$(pbpaste 2>/dev/null) }
+
+# Yank → system clipboard
+_zle-vi-yank()            { zle .vi-yank;            _zle-to-clipboard }
+_zle-vi-yank-whole-line() { zle .vi-yank-whole-line; _zle-to-clipboard }
+zle -N vi-yank            _zle-vi-yank
+zle -N vi-yank-whole-line _zle-vi-yank-whole-line
+
+# Delete → system clipboard
+# vi-backward-delete-char (X in normal, Backspace in insert) is intentionally not overridden
+# to avoid freezing on repeated backspace.
+_zle-vi-delete-char() { zle .vi-delete-char; [[ $KEYMAP == vicmd ]] && _zle-to-clipboard }
+_zle-kill-whole-line() { zle .kill-whole-line; _zle-to-clipboard }
+zle -N vi-delete-char  _zle-vi-delete-char
+zle -N kill-whole-line _zle-kill-whole-line
+
+# Paste ← system clipboard (p / P always paste from system clipboard)
+_zle-vi-put-after()  { _zle-from-clipboard; zle .vi-put-after  }
+_zle-vi-put-before() { _zle-from-clipboard; zle .vi-put-before }
+zle -N vi-put-after  _zle-vi-put-after
+zle -N vi-put-before _zle-vi-put-before
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Tab completion
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Initialize zsh completion system
+autoload -Uz compinit && compinit
+
+# Use cache for faster completion
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+
+# Case insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# Highlight selected option in completion menu
+zstyle ':completion:*' menu select
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### History
+##### ──────────────────────────────────────────────────────────────────────────
+
+# History file location and size
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Share history across all zsh sessions
+setopt share_history
+
+# Don't save duplicate commands
+setopt hist_ignore_dups
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Directory navigation
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Navigate to a directory by typing its path without 'cd'
+setopt auto_cd
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Editor
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Default editor for single-file CLI invocations (git commit, crontab -e, etc.)
+export EDITOR=nvim
+export VISUAL=nvim
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Aliases
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Open keybindings reference
+alias keybindings='nvim ~/local/dotfiles/keybindings.md'
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Yazi
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Shell wrapper: launch yazi and cd to the last directory visited on exit
+function yy() {
+    local tmp cwd
+    tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+
+##### ──────────────────────────────────────────────────────────────────────────
+##### Zoxide
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Initialize zoxide (smart directory jump with frecency)
+eval "$(zoxide init zsh)"

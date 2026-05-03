@@ -58,9 +58,9 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ### Dotfiles — clone (required for VS Code and Claude config)
 
-- ✅ Clone via HTTPS (SSH not set up yet): `git clone https://github.com/burke-does-work/dotfiles.git ~/dotfiles`
-- ✅ Verify: `ls ~/dotfiles`
-  - Note: Phase 11 will switch the remote to SSH after keys are configured
+- ✅ Clone via HTTPS (SSH not set up yet): `git clone https://github.com/burke-does-work/dotfiles.git ~/local/dotfiles`
+- ✅ Verify: `ls ~/local/dotfiles`
+  - Note: Phase 10 will switch the remote to SSH after keys are configured
 
 ### Chrome
 
@@ -76,11 +76,11 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 ### VS Code
 
 - ✅ `brew install --cask visual-studio-code`
-- ✅ Symlink global settings: `ln -sf /Users/matt/dotfiles/config/Code/global/settings.json "/Users/matt/Library/Application Support/Code/User/settings.json"`
-- ✅ Symlink global keybindings: `ln -sf /Users/matt/dotfiles/config/Code/global/keybindings.json "/Users/matt/Library/Application Support/Code/User/keybindings.json"`
+- ✅ Symlink global settings: `ln -sf /Users/matt/local/dotfiles/config/Code/global/settings.json "/Users/matt/Library/Application Support/Code/User/settings.json"`
+- ✅ Symlink global keybindings: `ln -sf /Users/matt/local/dotfiles/config/Code/global/keybindings.json "/Users/matt/Library/Application Support/Code/User/keybindings.json"`
 - ✅ Create "matt" profile in VS Code (profile ID: `-2716422f`), symlink profile config:
-  - `ln -sf /Users/matt/dotfiles/config/Code/matt-profile/settings.json "/Users/matt/Library/Application Support/Code/User/profiles/-2716422f/settings.json"`
-  - `ln -sf /Users/matt/dotfiles/config/Code/matt-profile/keybindings.json "/Users/matt/Library/Application Support/Code/User/profiles/-2716422f/keybindings.json"`
+  - `ln -sf /Users/matt/local/dotfiles/config/Code/matt-profile/settings.json "/Users/matt/Library/Application Support/Code/User/profiles/-2716422f/settings.json"`
+  - `ln -sf /Users/matt/local/dotfiles/config/Code/matt-profile/keybindings.json "/Users/matt/Library/Application Support/Code/User/profiles/-2716422f/keybindings.json"`
 - ✅ Install extensions: VSCodeVim, Python, Pylance, Black Formatter, ms-python.debugpy
 - ✅ Verify: VIM mode, Gruvbox theme
 
@@ -90,9 +90,9 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 - ✅ `npm install -g @anthropic-ai/claude-code`
 - ✅ Launch `claude` — enter API key when prompted
 - ✅ Mac Claude settings created: `config/claude/settings.mac.json`
-- ✅ Symlink: `ln -sf /Users/matt/dotfiles/config/claude/settings.mac.json /Users/matt/.claude/settings.json`
+- ✅ Symlink: `ln -sf /Users/matt/local/dotfiles/config/claude/settings.mac.json /Users/matt/.claude/settings.json`
 - ✅ Linux Claude settings symlinked to dotfiles: `ln -sf /home/matt/dotfiles/config/claude/settings.json /home/matt/.claude/settings.json`
-- ✅ Global CLAUDE.md symlinked: `ln -sf /Users/matt/dotfiles/config/claude/CLAUDE.md /Users/matt/.claude/CLAUDE.md` (Linux: same with `/home/matt/dotfiles/...`)
+- ✅ Global CLAUDE.md symlinked: `ln -sf /Users/matt/local/dotfiles/config/claude/CLAUDE.md /Users/matt/.claude/CLAUDE.md` (Linux: same with `/home/matt/dotfiles/...`)
 
 ### Files from USB
 
@@ -106,6 +106,8 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 - ✅ `brew install --cask ghostty`
 - ✅ `brew install --cask font-jetbrains-mono-nerd-font`
+- ✅ `brew install --cask font-commit-mono-nerd-font` — new default font
+- ✅ Set Ghostty font: `font-family = CommitMono Nerd Font`, `font-feature = calt`
 - 🔲 Configure Ghostty — review built-in keybindings before overriding; port from Kitty config intentionally **(Claude)**
 - 🔲 Update `keybindings.md` — Ghostty section **(Claude)**
 
@@ -123,7 +125,8 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 - ✅ `brew install antidote starship fzf zoxide`
 - ✅ Dotfiles already cloned in Phase 4
-- 🔲 Create Mac `zshrc` **(Claude)** — adapts from Linux: pbcopy/pbpaste clipboard, Homebrew PATH, NFS mount aliases; removes wl-clipboard, GNOME aliases, ssd2_data startup cd; include `export PATH="/opt/homebrew/opt/trash/bin:$PATH"` (`trash` is keg-only)
+- ✅ Create Mac `zshrc` **(Claude)** — adapts from Linux: pbcopy/pbpaste clipboard, Homebrew PATH, Homebrew antidote source path; removes wl-clipboard, GNOME aliases, ssd2_data startup cd, pyenv block; includes `export PATH="/opt/homebrew/opt/trash/bin:$PATH"` (`trash` is keg-only). NFS aliases deferred to Phase 11.
+- ✅ Symlinks: `ln -s /Users/matt/local/dotfiles/zshrc_maodou-mac ~/.zshrc` and `ln -s /Users/matt/local/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt`
 - 🔲 Test: open new shell, verify starship prompt, fzf (`Ctrl+R`), zoxide (`z`)
 
 ---
@@ -131,20 +134,12 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 ## Phase 8 — CLI tools
 
 - 🔲 → `apps.md` — CLI tools section: install everything (batch brew install command) **(Claude)**
-- 🔲 Verify: `git --version`, `gh --version`, `rg --version`, `yazi --version`
+- ✅ Verify: `git --version`, `gh --version`, `rg --version`, `yazi --version`
 - 🔲 Symlink Yazi config **(Claude)**; update Yazi trash binding: `trash-put` → `trash`
 
 ---
 
-## Phase 9 — Python
-
-- 🔲 `brew install pyenv` (init already included in Mac zshrc from Phase 7)
-- 🔲 `pyenv install 3.13 && pyenv global 3.13`
-- 🔲 Verify: `python --version` shows pyenv 3.13, not system Python
-
----
-
-## Phase 10 — Editors
+## Phase 9 — Editors
 
 ### VS Code — complete setup
 
@@ -155,7 +150,7 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 ### Neovim
 
 - 🔲 `brew install neovim`
-- 🔲 `ln -s ~/dotfiles/config/nvim ~/.config/nvim`
+- 🔲 `ln -s ~/local/dotfiles/config/nvim ~/.config/nvim`
 - 🔲 Open nvim — lazy.nvim bootstraps and installs vim-table-mode automatically
 - 🔲 Verify clipboard (`"+p`, leader bindings)
 
@@ -167,7 +162,7 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ---
 
-## Phase 11 — SSH
+## Phase 10 — SSH
 
 - 🔲 `ssh-keygen -t ed25519 -C "maodou-mac"`
 - 🔲 `ssh-add --apple-use-keychain ~/.ssh/id_ed25519`
@@ -180,7 +175,7 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ---
 
-## Phase 12 — NFS
+## Phase 11 — NFS
 
 - 🔲 `sudo mkdir -p /mnt/nfs/drive_data /mnt/nfs/hdd_data`
 - 🔲 Add NFS mount aliases to Mac zshrc **(Claude)**
@@ -188,18 +183,18 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ---
 
-## Phase 13 — Files from USB — complete
+## Phase 12 — Files from USB — complete
 
 - 🔲 → `files.md` — destination paths: copy all remaining `[mac]` and `[both]` items
 - 🔲 Nicotine+ config: copy to `~/Library/Application Support/Nicotine+/`; update all `/home/matt/` paths to `/Users/matt/`
 - 🔲 Add `~/.gitconfig` to dotfiles repo and symlink **(Claude)**
-- 🔲 Symlink gh config: `mkdir -p ~/.config/gh && ln -s ~/dotfiles/config/gh/config.yml ~/.config/gh/config.yml`
+- 🔲 Symlink gh config: `mkdir -p ~/.config/gh && ln -s ~/local/dotfiles/config/gh/config.yml ~/.config/gh/config.yml`
   - Update `git_protocol` in `config/gh/config.yml` from `https` to `ssh` **(Claude)**
 - 🔲 Verify key files, keep USB until fully confirmed
 
 ---
 
-## Phase 14 — GUI apps
+## Phase 13 — GUI apps
 
 - 🔲 → `apps.md` — GUI apps section: install remaining apps with `brew install --cask`
 - 🔲 Signal: link to phone
@@ -212,7 +207,7 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ---
 
-## Phase 15 — Backup
+## Phase 14 — Backup
 
 - 🔲 SSH to pickle-pi: install and configure `netatalk` for Time Machine over network **(Claude)**
 - 🔲 Restrict openclaw's access to the backup directory on pickle-pi
@@ -222,7 +217,7 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ---
 
-## Phase 16 — Mac enhancements
+## Phase 15 — Mac enhancements
 
 → `apps.md` — Mac enhancements section: install and configure any tools you decided on.
 
@@ -234,7 +229,7 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ---
 
-## Phase 17 — keybindings.md final review
+## Phase 16 — keybindings.md final review
 
 - 🔲 → `keybindings.md`: open in nvim, review every section against what's actually on maodou-mac
 - 🔲 Remove or annotate Linux-only bindings
@@ -242,7 +237,7 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ---
 
-## Phase 18 — Cleanup matt-9000
+## Phase 17 — Cleanup matt-9000
 
 Do this only after confirming maodou-mac is fully working.
 

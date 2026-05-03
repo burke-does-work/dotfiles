@@ -24,57 +24,57 @@ Do this immediately after the setup wizard, before configuring anything else. Mo
 
 Sign in to Apple ID is fine (needed for App Store). Turn off every iCloud service:
 
-- 🔲 System Settings → Apple ID → iCloud → turn off: iCloud Drive, Photos, Mail, Contacts, Calendar, Reminders, Notes, Safari, Passwords & Keychain, Find My Mac, iCloud Backup
+- 🔲 search "iCloud" → turn off: iCloud Drive, Photos, Mail, Contacts, Calendar, Reminders, Notes, Safari, Passwords & Keychain, Find My Mac, iCloud Backup
   - Note: currently not signed-in. Return to if sign in to Apple ID to check
 - 🔲 iCloud+ features (if shown): Private Relay → Off, Hide My Email → Off
 
 ### Apple Intelligence
 
-- ✅ System Settings → Apple Intelligence & Siri → Apple Intelligence → Off
+- ✅ search "Apple Intelligence" → Apple Intelligence → Off
 - ✅ Writing Tools: disabled automatically when Apple Intelligence is off
 - ✅ If the option to turn off is greyed out, set Siri to off first
 
 ### Siri
 
-- ✅ System Settings → Apple Intelligence & Siri → Siri → Off
-- 🔲 Remove Siri from menu bar: System Settings → Control Centre → Siri → Don't Show in Menu Bar
+- ✅ search "Siri" → Siri → Off
+- ✅ Remove Siri from menu bar: search "Siri" → Control Centre → Don't Show in Menu Bar
   - Note: don't see it in menu bar settings
-- 🔲 Keyboard shortcut: System Settings → Keyboard → Keyboard Shortcuts → Siri → disable all
+- ✅ Keyboard shortcut: search "Siri" → Keyboard Shortcuts → disable all
   - Note: Don't see it in keyboard shortcuts
-- ✅ Improve Siri & Dictation: System Settings → Privacy & Security → Analytics & Improvements → Improve Siri & Dictation → Off
+- ✅ Improve Siri & Dictation: search "Analytics" → Improve Siri & Dictation → Off
 
 ### Handoff and Continuity
 
 All of these require other Apple devices — none apply here.
 
-- ✅ System Settings → General → AirPlay & Handoff → Allow Handoff → Off
-- ✅ System Settings → General → AirPlay & Handoff → AirPlay Receiver → Off
-- ✅ System Settings → General → AirPlay & Handoff → Continuity Camera → Off
-- ✅ iPhone Mirroring (Sequoia): System Settings → iPhone Mirroring → disable if present
+- ✅ search "Handoff" → Allow Handoff → Off
+- ✅ search "Handoff" → AirPlay Receiver → Off
+- ✅ search "Handoff" → Continuity Camera → Off
+- ✅ iPhone Mirroring (Sequoia): search "iPhone Mirroring" → disable if present
 
 ### Spotlight data collection
 
 Spotlight sends queries to Apple by default. Disable the network features:
 
-- ✅ System Settings → Siri & Spotlight → Spotlight → uncheck: Siri Suggestions, Bing Web Searches, Allow Spotlight Suggestions in Look Up
+- ✅ search "Spotlight" → uncheck: Siri Suggestions, Bing Web Searches, Allow Spotlight Suggestions in Look Up
 - 🔲 Limit search categories: uncheck anything not local (News, Siri Suggestions, Websites)
-  - Note: I think everything is local after show related content and help help improve search turned off (but not sure)
+  - Note: I think everything is local after show related content and help improve search turned off (but not sure)
 
 ### Stage Manager
 
 Not useful for a keyboard-driven workflow — off by default but confirm:
 
-- ✅ System Settings → Desktop & Dock → Stage Manager → Off
+- ✅ search "Stage Manager" → Stage Manager → Off
 
 ### Screen Time
 
 Only useful for parental controls:
 
-- 🔲 System Settings → Screen Time → Off
+- ✅ search "Screen Time" → Off
 
 ### Game Center
 
-- ✅ System Settings → Game Center → Off (or just don't sign in)
+- ✅ search "Game Center" → Off (or just don't sign in)
 
 ### Notification Center widgets
 
@@ -94,7 +94,7 @@ Note: most Apple apps cannot be fully uninstalled on macOS; removing from Dock i
 
 ### Sharing and remote access — disable all unused services
 
-- ✅ System Settings → General → Sharing:
+- ✅ search "Sharing":
   - Screen Sharing → Off
   - File Sharing → Off
   - Media Sharing → Off
@@ -104,18 +104,19 @@ Note: most Apple apps cannot be fully uninstalled on macOS; removing from Dock i
   - Internet Sharing → Off
   - Printer Sharing → Off
   - Content Caching → Off
-- ✅ AirDrop: System Settings → General → AirDrop & Handoff → AirDrop → No One
+- ✅ AirDrop: search "AirDrop" → AirDrop → No One
 
 ---
 
 ## Appearance
 
-- ✅ Dark mode: System Settings → Appearance → Dark **(known)**
-- ✅ Accent color: System Settings → Appearance → **(decide)** choose closest to Gruvbox orange/yellow, or multicolor
-- ✅ Wallpaper: set background to solid black — System Settings → Wallpaper → Colour → black **(known: current wallpaper is a solid black PNG, no file transfer needed)**
-- ✅ Cursor size: System Settings → Accessibility → Display → Pointer size
+- ✅ Dark mode: search "Appearance" → Dark **(known)**
+- ✅ Accent color: search "Appearance" → **(decide)** choose closest to Gruvbox orange/yellow, or multicolor
+- ✅ Wallpaper: set background to solid black — search "Wallpaper" → Colour → black **(known: current wallpaper is a solid black PNG, no file transfer needed)**
+- ✅ Cursor size: search "Pointer size"
 - ✅ Remove animations
-  - NOTE: Removed "motions" from settings, can also reduce further through terminal config commands but didn't go that far
+  - `defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false` to stop animations with new window
+  - Cues specific to size or minimize didn't work with change window size or minimize 
 
 ---
 
@@ -123,13 +124,13 @@ Note: most Apple apps cannot be fully uninstalled on macOS; removing from Dock i
 
 On Linux, `text-scaling-factor=1.25` — text is 25% larger than default. Replicate on Mac:
 
-- ✅ System Settings → Displays → **(decide)** use a scaled resolution that gives more breathing room, or
+- ✅ search "Displays" → **(decide)** use a scaled resolution that gives more breathing room, or
 
 ---
 
 ## Dock
 
-- ✅ Auto-hide: System Settings → Desktop & Dock → Automatically hide and show the Dock → On
+- ✅ Auto-hide: search "Dock" → Automatically hide and show the Dock → On
 - ✅ Set a long hover delay so the Dock never appears — run in Terminal:
   `defaults write com.apple.dock autohide-delay -float 1000 && killall Dock`
   - Toggle the Dock on demand with `Cmd+Option+D`.
@@ -141,15 +142,16 @@ On Linux, `text-scaling-factor=1.25` — text is 25% larger than default. Replic
   - Note: need to return to after applications installed
 - 🔲 Add Google Sheets as a PWA: in Chrome, open sheets.google.com → address bar menu → Save and share → Add to Dock **(known: pinned on Linux)**
   - Note: still evaluating which spreadsheet program I'll use. Return to this when a spreadsheet program is added
-- ✅ "Show recent applications in Dock" → Off
+- ✅ search "Dock" → Show recent applications in Dock → Off
 
 ---
 
 ## Menu bar
 
-- 🔲 Clock: show weekday → On; 24-hour format **(decide)**; System Settings → Control Centre → Clock **(known: weekday shown on Linux)**
-- 🔲 Battery percentage → On **(known)**
-- 🔲 Spotlight: hide from menu bar if replacing with Raycast **(decide)**
+- ✅ Clock: show weekday → On; search "Clock" 
+- ✅ 24-hour time: search "24-hour" 
+- 🔲 Battery percentage → On; search "Battery" **(known)**
+- 🔲 Spotlight: hide from menu bar if replacing with Raycast — search "Spotlight" **(decide)**
 - 🔲 Review all menu bar icons once apps are installed — hide anything unnecessary
 
 ---
@@ -158,32 +160,38 @@ On Linux, `text-scaling-factor=1.25` — text is 25% larger than default. Replic
 
 ### Typing behaviour
 
-- 🔲 Key repeat rate: System Settings → Keyboard → Key Repeat Rate → Fast (maximum)
-- 🔲 Delay until repeat: System Settings → Keyboard → Delay Until Repeat → Short (minimum)
-- 🔲 Disable autocorrect: System Settings → Keyboard → Text Input → Edit → turn off auto-correct, auto-capitalise, smart quotes
+- 🔲 Key repeat rate: search "Key Repeat" → Key Repeat Rate → Fast (maximum)
+- 🔲 Delay until repeat: search "Key Repeat" → Delay Until Repeat → Short (minimum)
+- ✅ Disable autocorrect: search "Text Input" → Edit → turn off each:
+  - Correct spelling automatically
+  - Capitalise words automatically
+  - Add full stop with double-space
+  - Use smart quotes and dashes
 
 ### Modifier keys
 
 - 🔲 **(decide)** Caps Lock: remap to Escape (useful for vim) or leave as Caps Lock
-  - System Settings → Keyboard → Keyboard Shortcuts → Modifier Keys
+  - search "Modifier Keys"
 
 ### Function keys
 
-- 🔲 **(decide)** F1–F12 as standard function keys or media/system keys (Mac default is media keys; press Fn for F1–F12)
+- ✅ **(decide)** F1–F12 as standard function keys or media/system keys (Mac default is media keys; press Fn for F1–F12)
   - Standard F keys are useful if you use F-key shortcuts in VS Code
+  - search "Function Keys"
 
 ### Input sources
 
-- 🔲 Add Chinese input: System Settings → Keyboard → Text Input → Edit → add Pinyin - Simplified
+- ✅ Add Chinese input: search "Input Sources" → Edit → add Pinyin - Simplified
 - 🔲 **(decide)** Shortcut to switch input sources — default is Ctrl+Space which conflicts with many tools; remap
+  - NOTE: come back to later if running into conflicts. Otherwise leave at `Ctrl+Space`
 
 ### Keyboard shortcuts — system level
 
-Target equivalents for Linux keybindings from dconf. Set in System Settings → Keyboard → Keyboard Shortcuts, or via Raycast/Hammerspoon for anything macOS doesn't support natively.
+Target equivalents for Linux keybindings from dconf. Set via search "Keyboard Shortcuts", or via Raycast/Hammerspoon for anything macOS doesn't support natively.
 
-- 🔲 Show desktop: `Super+M` on Linux → `Mission Control` shortcut or **(decide)** equivalent
+- 🔲 Show desktop: `Super+M` on Linux → Mission Control shortcut or **(decide)** equivalent
 - 🔲 Switch workspace left/right: `Alt+Super+←/→` on Linux → `Ctrl+←/→` (macOS default for Spaces) or remap
-- 🔲 Move window to workspace left/right: `Shift+Alt+Super+←/→` on Linux → **(decide)** remap in System Settings
+- 🔲 Move window to workspace left/right: `Shift+Alt+Super+←/→` on Linux → **(decide)** remap via search "Keyboard Shortcuts"
 - 🔲 Volume up/down: `Ctrl+Super+↑/↓` on Linux → macOS F11/F12 (or function keys if remapped); **(decide)** whether to replicate the Linux combo
 - 🔲 Screenshot: `Shift+Super+S` on Linux → `Cmd+Shift+4` (macOS default for region screenshot) — close enough, no change needed
 - 🔲 App switcher: set to current Space only — **(decide)** achieve via Mission Control settings
@@ -202,10 +210,10 @@ On Linux, `Super+1` raised Kitty at the GNOME level. macOS has no built-in equiv
 ## Trackpad
 
 - ✅ Tap to click: Off **(known: disabled on Linux)**
-- ✅ Tracking speed: adjust to preference
-- ✅ Scroll direction: Natural Scrolling → **On** (matches Linux — `natural-scroll=true` in dconf) **(known)**
-- ✅ Three-finger drag: System Settings → Accessibility → Pointer Control → Trackpad Options → Use trackpad for dragging → Three Finger Drag **(decide)**
-  - Note: this is new to me, but I like it. Create a mouse setting section and note this so I can reference later. 
+- ✅ Tracking speed: adjust to preference; search "Trackpad"
+- ✅ Scroll direction: Natural Scrolling → **On** (matches Linux — `natural-scroll=true` in dconf) **(known)**; search "Trackpad"
+- ✅ Three-finger drag: search "three finger drag" → Use trackpad for dragging → Three Finger Drag **(decide)**
+  - Note: this is new to me, but I like it.
 - ✅ Click method: two-finger right-click **(known: `click-method='fingers'` on Linux)**
 - 🔲 **(decide)** Review other gestures: swipe between Spaces, Mission Control, etc.
 
@@ -227,22 +235,22 @@ On Linux, `Super+1` raised Kitty at the GNOME level. macOS has no built-in equiv
 
 ## Hot corners
 
-- 🔲 Disable all hot corners — System Settings → Desktop & Dock → Hot Corners → set all to `-` **(known: no hot corners configured on Linux)**
+- 🔲 Disable all hot corners — search "Hot Corners" → set all to `-` **(known: no hot corners configured on Linux)**
 
 ---
 
 ## Mission Control and Spaces
 
 - 🔲 Number of Spaces: 2 **(known: `num-workspaces=2` on Linux)**
-- 🔲 "Automatically rearrange Spaces based on most recent use" → Off — otherwise Spaces reorder and become unpredictable
-- 🔲 "Group windows by application" → **(decide)**
+- 🔲 search "Mission Control" → Automatically rearrange Spaces based on most recent use → Off — otherwise Spaces reorder and become unpredictable
+- 🔲 Group windows by application → **(decide)**
 - 🔲 App switcher shows current Space only: **(known: `current-workspace-only=true` on Linux)** — **(decide)** how to replicate; not a direct macOS setting but AltTab (if installed) supports this
 
 ---
 
 ## Notifications
 
-- 🔲 Global banners: Off **(known: `show-banners=false` on Linux)**
+- 🔲 Global banners: search "Notifications" → Off **(known: `show-banners=false` on Linux)**
 - 🔲 Show in lock screen: Off **(known)**
 - 🔲 Per-app after installing — based on Linux config, enable notifications only for:
   - VS Code **(known: enabled)**
@@ -255,51 +263,52 @@ On Linux, `Super+1` raised Kitty at the GNOME level. macOS has no built-in equiv
 
 ## Screen lock
 
-- 🔲 Require password after sleep: **(known: lock disabled on Linux — `lock-enabled=false`)** → set to your preference; no lock on Linux means you may want a long delay rather than immediate on Mac
-- 🔲 Screen saver: Off — System Settings → Screen Saver → Never
+- 🔲 Require password after sleep: **(known: lock disabled on Linux — `lock-enabled=false`)** → set to your preference; search "Lock Screen"
+- 🔲 Screen saver: Off — search "Screen Saver" → Never
 
 ---
 
 ## Power and sleep
 
-- 🔲 On AC power: display sleep → **(decide)**; system sleep → Never **(known: `sleep-inactive-ac-type='nothing'` on Linux)**
+- 🔲 On AC power: display sleep → **(decide)**; system sleep → Never **(known: `sleep-inactive-ac-type='nothing'` on Linux)**; search "Battery"
 - 🔲 On battery: system sleep after 30 minutes **(known: `sleep-inactive-battery-timeout=1800` on Linux)**
-- 🔲 Dim display: Off **(known: `idle-dim=false` on Linux)**
+- 🔲 Dim display: Off **(known: `idle-dim=false` on Linux)**; search "display brightness"
 - 🔲 Ambient light sensor: Off **(known: `ambient-enabled=false` on Linux)**
 
 ---
 
 ## Sound
 
-- 🔲 System Settings → Sound → Sound Effects → Alert volume → 0, Play user interface sound effects → Off **(known: `event-sounds=false` on Linux)**
+- 🔲 search "Sound" → Sound Effects → Alert volume → 0, Play user interface sound effects → Off **(known: `event-sounds=false` on Linux)**
 - 🔲 Startup chime: Off by default on modern Macs
 
 ---
 
 ## Security
 
-- 🔲 Firewall: System Settings → Network → Firewall → On
-- 🔲 Gatekeeper: approve Homebrew cask installs via System Settings → Privacy & Security when prompted
+- 🔲 Firewall: search "Firewall" → On
+- 🔲 Gatekeeper: approve Homebrew cask installs via search "Privacy & Security" when prompted
+
 ---
 
 ## Privacy and telemetry
 
-- 🔲 System Settings → Privacy & Security → Analytics & Improvements:
+- 🔲 search "Analytics":
   - Share Mac Analytics → Off
   - Improve Siri & Dictation → Off
   - Share with App Developers → Off
   - Share iCloud Analytics → Off
-- 🔲 System Settings → Privacy & Security → Apple Advertising → Personalised Ads → Off
-- 🔲 System Settings → Privacy & Security → Location Services → review per-app; disable for anything that doesn't need it
-- 🔲 System Settings → Privacy & Security → Research Sensor & Usage Data → Off (if present)
+- 🔲 search "Advertising" → Personalised Ads → Off
+- 🔲 search "Location Services" → review per-app; disable for anything that doesn't need it
+- 🔲 search "Research Sensor" → Off (if present)
 
 ---
 
 ## Displays
 
 - 🔲 Resolution: see Text scaling section above — use scaled resolution if text is too small
-- 🔲 True Tone: **(decide)** adjusts white balance to ambient light; `ambient-enabled=false` on Linux suggests Off
-- 🔲 Night Shift: **(decide)**
+- 🔲 True Tone: **(decide)** adjusts white balance to ambient light; `ambient-enabled=false` on Linux suggests Off; search "True Tone"
+- 🔲 Night Shift: **(decide)**; search "Night Shift"
 
 ---
 

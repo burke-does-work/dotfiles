@@ -1,6 +1,6 @@
 # System Overview
 
-All tools use the Gruvbox Dark Hard color scheme and JetBrains Mono Nerd Font for visual consistency.
+All tools use the Gruvbox Dark Hard color scheme and CommitMono Nerd Font for visual consistency.
 
 ---
 
@@ -13,9 +13,7 @@ The shell is the center of the environment. Key design decisions:
 - **Vi mode** — press `Esc` to enter normal mode at the command line. Enables vim motions for editing commands. Cursor changes shape (block in normal, line in insert) to show which mode you're in.
 - **Antidote** — plugin manager. Loads four plugins in order: completions → fzf-tab → autosuggestions → syntax highlighting. Order matters.
 - **fzf integration** — fuzzy search over command history (`Ctrl+R`) and files (`Ctrl+T`). Tab completion uses fzf-tab for a visual dropdown.
-- **Wayland clipboard sync** — yank/delete in zsh vi-mode syncs to the system clipboard so you can paste into any app.
-- **Pyenv** — manages Python. Version 3.13.12. Activates automatically per directory if a `.python-version` file exists.
-- **Startup `cd`** — if the encrypted SSD (`/mnt/ssd2_data`) is mounted at login, the shell starts there automatically.
+- **macOS clipboard sync** — yank/delete in zsh vi-mode pipes through `pbcopy`/`pbpaste` to the system clipboard so you can paste into any app.
 
 ---
 
