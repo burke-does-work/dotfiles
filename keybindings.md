@@ -45,11 +45,20 @@ Applies in VS Code and Neovim only. Not implemented in zsh (ZLE has no operator-
 | \<Space\>c | Change (operator) to blackhole     |
 | \<Space\>C | Change to end of line to blackhole |
 
-## GNOME
+## Window Management
 
-| Shortcut | Action                  |
-| -------- | ----------------------- |
-| Super+1  | Raise Ghostty terminal  |
+Bindings live in Raycast (not macOS native) — Raycast handles Electron apps correctly.
+
+| Shortcut             | Action                          |
+| -------------------- | ------------------------------- |
+| Ctrl+Cmd+Shift+↑     | Maximize window                 |
+| Cmd+Option+←/→       | Switch Space left/right         |
+| Cmd+Option+Shift+←/→ | Move window to Space left/right |
+| Cmd+Option+↑         | Mission Control overview        |
+| Shift+Option+Space   | Search open windows (Raycast)   |
+| Cmd+M                | Show desktop                    |
+
+Tiling (halves/quarters): set in Raycast → Window Management.
 
 ## Ghostty
 
@@ -115,14 +124,84 @@ Applies in VS Code and Neovim only. Not implemented in zsh (ZLE has no operator-
 
 Advanced setting enabled: **"Don't let pages steal the focus on load"** — prevents sites like ChatGPT from auto-focusing their input box, allowing Vimium to take precedence.
 
-| Shortcut    | Action                          |
-| ----------- | ------------------------------- |
-| o           | Open URL in current tab         |
-| O           | Open URL in new tab             |
-| T           | Search open tabs                |
-| yf          | Copy link (works on focus-stealing pages) |
-| f           | Open link in current tab        |
-| F           | Open link in new tab            |
+### Page navigation
+
+| Shortcut | Action                                    |
+| -------- | ----------------------------------------- |
+| ?        | Show help dialog                          |
+| h/j/k/l  | Scroll left/down/up/right                 |
+| gg / G   | Scroll to top / bottom of page            |
+| d / u    | Scroll half page down / up                |
+| zH / zL  | Scroll all the way left / right           |
+| f        | Open link in current tab                  |
+| F        | Open link in new tab                      |
+| yf       | Copy link URL (works on focus-stealing pages) |
+| r        | Reload page                               |
+| R        | Hard reload (skip cache)                  |
+| gs       | View page source                          |
+| i        | Enter insert mode (ignore commands until Esc) |
+| yy       | Copy current URL to clipboard             |
+| gf / gF  | Cycle to next frame / focus main frame    |
+
+### Vomnibar (open pages)
+
+| Shortcut | Action                                       |
+| -------- | -------------------------------------------- |
+| o        | Open URL, bookmark, or history entry         |
+| O        | Open URL, bookmark, or history entry in new tab |
+| b        | Open bookmark                                |
+| B        | Open bookmark in new tab                     |
+| T        | Search open tabs                             |
+| ge       | Edit current URL                             |
+| gE       | Edit current URL, open in new tab            |
+
+### Find
+
+| Shortcut | Action                          |
+| -------- | ------------------------------- |
+| /        | Enter find mode                 |
+| n / N    | Next / previous match           |
+
+### History
+
+| Shortcut | Action                |
+| -------- | --------------------- |
+| H        | Go back               |
+| L        | Go forward            |
+
+### Tabs
+
+| Shortcut | Action                                     |
+| -------- | ------------------------------------------ |
+| t        | Create new tab                             |
+| x        | Close current tab                          |
+| X        | Restore closed tab                         |
+| J / gT   | Tab left                                   |
+| K / gt   | Tab right                                  |
+| g0       | First tab (`ng0` for n-th tab)             |
+| g$       | Last tab                                   |
+| ^        | Previously-visited tab                     |
+| yt       | Duplicate tab                              |
+| W        | Move tab to new window                     |
+| \<a-p\>  | Pin / unpin tab                            |
+
+### Marks
+
+| Shortcut    | Action                                          |
+| ----------- | ----------------------------------------------- |
+| ma / mA     | Set local mark `a` / global mark `A`            |
+| `` `a ``    | Jump to local mark `a` (uppercase = global)     |
+| `` `` ``    | Jump back to position before previous jump      |
+
+### Advanced
+
+| Shortcut | Action                                 |
+| -------- | -------------------------------------- |
+| ]] / [[  | Follow 'next' / 'previous' link labels |
+| \<a-f\>  | Open multiple links in new tabs        |
+| gi       | Focus first (or n-th) text input       |
+| gu / gU  | Up one URL level / to URL root         |
+| v / V    | Visual mode / visual line mode         |
 
 **Known limitation:** Vimium conflicts with Google Sheets — Sheets keybindings won't work while Vimium is active. Workaround TBD.
 

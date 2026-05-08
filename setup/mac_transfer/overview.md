@@ -22,38 +22,56 @@ I decided to go Mac because the quality of the hardware is now surpassing the eq
 
 **Important**: Copying will be intentional, there's not wholesale copying of directories. For example, don't just copy-paste all of `home/matt/`
 
-System and philosophy alignment:
+## Core Philosophy
+
+### Psychology
 
 - I don't like being told what is best for me, and I know what it best for me more than Apple does.
-- That said, there is a time and effort trade-off to fighting Apple with complicated workaround. I accept that I'll have to adapt to the Mac to some extent.
+- That said, there is a time and effort trade-off to fighting Apple with complicated workarounds. I accept that I'll have to adapt to the Mac to some extent.
 
-## Plan
+### In practice
 
-### Files
+- Treat the Mac as a Linux machine with a Mac desktop — accept macOS's desktop layer (Spaces, menu bar, trackpad, app ecosystem) as a replacement for Gnome/WM, but Linuxify everything below and around it.
+- A separate client-issued Windows machine is used for one client due to security requirements. It is treated as a distinct physical context — no attempt to unify muscle memory across Mac and Windows, except noting that Linux & Windows share some keyboard workflow.
 
-- Copy raw files. Identify which files will go to the `pickle-pi` NFS and not the Mac. Use an external drive. 
+## Window Management
 
-### Other
+**Model**: One app, full screen by default. No tiling, no multiple simultaneous windows — intentional focus discipline.
 
-- Create a name for the new computer.
+**Exceptions**:
+- Two windows side-by-side occasionally, for direct comparison
+- Second monitor as dedicated visualization display during data analysis
 
-### Apps
+**Tooling**:
+- Raycast Window Management for snap/maximize. macOS Sequoia native tiling tested but abandoned — Electron apps (VS Code) intercept the Fill keystroke and go fullscreen instead of resizing. Rectangle also tested and uninstalled.
+- yabai explicitly ruled out — tiling WM is in conflict with single-focus workflow
 
-- Inventory existing apps.
-- Inventory additional apps - apps not available on Linux but available on Macs
-- CLI tools like `git`, `curl`, etc.
+**Verdict**: Raycast WM bound for maximize (default) and snap-to-half (comparison). See `macos_settings.md`.
 
-### Settings
+---
 
-- Copy over all dotfiles from this repo
+## Domain Decisions
 
-### OS level
+| Domain | Approach |
+|---|---|
+| Package management | Homebrew (`brew`) = `apt` |
+| Shell & dotfiles | Same as Linux, same repo |
+| Terminal | Ghostty |
+| File navigation | CLI-first; Finder used when necessary |
+| System monitoring | `btop`, `htop`, `lsof` — not Activity Monitor |
+| Config | `defaults write`, dotfiles; avoid GUI-only config |
+| App launcher | Raycast |
+| Window management | Raycast |
 
-- Keybindings
-- Docking station
-- Encryption
-- Uninstall and/or switch off garbage and bloat
+---
 
-### Clean matt-9000
+## Accept as "Mac Desktop Layer"
 
-Computer won't be wiped clean, and it'll likely still operate on the network in some form. However, unneeded files, keys, applications etc. should be removed
+These have no Linux equivalent and are not worth fighting:
+
+- **Spaces** — virtual desktop implementation; serves the same role as i3 workspaces
+- **Trackpad gestures** — hardware advantage, lean in
+- **Menu bar** — app-level menus are how Mac apps work
+
+---
+

@@ -7,14 +7,12 @@ Steps marked **(Claude)** mean ask Claude to do the work. All others you do your
 ### Reference files
 
 - `apps.md` — install checklist; open it when a phase says to install apps
-- `files.md` — what to copy from matt-9000; fill in and refer to during Phases 0–1 and 13
 - `macos_settings.md` — full settings checklist; started in Phase 2, completed in Phase 5
 
 ---
 
 ## Phase 0 — Prep (before Mac arrives)
 
-- ✅ → `files.md`: fill in the ssd2_data section — list what you're copying to USB
 - ✅ Gather USB drive, format as exFAT
   - Note: after formatting with `parted` on Linux, must set GPT partition type to `0700` (Microsoft Basic Data) with `sudo sgdisk --typecode=1:0700 /dev/sdX` — otherwise macOS sees "Linux Filesystem" and refuses to mount
 
@@ -23,7 +21,7 @@ Steps marked **(Claude)** mean ask Claude to do the work. All others you do your
 ## Phase 1 — File transfer (on matt-9000)
 
 - ✅ Mount `/mnt/ssd2_data`
-- ✅ → `files.md`: copy everything marked `[mac]` or `[both]` to USB
+- ✅ Copy everything marked `[mac]` or `[both]` to USB
 
 ---
 
@@ -56,6 +54,14 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 - Note: `~` is config only; `~/local` is for all actual files (projects, documents, media) — mirrors the Linux two-drive split on a single drive
 - Note: default macOS home folders (`Movies`, `Music`, `Public`) cannot be deleted — SIP (System Integrity Protection) blocks it even with `sudo`. Leave them empty and ignore them.
 
+Specifics:
+
+- `/mnt/ssd2_data/` → `~/local/` — all actual files (documents, projects, media)
+- `~/` config files → `~/` (same structure, path changes from `/home/matt/` to `/Users/matt/`)
+- `/mnt/nfs/drive_data/` → NFS mount from pickle-pi (Phase 11)
+- `/mnt/nfs/hdd_data/` → NFS mount from pickle-pi (Phase 11)
+
+
 ### Dotfiles — clone (required for VS Code and Claude config)
 
 - ✅ Clone via HTTPS (SSH not set up yet): `git clone https://github.com/burke-does-work/dotfiles.git ~/local/dotfiles`
@@ -64,18 +70,14 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ### Chrome
 
-- ✅ `brew install --cask google-chrome`
-- ✅ Open Chrome → sign in to Google account (syncs bookmarks and history)
-  - Note: I don't sign into Google in Chrome.
-- ✅ Set as default browser when prompted, or: System Settings → Desktop & Dock → Default web browser → Google Chrome
-- ✅ Install extensions:
-  - ✅ Vimium
-  - ✅ 1Password
-  - ✅ Simple New Tab URL (or set new tab to blank)
+Install and extensions: → `apps.md`
+
+- ✅ Set as default browser: System Settings → Desktop & Dock → Default web browser → Google Chrome
 
 ### VS Code
 
-- ✅ `brew install --cask visual-studio-code`
+Install: → `apps.md`
+
 - ✅ Symlink global settings: `ln -sf /Users/matt/local/dotfiles/config/Code/global/settings.json "/Users/matt/Library/Application Support/Code/User/settings.json"`
 - ✅ Symlink global keybindings: `ln -sf /Users/matt/local/dotfiles/config/Code/global/keybindings.json "/Users/matt/Library/Application Support/Code/User/keybindings.json"`
 - ✅ Create "matt" profile in VS Code (profile ID: `-2716422f`), symlink profile config:
@@ -86,13 +88,14 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ### Claude Code
 
-- ✅ `brew install node`
-- ✅ `npm install -g @anthropic-ai/claude-code`
+Install: → `apps.md`
+
 - ✅ Launch `claude` — enter API key when prompted
 - ✅ Mac Claude settings created: `config/claude/settings.mac.json`
 - ✅ Symlink: `ln -sf /Users/matt/local/dotfiles/config/claude/settings.mac.json /Users/matt/.claude/settings.json`
 - ✅ Linux Claude settings symlinked to dotfiles: `ln -sf /home/matt/dotfiles/config/claude/settings.json /home/matt/.claude/settings.json`
 - ✅ Global CLAUDE.md symlinked: `ln -sf /Users/matt/local/dotfiles/config/claude/CLAUDE.md /Users/matt/.claude/CLAUDE.md` (Linux: same with `/home/matt/dotfiles/...`)
+- 🔲 Update Claude Code keybindings — Claude is a text-based app but runs in Ghostty (excluded from the Ctrl↔Cmd swap), so its default Ctrl-prefixed bindings don't match the bottom-left = Cmd ergonomics used elsewhere. Audit and adjust in `config/claude/settings.mac.json`.
 
 ### Files from USB
 
@@ -104,9 +107,8 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ## Phase 5 — Terminal
 
-- ✅ `brew install --cask ghostty`
-- ✅ `brew install --cask font-jetbrains-mono-nerd-font`
-- ✅ `brew install --cask font-commit-mono-nerd-font` — new default font
+Install: → `apps.md`
+
 - ✅ Set Ghostty font: `font-family = CommitMono Nerd Font`, `font-feature = calt`
 - 🔲 Configure Ghostty — review built-in keybindings before overriding; port from Kitty config intentionally **(Claude)**
 - 🔲 Update `keybindings.md` — Ghostty section **(Claude)**
@@ -116,14 +118,14 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 ## Phase 6 — Complete macOS settings
 
 - 🔲 → `macos_settings.md`: resume from where Phase 2 paused — work through every remaining section
-- 🔲 Update `keybindings.md` — macOS OS-level bindings **(Claude)**
-- Remove press and hold keys (breaks VIM keybindings): `defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false`
+- ✅ Remove press and hold keys (breaks VIM keybindings): `defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false`
 
 ---
 
 ## Phase 7 — Shell
 
-- ✅ `brew install antidote starship fzf zoxide`
+Install: → `apps.md`
+
 - ✅ Dotfiles already cloned in Phase 4
 - ✅ Create Mac `zshrc` **(Claude)** — adapts from Linux: pbcopy/pbpaste clipboard, Homebrew PATH, Homebrew antidote source path; removes wl-clipboard, GNOME aliases, ssd2_data startup cd, pyenv block; includes `export PATH="/opt/homebrew/opt/trash/bin:$PATH"` (`trash` is keg-only). NFS aliases deferred to Phase 11.
 - ✅ Symlinks: `ln -s /Users/matt/local/dotfiles/zshrc_maodou-mac ~/.zshrc` and `ln -s /Users/matt/local/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt`
@@ -133,7 +135,7 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ## Phase 8 — CLI tools
 
-- 🔲 → `apps.md` — CLI tools section: install everything (batch brew install command) **(Claude)**
+- ✅ → `apps.md` — CLI tools section: install everything (batch brew install command) **(Claude)**
 - ✅ Verify: `git --version`, `gh --version`, `rg --version`, `yazi --version`
 - 🔲 Symlink Yazi config **(Claude)**; update Yazi trash binding: `trash-put` → `trash`
 
@@ -149,16 +151,17 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ### Neovim
 
-- 🔲 `brew install neovim`
+Install: → `apps.md`
+
 - 🔲 `ln -s ~/local/dotfiles/config/nvim ~/.config/nvim`
 - 🔲 Open nvim — lazy.nvim bootstraps and installs vim-table-mode automatically
 - 🔲 Verify clipboard (`"+p`, leader bindings)
 
 ### Sublime Text
 
-- 🔲 `brew install --cask sublime-text`
-- 🔲 Copy from USB: `Preferences.sublime-settings` and `Package Control.sublime-settings` → `~/Library/Application Support/Sublime Text/Packages/User/`
-- 🔲 Launch Sublime — Package Control will auto-install MarkdownEditing
+Install: → `apps.md`
+
+- ✅ Launch Sublime, install package control, then Gruvbox and MarkdownEditing
 
 ---
 
@@ -185,7 +188,6 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ## Phase 12 — Files from USB — complete
 
-- 🔲 → `files.md` — destination paths: copy all remaining `[mac]` and `[both]` items
 - 🔲 Nicotine+ config: copy to `~/Library/Application Support/Nicotine+/`; update all `/home/matt/` paths to `/Users/matt/`
 - 🔲 Add `~/.gitconfig` to dotfiles repo and symlink **(Claude)**
 - 🔲 Symlink gh config: `mkdir -p ~/.config/gh && ln -s ~/local/dotfiles/config/gh/config.yml ~/.config/gh/config.yml`
@@ -201,8 +203,7 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 - 🔲 Google Sheets: open in Chrome → address bar → Save and share → Add to Dock
 - 🔲 1Password: set up
 - 🔲 Nicotine+: open and verify config loaded correctly, confirm download paths
-- 🔲 Adobe Creative Cloud → install Lightroom
-- 🔲 Claude Code settings adapted and symlinked in Phase 4
+- 🔲 Adobe Creative Cloud → install Lightroom from within CC; harden CC per `apps.md` Adobe section
 - 🔲 Set up Claude Code Google MCP integration **(Claude)**
 
 ---
@@ -219,13 +220,7 @@ Get to a working state on the Mac. Do this before continuing the full checklist.
 
 ## Phase 15 — Mac enhancements
 
-→ `apps.md` — Mac enhancements section: install and configure any tools you decided on.
-
-- 🔲 Window tiling tool (if decided)
-- 🔲 Launcher (if decided)
-- 🔲 Window switcher (if decided)
-- 🔲 System monitor (if decided)
-- 🔲 Menubar management (if decided)
+- 🔲 → `macos_settings.md` — Mac enhancements section: complete any 🔲 decisions still open (currently: System monitor — Stats vs CLI tools).
 
 ---
 

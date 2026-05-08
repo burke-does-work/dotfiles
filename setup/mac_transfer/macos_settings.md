@@ -1,317 +1,347 @@
-[//]: # (Style guide: no markdown tables — use lists and descriptions only)
+# macOS Setup — maodou-mac
 
-# macOS Interface Settings — maodou-mac
+## The Stack
 
-Work through each section during Phase 2 of the transfer. Most settings live in System Settings unless noted. Items marked **(known)** reflect confirmed preferences from dconf. Items marked **(decide)** need a choice.
+Each layer handles a distinct scope. Don't route things through the wrong layer.
 
----
+| Layer | Tool | Scope |
+|---|---|---|
+| Modifier + key remapping | Karabiner-Elements | Ctrl ↔ Cmd swap, text nav, per-app rules |
+| App launching / switching | Raycast | Global hotkeys, app raise |
+| Window management | Raycast Window Management | Snap, resize, move, maximize |
+| Mission Control + app menus | System Settings | Spaces, named menu items |
+| Terminal | Ghostty config | Splits, panes, nav |
+| Per-app keybindings | App-specific config | VS Code, browser extensions |
+| Scripted automation | Hammerspoon | Future — install when needed |
 
-## Apple features and ecosystem — disable
+Work through sections in order. Each depends on the previous.
 
-Do this immediately after the setup wizard, before configuring anything else. Most of these features are useless without other Apple devices and all of them send data or add UI clutter.
+*Only use System Settings for: (1) Mission Control / Spaces shortcuts, (2) assigning shortcuts to named app menu items. Everything else is handled by the stack above.*
 
-### Setup wizard — what to skip
-
-- ✅ Migration Assistant: skip — don't transfer from another Mac
-- ✅ Apple Intelligence: skip or Off if prompted
-- ✅ Location Services: skip — configure per-app later if needed
-- ✅ Screen Time: skip
-- ✅ Siri: skip
-- ✅ iCloud: sign in to Apple ID if you want (for App Store access), but decline every individual iCloud service when prompted
-  - Note: cannot sign in until Apple ID reset
-
-### iCloud services
-
-Sign in to Apple ID is fine (needed for App Store). Turn off every iCloud service:
-
-- 🔲 search "iCloud" → turn off: iCloud Drive, Photos, Mail, Contacts, Calendar, Reminders, Notes, Safari, Passwords & Keychain, Find My Mac, iCloud Backup
-  - Note: currently not signed-in. Return to if sign in to Apple ID to check
-- 🔲 iCloud+ features (if shown): Private Relay → Off, Hide My Email → Off
-
-### Apple Intelligence
-
-- ✅ search "Apple Intelligence" → Apple Intelligence → Off
-- ✅ Writing Tools: disabled automatically when Apple Intelligence is off
-- ✅ If the option to turn off is greyed out, set Siri to off first
-
-### Siri
-
-- ✅ search "Siri" → Siri → Off
-- ✅ Remove Siri from menu bar: search "Siri" → Control Centre → Don't Show in Menu Bar
-  - Note: don't see it in menu bar settings
-- ✅ Keyboard shortcut: search "Siri" → Keyboard Shortcuts → disable all
-  - Note: Don't see it in keyboard shortcuts
-- ✅ Improve Siri & Dictation: search "Analytics" → Improve Siri & Dictation → Off
-
-### Handoff and Continuity
-
-All of these require other Apple devices — none apply here.
-
-- ✅ search "Handoff" → Allow Handoff → Off
-- ✅ search "Handoff" → AirPlay Receiver → Off
-- ✅ search "Handoff" → Continuity Camera → Off
-- ✅ iPhone Mirroring (Sequoia): search "iPhone Mirroring" → disable if present
-
-### Spotlight data collection
-
-Spotlight sends queries to Apple by default. Disable the network features:
-
-- ✅ search "Spotlight" → uncheck: Siri Suggestions, Bing Web Searches, Allow Spotlight Suggestions in Look Up
-- 🔲 Limit search categories: uncheck anything not local (News, Siri Suggestions, Websites)
-  - Note: I think everything is local after show related content and help improve search turned off (but not sure)
-
-### Stage Manager
-
-Not useful for a keyboard-driven workflow — off by default but confirm:
-
-- ✅ search "Stage Manager" → Stage Manager → Off
-
-### Screen Time
-
-Only useful for parental controls:
-
-- ✅ search "Screen Time" → Off
-
-### Game Center
-
-- ✅ search "Game Center" → Off (or just don't sign in)
-
-### Notification Center widgets
-
-macOS adds widgets to the Notification Center by default:
-
-- ✅ Open Notification Center (click clock, or swipe from right edge) → scroll to bottom → Edit Widgets → remove all
-
-### Apple apps — remove from Dock and hide
-
-These apps run in the background or clutter the Dock. Remove from Dock (right-click → Remove from Dock); uninstall from Launchpad if desired:
-
-- ✅ Remove from dock
-- 🔲 Uninstall everything possible
-
-Note: most Apple apps cannot be fully uninstalled on macOS; removing from Dock is sufficient.
-  - Note: I want to try to uninstall as much as possible. Need to return to. Removing from the dock for now.
-
-### Sharing and remote access — disable all unused services
-
-- ✅ search "Sharing":
-  - Screen Sharing → Off
-  - File Sharing → Off
-  - Media Sharing → Off
-  - Remote Login (SSH into this Mac) → Off unless intentionally wanted
-  - Remote Management → Off
-  - Bluetooth Sharing → Off
-  - Internet Sharing → Off
-  - Printer Sharing → Off
-  - Content Caching → Off
-- ✅ AirDrop: search "AirDrop" → AirDrop → No One
+User-facing key bindings live in `keybindings.md`. This file documents how each layer is configured plus the OS preferences that aren't input-related.
 
 ---
 
-## Appearance
+## Karabiner-Elements
 
-- ✅ Dark mode: search "Appearance" → Dark **(known)**
-- ✅ Accent color: search "Appearance" → **(decide)** choose closest to Gruvbox orange/yellow, or multicolor
-- ✅ Wallpaper: set background to solid black — search "Wallpaper" → Colour → black **(known: current wallpaper is a solid black PNG, no file transfer needed)**
-- ✅ Cursor size: search "Pointer size"
-- ✅ Remove animations
-  - `defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false` to stop animations with new window
-  - Cues specific to size or minimize didn't work with change window size or minimize 
+*What it does: intercepts key events at the kernel level, before the OS processes anything. All modifier remapping and key rules live here — one layer, no ordering ambiguity with System Settings.*
 
----
+Installed. Config at `~/.config/karabiner/karabiner.json` (symlinked to dotfiles).
 
-## Text scaling
+#### Why
 
-On Linux, `text-scaling-factor=1.25` — text is 25% larger than default. Replicate on Mac:
+Mac defaults to `Cmd` as the primary modifier; Linux uses `Ctrl`. Most CLI tools, tmux, vim-style bindings, and cross-platform apps already speak `Ctrl` — fighting that on Mac with `Cmd` muscle memory creates a split-brain problem specifically in the terminal where you live.
 
-- ✅ search "Displays" → **(decide)** use a scaled resolution that gives more breathing room, or
+The fix: remap the Mac to behave like Linux. The physical layout matches (`Ctrl | Fn | Super | Alt | Space`), and a two-way `Ctrl ↔ Cmd` swap at the modifier-key level means every `Cmd`-prefixed shortcut (clipboard, save, find, new tab, …) is reachable from the bottom-left `Ctrl` key. Excluded apps: `com.apple.Terminal`, `com.mitchellh.ghostty`, `com.microsoft.VSCode` — there `Ctrl+C` stays as SIGINT, `Ctrl+A` stays as readline line-start, and VS Code's Ctrl-prefixed bindings pass through unchanged.
 
----
+#### Decision: full modifier swap over per-binding remaps
 
-## Dock
+The original rule was per-binding: explicit entries for `Ctrl+C/V/X/A → Cmd+C/V/X/A`. That works for a fixed set but doesn't generalize — every additional shortcut (`Ctrl+S`, `Ctrl+T`, `Ctrl+L`, `Ctrl+W`, …) needs another rule. Swapping `left_control` and `left_command` at the modifier level covers every Ctrl-prefix and Cmd-prefix combo, current and future, with one rule. Per-app exclusion still works the same way.
 
-- ✅ Auto-hide: search "Dock" → Automatically hide and show the Dock → On
-- ✅ Set a long hover delay so the Dock never appears — run in Terminal:
-  `defaults write com.apple.dock autohide-delay -float 1000 && killall Dock`
-  - Toggle the Dock on demand with `Cmd+Option+D`.
-- ✅ Position: **(decide)** bottom / left / right
-- ✅ Size: drag to preferred size
-- ✅ Magnification: Off
-- ✅ Remove all default Apple apps from Dock — right-click each → Remove from Dock. Finder and trash can't be removed.
-- 🔲 Pin these apps (matching Linux dock): Ghostty, Chrome, VS Code, Signal **(known)**
-  - Note: need to return to after applications installed
-- 🔲 Add Google Sheets as a PWA: in Chrome, open sheets.google.com → address bar menu → Save and share → Add to Dock **(known: pinned on Linux)**
-  - Note: still evaluating which spreadsheet program I'll use. Return to this when a spreadsheet program is added
-- ✅ search "Dock" → Show recent applications in Dock → Off
+Karabiner over per-app rebinding still holds: most apps don't expose keybindings (System dialogs, Raycast, web apps inside Chrome). Karabiner remaps once at the input layer and covers them all. Per-app rebinding is reserved for app-specific shortcuts (e.g., VS Code's command palette) where there's no universal convention.
 
----
+#### Physical layout (left side, after remapping)
 
-## Menu bar
+| Physical key | Sends | Role |
+|---|---|---|
+| `Fn` (bottom-left) | `Ctrl` | Primary modifier — clipboard, etc. |
+| `Ctrl` | `Fn` | macOS function key — brightness, volume, Globe |
+| `Cmd` | `Option` | Alt — modifier-key adjacent to space |
+| `Option` | `Cmd` | Super — Raycast, system shortcuts |
 
-- ✅ Clock: show weekday → On; search "Clock" 
-- ✅ 24-hour time: search "24-hour" 
-- 🔲 Battery percentage → On; search "Battery" **(known)**
-- 🔲 Spotlight: hide from menu bar if replacing with Raycast — search "Spotlight" **(decide)**
-- 🔲 Review all menu bar icons once apps are installed — hide anything unnecessary
+Right side of spacebar is unchanged.
 
----
+##### Naming convention
 
-## Keyboard
+Throughout the rest of these docs, key names refer to what's *sent* after the swap — think of it as a sticker placed on top of each key. So `Cmd+S` means "the key now labeled Cmd" (physically the outer `Option` key), `Ctrl+C` means "the key now labeled Ctrl" (physically `Fn`). You don't need to think about the original Mac labels.
 
-### Typing behaviour
+The one exception is `karabiner.json` itself — that file uses original physical names because it sees keys *before* the swap.
 
-- 🔲 Key repeat rate: search "Key Repeat" → Key Repeat Rate → Fast (maximum)
-- 🔲 Delay until repeat: search "Key Repeat" → Delay Until Repeat → Short (minimum)
-- ✅ Disable autocorrect: search "Text Input" → Edit → turn off each:
-  - Correct spelling automatically
-  - Capitalise words automatically
-  - Add full stop with double-space
-  - Use smart quotes and dashes
+#### Active rules
 
-### Modifier keys
+Defined in `config/karabiner/karabiner.json`:
 
-- 🔲 **(decide)** Caps Lock: remap to Escape (useful for vim) or leave as Caps Lock
-  - search "Modifier Keys"
+- **Simple modifications** — swap `Fn`↔`Ctrl` and `Cmd`↔`Option` on the left side
+- **Complex modification — Ctrl ↔ Cmd swap** — two-way swap of the `left_control` and `left_command` modifier keys, excluding `com.apple.Terminal`, `com.mitchellh.ghostty`, and `com.microsoft.VSCode`. In any non-excluded app, the bottom-left `Ctrl` key acts as `Cmd` and the outer-left `Cmd` key acts as `Ctrl`. Subsumes the earlier per-binding `Ctrl+C/V/X/A` rule and covers every other Ctrl- and Cmd-prefixed shortcut at once.
+- **Complex modification — Linux text nav** — `Home/End` → `Cmd+←/→` (line), `Shift+Home/End` → `Cmd+Shift+←/→` (select line), `Ctrl+Home/End` → `Cmd+↑/↓` (document), `Ctrl+←/→` → `Option+←/→` (word), `Ctrl+Shift+←/→` → `Option+Shift+←/→` (select word). Excludes `com.apple.Terminal` and `com.mitchellh.ghostty` (not VS Code — Linux text nav is wanted there). Works in both Cocoa and Electron apps since translation happens at the input layer. Note: in apps where the Ctrl↔Cmd swap is *also* active, the Ctrl-prefix arrow nav is reached from the outer-left key (which now signals `Ctrl`); the bottom-left key signals `Cmd` and produces Mac-native line/document nav directly.
+- **Complex modification — Caps Lock → Hyper** — Caps Lock held = `Cmd+Option+Ctrl+Shift` (the Hyper chord). Tap-for-Escape (common practice for VIM users) is deferred for now.
 
-### Function keys
+#### Symlink note
 
-- ✅ **(decide)** F1–F12 as standard function keys or media/system keys (Mac default is media keys; press Fn for F1–F12)
-  - Standard F keys are useful if you use F-key shortcuts in VS Code
-  - search "Function Keys"
+`~/.config/karabiner` is a *directory* symlink, not a file symlink — Karabiner writes atomically and breaks file-level symlinks. `automatic_backups/` inside the directory is gitignored.
 
-### Input sources
+#### Tasks
 
-- ✅ Add Chinese input: search "Input Sources" → Edit → add Pinyin - Simplified
-- 🔲 **(decide)** Shortcut to switch input sources — default is Ctrl+Space which conflicts with many tools; remap
-  - NOTE: come back to later if running into conflicts. Otherwise leave at `Ctrl+Space`
+- ✅ Configure Karabiner rules
+- ✅ Symlink: `ln -s /Users/matt/local/dotfiles/config/karabiner /Users/matt/.config/karabiner`
+- ✅ Verify: copy/paste in TextEdit, SIGINT in Ghostty
+- 🔲 Verify (Ctrl↔Cmd swap): in Chrome, `Ctrl+T` opens new tab, `Ctrl+L` focuses URL, `Ctrl+W` closes tab; in Ghostty, `Ctrl+C` still SIGINTs; in VS Code, `Ctrl+P` opens command palette (no remap)
 
-### Keyboard shortcuts — system level
+#### Text editing — verify
 
-Target equivalents for Linux keybindings from dconf. Set via search "Keyboard Shortcuts", or via Raycast/Hammerspoon for anything macOS doesn't support natively.
+Karabiner's "Linux text nav" rule handles text navigation. After Karabiner reloads:
 
-- 🔲 Show desktop: `Super+M` on Linux → Mission Control shortcut or **(decide)** equivalent
-- 🔲 Switch workspace left/right: `Alt+Super+←/→` on Linux → `Ctrl+←/→` (macOS default for Spaces) or remap
-- 🔲 Move window to workspace left/right: `Shift+Alt+Super+←/→` on Linux → **(decide)** remap via search "Keyboard Shortcuts"
-- 🔲 Volume up/down: `Ctrl+Super+↑/↓` on Linux → macOS F11/F12 (or function keys if remapped); **(decide)** whether to replicate the Linux combo
-- 🔲 Screenshot: `Shift+Super+S` on Linux → `Cmd+Shift+4` (macOS default for region screenshot) — close enough, no change needed
-- 🔲 App switcher: set to current Space only — **(decide)** achieve via Mission Control settings
-
-### Raising the terminal — equivalent to Super+1 on Linux
-
-On Linux, `Super+1` raised Kitty at the GNOME level. macOS has no built-in equivalent. Options:
-
-- **Raycast** (if adopted): assign a global shortcut to launch/raise Ghostty — e.g., `Cmd+1` or `Option+Space`
-- **Hammerspoon** (free, scriptable): bind any key combo to raise a specific app window; requires Lua config
-
-- 🔲 **(decide)** Global shortcut to raise Ghostty: ___
+- ✅ TextEdit: `Home`/`End` jump to line start/end; `Shift+Home/End` extends selection
+- ✅ TextEdit: `Ctrl+←/→` moves by word; `Ctrl+Shift+←/→` extends word selection
+- ✅ VS Code: same shortcuts work (Electron apps now covered too)
+- ✅ Ghostty: word/line shortcuts pass through unchanged (terminal excluded from rule); shell handles its own bindings
 
 ---
 
-## Trackpad
+## Raycast
 
-- ✅ Tap to click: Off **(known: disabled on Linux)**
-- ✅ Tracking speed: adjust to preference; search "Trackpad"
-- ✅ Scroll direction: Natural Scrolling → **On** (matches Linux — `natural-scroll=true` in dconf) **(known)**; search "Trackpad"
-- ✅ Three-finger drag: search "three finger drag" → Use trackpad for dragging → Three Finger Drag **(decide)**
-  - Note: this is new to me, but I like it.
-- ✅ Click method: two-finger right-click **(known: `click-method='fingers'` on Linux)**
-- 🔲 **(decide)** Review other gestures: swipe between Spaces, Mission Control, etc.
+*What it does: replaces Spotlight; handles app launching and window management via global hotkeys.*
 
----
+Installed and configured — Spotlight shortcut unbound, Raycast hotkey set to `Option+Space`.
 
-## Finder
+#### App switcher
 
-- 🔲 Show hidden files: `Cmd+Shift+.` to toggle; or make permanent: `defaults write com.apple.finder AppleShowAllFiles true && killall Finder`
-- 🔲 Show all file extensions: Finder → Settings → Advanced → Show all filename extensions → On
-- 🔲 Show path bar: Finder menu → View → Show Path Bar
-- 🔲 Show status bar: Finder menu → View → Show Status Bar
-- 🔲 Default view: List view **(known: `default-folder-viewer='list-view'` in dconf)**
-- 🔲 Sort directories first: **(known: `sort-directories-first=true` in dconf)**
-- 🔲 New Finder window opens to: **(decide)** Home folder — Finder → Settings → General
-- 🔲 Sidebar: Finder → Settings → Sidebar — configure to taste
-- 🔲 Remove tags from sidebar if unused
+*What it does: equivalent of `alt-tab`*
 
----
+- ✅ Skipped — don't use the OS app switcher on any platform.
 
-## Hot corners
+#### App hotkeys
 
-- 🔲 Disable all hot corners — search "Hot Corners" → set all to `-` **(known: no hot corners configured on Linux)**
+Find the app in Raycast search → `Cmd+K` → Set Hotkey.
 
----
+- ✅ Assign hotkeys to core apps (Ghostty, browser, editor)
 
-## Mission Control and Spaces
+#### Window Management
 
-- 🔲 Number of Spaces: 2 **(known: `num-workspaces=2` on Linux)**
-- 🔲 search "Mission Control" → Automatically rearrange Spaces based on most recent use → Off — otherwise Spaces reorder and become unpredictable
-- 🔲 Group windows by application → **(decide)**
-- 🔲 App switcher shows current Space only: **(known: `current-workspace-only=true` on Linux)** — **(decide)** how to replicate; not a direct macOS setting but AltTab (if installed) supports this
+Why Raycast and not macOS native: Electron apps (VS Code) intercept the macOS Fill keystroke and route it to fullscreen instead of resizing the window. Raycast's Window Management uses the Accessibility API and works uniformly across all apps. Rectangle also tested and uninstalled — Raycast covers the same ground without adding to the stack. Native macOS Fill is intentionally left unbound.
+
+Set bindings via Raycast → Extensions → Window Management → command → Set Hotkey. Bindings listed in `keybindings.md`.
+
+- ✅ Maximize bound (`Ctrl+Cmd+Shift+↑`)
+- ✅ Move Window to Next/Previous Desktop bound
+- ✅ Tile commands bound (halves, quarters as needed)
+
+Why these key choices:
+
+- **`Ctrl+Cmd+Shift+↑` for Maximize:** fits the tile-direction family (3-modifier chord + arrow); arrow direction reads as "make bigger toward the top." Conflict-free with the text-nav rule and app shortcuts.
+- **`Cmd+Option+Shift+arrow` for moving windows between Spaces:** mnemonic — "Spaces switch chord + Shift = drag the window with you." Avoids the bottom-left-corner-key gamble that Ctrl-containing chords have.
+
+#### Plist note
+
+Don't symlink Raycast's config. The plist (`~/Library/Preferences/com.raycast.macos.plist`) is managed by `cfprefsd`, which caches and rewrites the inode — symlinks there are unreliable. Use Export/Import (or Raycast Pro Cloud Sync) instead.
 
 ---
 
-## Notifications
+## System Settings (Mission Control & app menus)
 
-- 🔲 Global banners: search "Notifications" → Off **(known: `show-banners=false` on Linux)**
-- 🔲 Show in lock screen: Off **(known)**
-- 🔲 Per-app after installing — based on Linux config, enable notifications only for:
-  - VS Code **(known: enabled)**
-  - Nicotine+ **(known: enabled)**
-  - Sublime Text **(known: enabled)**
-  - Signal **(known: disabled on Linux — keep disabled or decide)**
-  - Everything else: Off
+The only things to set in System Settings: Mission Control / Spaces shortcuts, and (rare) per-app menu-item overrides. Mission Control sucks so I set the shortcut but use keyboard shortcuts to switch spaces, then mouse in Mission Control as a backup.
 
----
+#### Mission Control / Spaces shortcuts
 
-## Screen lock
+Set via System Settings → Keyboard → Keyboard Shortcuts → Mission Control. Bindings listed in `keybindings.md`.
 
-- 🔲 Require password after sleep: **(known: lock disabled on Linux — `lock-enabled=false`)** → set to your preference; search "Lock Screen"
-- 🔲 Screen saver: Off — search "Screen Saver" → Never
+- ✅ Switch Space left/right
+- ✅ Mission Control overview — rebound from default `Ctrl+↑` to `Cmd+Option+↑`
+- ✅ Show desktop
 
----
+Why these key choices:
 
-## Power and sleep
+- **`Cmd+Option+arrow` for Spaces:** matches Linux `Alt+Super+arrow` muscle memory (Mac `Cmd` = Linux `Super`, Mac `Option` = Linux `Alt`); doesn't conflict with the text-nav rule.
+- **`Cmd+Option+↑` for Mission Control:** the macOS default `Ctrl+↑` is awkward to reach after the Ctrl↔Cmd swap (the only Ctrl-signal key is now the outer-left `Cmd` key). `Cmd+Option+↑` mirrors the Spaces switch family (`Cmd+Option+←/→`) and keeps the bottom-left + arrow ergonomic pattern. The simpler `Cmd+↑` was considered but rejected — it shadows Cocoa "go to start of document", Finder's "go to enclosing folder", and browser scroll-to-top. Set in System Settings → Keyboard → Keyboard Shortcuts → Mission Control.
 
-- 🔲 On AC power: display sleep → **(decide)**; system sleep → Never **(known: `sleep-inactive-ac-type='nothing'` on Linux)**; search "Battery"
-- 🔲 On battery: system sleep after 30 minutes **(known: `sleep-inactive-battery-timeout=1800` on Linux)**
-- 🔲 Dim display: Off **(known: `idle-dim=false` on Linux)**; search "display brightness"
-- 🔲 Ambient light sensor: Off **(known: `ambient-enabled=false` on Linux)**
+#### Spaces behaviour
+
+System Settings → Desktop & Dock → Mission Control:
+
+- ✅ Automatically rearrange Spaces → Off (Spaces will reorder otherwise)
+- ✅ Number of Spaces: set to 2 *(open Mission Control → click + to add)*
+- ✅ Group windows by application → decide when you get here
 
 ---
 
-## Sound
+## Ghostty (terminal)
 
-- 🔲 search "Sound" → Sound Effects → Alert volume → 0, Play user interface sound effects → Off **(known: `event-sounds=false` on Linux)**
-- 🔲 Startup chime: Off by default on modern Macs
+Config: `~/.config/ghostty/config` *(already ported)*
 
----
-
-## Security
-
-- 🔲 Firewall: search "Firewall" → On
-- 🔲 Gatekeeper: approve Homebrew cask installs via search "Privacy & Security" when prompted
+- 🔲 **Do this before using the terminal.** Ghostty is excluded from the Ctrl↔Cmd swap and the Linux text-nav rule, so `Ctrl+C` keeps SIGINT in the terminal and Ctrl-prefixed bindings pass through to the shell unchanged. `Cmd`-based shortcuts (copy, splits) work as the ported config defines.
+- 🔲 Verify SIGINT: `Ctrl+C` interrupts a running process
+- 🔲 Verify clipboard: `Cmd+C` copies selected text to clipboard
+- 🔲 Verify splits: `Cmd+D` / `Cmd+Shift+D` — check against ported config
 
 ---
 
-## Privacy and telemetry
+## Per-app keybinding overrides
 
-- 🔲 search "Analytics":
-  - Share Mac Analytics → Off
-  - Improve Siri & Dictation → Off
-  - Share with App Developers → Off
-  - Share iCloud Analytics → Off
-- 🔲 search "Advertising" → Personalised Ads → Off
-- 🔲 search "Location Services" → review per-app; disable for anything that doesn't need it
-- 🔲 search "Research Sensor" → Off (if present)
+Reserved for app-specific shortcuts that don't have a universal convention.
 
----
+### VS Code
 
-## Displays
+- VS Code is excluded from the Ctrl↔Cmd swap (`com.microsoft.VSCode`) so its own Ctrl-prefixed bindings (e.g., `Ctrl+P` command palette, `Ctrl+B` sidebar) pass through unchanged. Linux text-nav rule still applies, so `Ctrl+←/→` does word nav.
+- 🔲 Enable Settings Sync (if using) to pull Linux keybindings
+- 🔲 Audit conflicts: `Cmd+←/→` is line nav on Mac; check if it clashes with Space switching
+- 🔲 VS Code has its own keybinding layer (`keybindings.json`) — edit via `Cmd+Shift+P` → "Open Keyboard Shortcuts (JSON)"
 
-- 🔲 Resolution: see Text scaling section above — use scaled resolution if text is too small
-- 🔲 True Tone: **(decide)** adjusts white balance to ambient light; `ambient-enabled=false` on Linux suggests Off; search "True Tone"
-- 🔲 Night Shift: **(decide)**; search "Night Shift"
+### Chrome
+
+- ✅ Tabli (or alternative) installed for tab management
 
 ---
 
-## Sharing and remote access
+## macOS preferences
 
-Covered comprehensively in the "Apple features and ecosystem — disable" section above.
+Non-input OS settings. All ✅ unless marked otherwise.
+
+#### Appearance
+
+- ✅ Dark mode
+- ✅ Wallpaper: solid black
+- ✅ Dock: auto-hidden with long hover delay (`autohide-delay 1000`)
+- ✅ Dock icon bouncing: disabled (`defaults write com.apple.dock no-bouncing -bool TRUE && killall Dock`)
+- ✅ Window animations: disabled
+- ✅ Clock: 24h with weekday
+- ✅ Battery percentage: shown
+- ✅ Display: scaled resolution set
+
+#### Typing
+
+- ✅ Key repeat rate: max
+- ✅ Delay until repeat: min
+- ✅ Autocorrect: off
+- ✅ Smart quotes and dashes: off
+- ✅ Chinese Pinyin input: added
+- ✅ Press-and-hold disabled in VS Code (breaks VIM): `defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false`
+
+#### Modifier / function keys
+
+- ✅ F1–F12: standard function keys
+- ✅ Volume keys: `Fn + F*` for all top-row function keys (no remap needed)
+
+#### Trackpad
+
+- ✅ Tap to click: off
+- ✅ Natural scroll: on
+- ✅ Two-finger right-click: on
+- ✅ Three-finger drag: on
+
+#### Sound
+
+- ✅ Alert volume: 0
+- ✅ UI sounds: off
+- ✅ Power chime: off — `defaults write com.apple.PowerChime ChimeOnNoHardware -bool true && killall PowerChime`
+
+#### Power
+
+- ✅ AC power: never sleep
+- ✅ Battery: sleep after 30 min
+- ✅ Display dim: off
+- ✅ Ambient light sensor: off
+
+#### Privacy
+
+- ✅ Analytics: off
+- ✅ Personalised Ads: off
+- ✅ Crash reporter dialogs: disabled
+- ✅ DNS: switched to Quad9 (`9.9.9.9` / `149.112.112.112`)
+
+#### Security
+
+- ✅ Firewall: on
+- ✅ FileVault: on
+
+#### iCloud
+
+- ✅ Signed in to Apple ID (App Store access only)
+- ✅ All iCloud services off except Find My
+
+#### Finder
+
+- ✅ Show all file extensions: on
+- ✅ Path bar: shown
+- ✅ Status bar: shown
+- ✅ Default view: column
+- ✅ Tags: removed from sidebar
+
+#### System cleanup
+
+- ✅ Karabiner-Elements: installed, permissions approved
+- ✅ Spotlight indexing disabled (`sudo mdutil -a -i off`)
+- ✅ Spotlight shortcut unbound
+- ✅ Siri: off
+- ✅ Apple Intelligence: off
+- ✅ Handoff: off
+- ✅ Continuity Camera: off
+- ✅ AirPlay Receiver: off
+- ✅ Stage Manager: off
+- ✅ Screen Time: off
+- ✅ Game Center: off
+- ✅ Hot corners: all disabled
+- ✅ AirDrop: No One
+- ✅ Notification Center widgets: removed
+
+#### Sharing services — all off
+
+- ✅ Screen Sharing
+- ✅ File Sharing
+- ✅ Remote Login
+- ✅ Remote Management
+- ✅ Bluetooth Sharing
+- ✅ Internet Sharing
+- ✅ Printer Sharing
+- ✅ Content Caching
+
+---
+
+## Mac enhancements
+
+Tooling decisions for Mac-specific jobs that have no Linux equivalent. Most are settled — entries kept here as a record. Install commands live alongside the choice; full configuration for Raycast/Window Management is in the Raycast section above.
+
+### Window tiling
+
+- ✅ Using Raycast Window Management — see Raycast > Window Management above for setup. macOS Sequoia native tiling and Rectangle both tested and abandoned (Electron apps intercept the native Fill keystroke).
+
+### Launcher
+
+- ✅ Raycast — `brew install --cask raycast`; initial setup in `apps.md` Raycast configuration section.
+
+### Window switcher
+
+- ✅ Skipped — don't use the app/window switcher on any OS. Workflow uses Raycast launching + Spaces + window-raise hotkeys instead.
+
+### System monitor
+
+Menubar CPU, RAM, network display.
+
+- Example (free): Stats — `brew install --cask stats`
+- Or Linux style CLI tools enough (e.g. `htop`)
+
+- 🔲 **(decide)** ___
+
+### App uninstaller
+
+AppCleaner removes apps along with their associated preference files, caches, and support files. Always use it instead of right-clicking and moving to trash — trash leaves behind config files and caches. Use for manually-installed apps only — App Store apps should be removed via Launchpad.
+
+- ✅ `brew install --cask appcleaner`
+- ✅ Went through all of `/Applications` — removed everything possible. Remaining apps are locked Apple system apps that cannot be uninstalled without disabling SIP; not worth doing.
+
+### Menubar management
+
+- ✅ Clean-up menu bar after app installation.
+
+### Backup
+
+- See `tasks.md` Phase 14 — Time Machine to pickle-pi (primary) + USB drive (redundancy).
+
+---
+
+## Future Consideration
+
+Ideas parked deliberately — not forgotten, just not now.
+
+### Hammerspoon
+
+Listed in the stack as the scripted-automation layer; install only when a need arises. Karabiner + Raycast cover everything so far.
+
+### Hyper Key tap-for-Escape
+
+Karabiner-Elements can do tap=Escape / hold=Hyper simultaneously, so there's no trade-off with the current Caps Lock → Escape setup. Worth revisiting if hotkey conflicts become a problem.
+
+### Raycast
+
+- Explore extensions. Lots of good ones.
+- **Snippets** — text expansion for frequently typed strings
+- **Quicklinks** — saved URLs opened by name; useful for frequently visited pages

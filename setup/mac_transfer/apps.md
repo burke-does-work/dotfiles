@@ -45,6 +45,8 @@ Check off as you install. See `tasks.md` for when each phase happens.
 - ✅ `google-drive`
 - 🔲 `microsoft-excel` — requires Microsoft 365 subscription; confirm before installing
 - ✅ `adobe-creative-cloud` — install Lightroom CC only from within Creative Cloud; see Adobe hardening notes below
+- 🔲 `little-snitch` — outbound firewall; blocks app network calls you didn't approve; install via `brew install --cask little-snitch` or direct download (not free)
+- 🔲 `NextDNS`
 
 ---
 
@@ -67,59 +69,6 @@ To install apps from an unknown developer (wtv that means), follow these directi
 
 ---
 
-## Mac enhancements — decide and install
-
-These have no Linux equivalent. Decide before Phase 13.
-
-### Window tiling
-
-macOS has no built-in tiling. Without a tool, managing windows is cumbersome.
-
-- Example (free): Rectangle — `brew install --cask rectangle`
-- Note: Raycast includes window management — see Raycast configuration section; may cover this
-
-- 🔲 **(decide)** ___
-
-### Launcher
-
-- ✅ Raycast — `brew install --cask raycast`; initial setup only — see Raycast configuration section
-
-### Window switcher
-
-`Cmd+Tab` switches apps, not windows. Useful if you run multiple windows of the same app.
-
-- Example (free): AltTab — `brew install --cask alt-tab`
-
-- 🔲 **(decide)** ___
-
-### System monitor
-
-Menubar CPU, RAM, network display.
-
-- Example (free): Stats — `brew install --cask stats`
-
-- 🔲 **(decide)** ___
-
-### App uninstaller
-
-AppCleaner removes apps along with their associated preference files, caches, and support files. Always use it instead of right-clicking and moving to trash — trash leaves behind config files and caches. Use for manually-installed apps only — App Store apps should be removed via Launchpad.
-
-- ✅ `brew install --cask appcleaner`
-- ✅ Went through all of `/Applications` — removed everything possible. Remaining apps are locked Apple system apps that cannot be uninstalled without disabling SIP; not worth doing.
-
-### Menubar management
-
-Once apps accumulate, the menubar gets cluttered. macOS Sequoia has some native management — evaluate that first.
-
-- 🔲 **(decide)** ___
-
-### Backup
-
-- ✅ Strategy: Time Machine → pickle-pi (primary), USB drive (interim/redundancy)
-  - Restrict openclaw access on pickle-pi when backup directory is created
-
----
-
 ## Finding and browsing installed apps
 
 - `brew list --cask` — GUI apps installed via Homebrew
@@ -136,6 +85,7 @@ Once apps accumulate, the menubar gets cluttered. macOS Sequoia has some native 
 Initial setup done. Return to this section to complete configuration.
 
 ### Core settings
+
 - 🔲 Preferences → General → Hotkey → **(decide)** — to use `Cmd+Space`, disable Spotlight first: search "Spotlight" → uncheck "Show Spotlight search"
 - 🔲 Preferences → Advanced → "Hide Raycast in Dock" → On
 - ✅ Launch at login → On (needed — this is your app launcher)
@@ -145,7 +95,7 @@ Initial setup done. Return to this section to complete configuration.
 
 ### Power user features to configure
 - 🔲 **Clipboard History** — enable and set a hotkey; replaces needing a separate clipboard manager
-- 🔲 **Window Management** — enable; **(decide)** whether this replaces Rectangle
+- ✅ **Window Management** — enabled; replaces macOS native tiling. Setup in `macos_settings.md`.
 - 🔲 **Ghostty hotkey** — assign a hotkey to launch/raise Ghostty; this is the `Super+1` equivalent from Linux. Preferences → Extensions → find Ghostty → set hotkey
 - 🔲 **Snippets** — text expansion for frequently typed strings
 - 🔲 **Quicklinks** — saved URLs opened by name; useful for frequently visited pages

@@ -10,6 +10,7 @@
   "update.mode": "none",
   "window.newWindowProfile": "matt",
   "application.shellEnvironmentResolutionTimeout": 60,
+  "files.autoSave": "onFocusChange",
 
   //////////////////////////////////////////////////////////////////////////////
   // Basic functionality
