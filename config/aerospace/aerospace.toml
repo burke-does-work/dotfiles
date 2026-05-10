@@ -1,0 +1,148 @@
+# Config version for compatibility and deprecations
+config-version = 2
+
+after-startup-command = []
+
+start-at-login = true
+
+# Normalizations
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 0
+
+default-root-container-layout = 'accordion'
+default-root-container-orientation = 'auto'
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+automatically-unhide-macos-hidden-apps = false
+
+persistent-workspaces = ["1-main", "2-focus", "3-coms", "4-play", "5-blank", "6", "7", "8", "9"]
+
+on-mode-changed = []
+
+[key-mapping]
+    preset = 'qwerty'
+
+[gaps]
+    inner.horizontal = 0
+    inner.vertical =   0
+    outer.left =       0
+    outer.bottom =     0
+    outer.top =        0
+    outer.right =      0
+
+[mode.main.binding]
+
+    # Layout toggle (accordion ↔ tiles)
+    alt-comma = 'layout accordion tiles'
+
+    # Focus window (vim-style)
+    alt-h = 'focus left'
+    alt-j = 'focus down'
+    alt-k = 'focus up'
+    alt-l = 'focus right'
+
+    # Move window within workspace
+    alt-shift-h = 'move left'
+    alt-shift-j = 'move down'
+    alt-shift-k = 'move up'
+    alt-shift-l = 'move right'
+
+    # Resize
+    alt-minus = 'resize smart -50'
+    alt-equal = 'resize smart +50'
+
+    # Switch workspace
+    alt-1 = 'workspace 1-main'
+    alt-2 = 'workspace 2-focus'
+    alt-3 = 'workspace 3-coms'
+    alt-4 = 'workspace 4-play'
+    alt-5 = 'workspace 5-blank'
+    alt-6 = 'workspace 6'
+    alt-7 = 'workspace 7'
+    alt-8 = 'workspace 8'
+    alt-9 = 'workspace 9'
+
+    # Move window to workspace
+    alt-shift-1 = 'move-node-to-workspace 1-main'
+    alt-shift-2 = 'move-node-to-workspace 2-focus'
+    alt-shift-3 = 'move-node-to-workspace 3-coms'
+    alt-shift-4 = 'move-node-to-workspace 4-play'
+    alt-shift-5 = 'move-node-to-workspace 5-blank'
+    alt-shift-6 = 'move-node-to-workspace 6'
+    alt-shift-7 = 'move-node-to-workspace 7'
+    alt-shift-8 = 'move-node-to-workspace 8'
+    alt-shift-9 = 'move-node-to-workspace 9'
+
+    # Back and forth between last two workspaces
+    alt-tab = 'workspace-back-and-forth'
+    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+    # Enter service mode
+    alt-shift-semicolon = 'mode service'
+
+[mode.service.binding]
+    esc = ['reload-config', 'mode main']
+    r = ['flatten-workspace-tree', 'mode main']
+    f = ['layout floating tiling', 'mode main']
+    backspace = ['close-all-windows-but-current', 'mode main']
+
+    alt-shift-h = ['join-with left', 'mode main']
+    alt-shift-j = ['join-with down', 'mode main']
+    alt-shift-k = ['join-with up', 'mode main']
+    alt-shift-l = ['join-with right', 'mode main']
+
+# App assignments
+# Bundle IDs marked (verify) should be confirmed with:
+#   osascript -e 'id of app "AppName"'
+
+# 1-main
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace 1-main'
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = 'move-node-to-workspace 1-main'
+
+[[on-window-detected]]
+if.app-id = 'com.openai.chat'           # ChatGPT (verify)
+run = 'move-node-to-workspace 1-main'
+
+[[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'  # Claude desktop (verify)
+run = 'move-node-to-workspace 1-main'
+
+# 2-focus — no app assignments (empty slate)
+
+# 3-coms
+[[on-window-detected]]
+if.app-id = 'org.whispersystems.signal-desktop'
+run = 'move-node-to-workspace 3-coms'
+
+[[on-window-detected]]
+if.app-id = 'net.whatsapp.WhatsApp'
+run = 'move-node-to-workspace 3-coms'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = 'move-node-to-workspace 3-coms'
+
+[[on-window-detected]]
+if.app-id = 'me.proton.mail'            # Proton Mail (verify)
+run = 'move-node-to-workspace 3-coms'
+
+# 4-play
+[[on-window-detected]]
+if.app-id = 'org.videolan.vlc'
+run = 'move-node-to-workspace 4-play'
+
+# Chrome: no auto-assign — appears on both 1-main and 4-play.
+# Move manually with Option+Shift+2 or Option+Shift+4 after opening.
+
+# Raycast: keep floating (it's a launcher popup, not a tiled window)
+[[on-window-detected]]
+if.app-id = 'com.raycast.macos'
+run = 'layout floating'

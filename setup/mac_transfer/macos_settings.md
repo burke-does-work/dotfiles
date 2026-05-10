@@ -4,21 +4,28 @@
 
 Each layer handles a distinct scope. Don't route things through the wrong layer.
 
-| Layer | Tool | Scope |
-|---|---|---|
-| Modifier + key remapping | Karabiner-Elements | Ctrl ↔ Cmd swap, text nav, per-app rules |
-| App launching / switching | Raycast | Global hotkeys, app raise |
-| Window management | Raycast Window Management | Snap, resize, move, maximize |
-| Mission Control + app menus | System Settings | Spaces, named menu items |
-| Terminal | Ghostty config | Splits, panes, nav |
-| Per-app keybindings | App-specific config | VS Code, browser extensions |
-| Scripted automation | Hammerspoon | Future — install when needed |
+| Layer                      | Tool                | Scope                                        |
+| -------------------------- | ------------------- | -------------------------------------------- |
+| Modifier + key remapping   | Karabiner-Elements  | Ctrl ↔ Cmd swap, text nav, per-app rules     |
+| App launching / switching  | Raycast             | Global hotkeys, app raise, window search     |
+| Workspaces + window layout | AeroSpace           | Workspace switching, tiling, focus direction |
+| Screenshots + app menus    | System Settings     | Screenshot shortcuts, named menu items       |
+| Terminal                   | Ghostty config      | Splits, panes, nav                           |
+| Per-app keybindings        | App-specific config | VS Code, browser extensions                  |
 
 Work through sections in order. Each depends on the previous.
 
-*Only use System Settings for: (1) Mission Control / Spaces shortcuts, (2) assigning shortcuts to named app menu items. Everything else is handled by the stack above.*
+*Only use System Settings for: (1) screenshot shortcuts, (2) assigning shortcuts to named app menu items. Input method switching is in Karabiner. Spaces are managed by AeroSpace — macOS Spaces not used.*
 
 User-facing key bindings live in `keybindings.md`. This file documents how each layer is configured plus the OS preferences that aren't input-related.
+
+Thinking
+
+- Remove tabli, use raycast windows with named Chrome windows (name Chrome windows by right clicking on the menu bar)
+- Use the aerospace extension in raycast to switch between windows within the workspace
+- Jump to workspace, then use raycast window switcher
+- Within VS Code, use project manager (also can test using raycast window switcher)
+- SketchyBar is significant effort to setup
 
 ---
 
@@ -28,36 +35,36 @@ User-facing key bindings live in `keybindings.md`. This file documents how each 
 
 Installed. Config at `~/.config/karabiner/karabiner.json` (symlinked to dotfiles).
 
-#### Why
+### Why
 
 Mac defaults to `Cmd` as the primary modifier; Linux uses `Ctrl`. Most CLI tools, tmux, vim-style bindings, and cross-platform apps already speak `Ctrl` — fighting that on Mac with `Cmd` muscle memory creates a split-brain problem specifically in the terminal where you live.
 
 The fix: remap the Mac to behave like Linux. The physical layout matches (`Ctrl | Fn | Super | Alt | Space`), and a two-way `Ctrl ↔ Cmd` swap at the modifier-key level means every `Cmd`-prefixed shortcut (clipboard, save, find, new tab, …) is reachable from the bottom-left `Ctrl` key. Excluded apps: `com.apple.Terminal`, `com.mitchellh.ghostty`, `com.microsoft.VSCode` — there `Ctrl+C` stays as SIGINT, `Ctrl+A` stays as readline line-start, and VS Code's Ctrl-prefixed bindings pass through unchanged.
 
-#### Decision: full modifier swap over per-binding remaps
+### Decision: full modifier swap over per-binding remaps
 
 The original rule was per-binding: explicit entries for `Ctrl+C/V/X/A → Cmd+C/V/X/A`. That works for a fixed set but doesn't generalize — every additional shortcut (`Ctrl+S`, `Ctrl+T`, `Ctrl+L`, `Ctrl+W`, …) needs another rule. Swapping `left_control` and `left_command` at the modifier level covers every Ctrl-prefix and Cmd-prefix combo, current and future, with one rule. Per-app exclusion still works the same way.
 
 Karabiner over per-app rebinding still holds: most apps don't expose keybindings (System dialogs, Raycast, web apps inside Chrome). Karabiner remaps once at the input layer and covers them all. Per-app rebinding is reserved for app-specific shortcuts (e.g., VS Code's command palette) where there's no universal convention.
 
-#### Physical layout (left side, after remapping)
+### Physical layout (left side, after remapping)
 
-| Physical key | Sends | Role |
-|---|---|---|
-| `Fn` (bottom-left) | `Ctrl` | Primary modifier — clipboard, etc. |
-| `Ctrl` | `Fn` | macOS function key — brightness, volume, Globe |
-| `Cmd` | `Option` | Alt — modifier-key adjacent to space |
-| `Option` | `Cmd` | Super — Raycast, system shortcuts |
+| Physical key       | Sends    | Role                                           |
+| ------------------ | -------- | ---------------------------------------------- |
+| `Fn` (bottom-left) | `Ctrl`   | Primary modifier — clipboard, etc.             |
+| `Ctrl`             | `Fn`     | macOS function key — brightness, volume, Globe |
+| `Cmd`              | `Option` | Alt — modifier-key adjacent to space           |
+| `Option`           | `Cmd`    | Super — Raycast, system shortcuts              |
 
 Right side of spacebar is unchanged.
 
-##### Naming convention
+### Naming convention
 
 Throughout the rest of these docs, key names refer to what's *sent* after the swap — think of it as a sticker placed on top of each key. So `Cmd+S` means "the key now labeled Cmd" (physically the outer `Option` key), `Ctrl+C` means "the key now labeled Ctrl" (physically `Fn`). You don't need to think about the original Mac labels.
 
 The one exception is `karabiner.json` itself — that file uses original physical names because it sees keys *before* the swap.
 
-#### Active rules
+### Active rules
 
 Defined in `config/karabiner/karabiner.json`:
 
@@ -65,8 +72,10 @@ Defined in `config/karabiner/karabiner.json`:
 - **Complex modification — Ctrl ↔ Cmd swap** — two-way swap of the `left_control` and `left_command` modifier keys, excluding `com.apple.Terminal`, `com.mitchellh.ghostty`, and `com.microsoft.VSCode`. In any non-excluded app, the bottom-left `Ctrl` key acts as `Cmd` and the outer-left `Cmd` key acts as `Ctrl`. Subsumes the earlier per-binding `Ctrl+C/V/X/A` rule and covers every other Ctrl- and Cmd-prefixed shortcut at once.
 - **Complex modification — Linux text nav** — `Home/End` → `Cmd+←/→` (line), `Shift+Home/End` → `Cmd+Shift+←/→` (select line), `Ctrl+Home/End` → `Cmd+↑/↓` (document), `Ctrl+←/→` → `Option+←/→` (word), `Ctrl+Shift+←/→` → `Option+Shift+←/→` (select word). Excludes `com.apple.Terminal` and `com.mitchellh.ghostty` (not VS Code — Linux text nav is wanted there). Works in both Cocoa and Electron apps since translation happens at the input layer. Note: in apps where the Ctrl↔Cmd swap is *also* active, the Ctrl-prefix arrow nav is reached from the outer-left key (which now signals `Ctrl`); the bottom-left key signals `Cmd` and produces Mac-native line/document nav directly.
 - **Complex modification — Caps Lock → Hyper** — Caps Lock held = `Cmd+Option+Ctrl+Shift` (the Hyper chord). Tap-for-Escape (common practice for VIM users) is deferred for now.
+- **Complex modification — Cmd+Space → toggle input method (English ↔ Chinese Pinyin)** — Uses `select_input_source` with a `input_chinese` variable to toggle — no macOS shortcut settings required. Variable can go out of sync if input is switched via menu bar; press twice to re-sync. Four manipulators: 2 app contexts (excluded/non-excluded) × 2 toggle states.
+- **Complex modification — Cmd+Shift+S → screenshot to clipboard** — Runs `screencapture -i -c` via `shell_command` — no macOS shortcut settings required. Works in Ghostty because Karabiner intercepts before the terminal sees the event.
 
-#### Symlink note
+### Symlink note
 
 `~/.config/karabiner` is a *directory* symlink, not a file symlink — Karabiner writes atomically and breaks file-level symlinks. `automatic_backups/` inside the directory is gitignored.
 
@@ -75,7 +84,9 @@ Defined in `config/karabiner/karabiner.json`:
 - ✅ Configure Karabiner rules
 - ✅ Symlink: `ln -s /Users/matt/local/dotfiles/config/karabiner /Users/matt/.config/karabiner`
 - ✅ Verify: copy/paste in TextEdit, SIGINT in Ghostty
-- 🔲 Verify (Ctrl↔Cmd swap): in Chrome, `Ctrl+T` opens new tab, `Ctrl+L` focuses URL, `Ctrl+W` closes tab; in Ghostty, `Ctrl+C` still SIGINTs; in VS Code, `Ctrl+P` opens command palette (no remap)
+- ✅ Verify (Ctrl↔Cmd swap): in Chrome, `Ctrl+T` opens new tab, `Ctrl+L` focuses URL, `Ctrl+W` closes tab; in Ghostty, `Ctrl+C` still SIGINTs; in VS Code, `Ctrl+P` opens command palette (no remap)
+- ✅ Verify `Cmd+Space` toggles input method in Chrome and Ghostty (no macOS settings step needed).
+- ✅ Verify `Cmd+Shift+S` takes screenshot in Chrome and Ghostty (no macOS settings step needed). If `screencapture -i -c` shows the toolbar instead of going straight to crosshair selection, adjust the flag.
 
 #### Text editing — verify
 
@@ -86,17 +97,20 @@ Karabiner's "Linux text nav" rule handles text navigation. After Karabiner reloa
 - ✅ VS Code: same shortcuts work (Electron apps now covered too)
 - ✅ Ghostty: word/line shortcuts pass through unchanged (terminal excluded from rule); shell handles its own bindings
 
+**Do not use Cmd+Option+Space or Ctrl+Option+Space for any shortcuts.** "Ctrl+Option+Space" → Karabiner outputs Cmd+Option+Space → macOS Spotlight "Find in Finder" intercepts it
+- "Cmd+Option+Space" → Karabiner outputs Ctrl+Option+Space → macOS accessibility features intercept it
+
+Note: Do not swap Ctrl and Cmd in VS Code — VIM extension Ctrl bindings (Ctrl+u/d, Ctrl+r, Ctrl+v visual block, etc.) would break.
+
 ---
 
 ## Raycast
 
-*What it does: replaces Spotlight; handles app launching and window management via global hotkeys.*
+*What it does: replaces Spotlight; handles app launching and search via global hotkeys. Window management moved to AeroSpace.*
 
 Installed and configured — Spotlight shortcut unbound, Raycast hotkey set to `Option+Space`.
 
 #### App switcher
-
-*What it does: equivalent of `alt-tab`*
 
 - ✅ Skipped — don't use the OS app switcher on any platform.
 
@@ -104,22 +118,12 @@ Installed and configured — Spotlight shortcut unbound, Raycast hotkey set to `
 
 Find the app in Raycast search → `Cmd+K` → Set Hotkey.
 
-- ✅ Assign hotkeys to core apps (Ghostty, browser, editor)
+- ✅ Assign hotkeys to core apps (Ghostty, browser, editor) - PASS: `Super+1/2/3` doesn't work because it's swapped in Ghostty
 
 #### Window Management
 
-Why Raycast and not macOS native: Electron apps (VS Code) intercept the macOS Fill keystroke and route it to fullscreen instead of resizing the window. Raycast's Window Management uses the Accessibility API and works uniformly across all apps. Rectangle also tested and uninstalled — Raycast covers the same ground without adding to the stack. Native macOS Fill is intentionally left unbound.
-
-Set bindings via Raycast → Extensions → Window Management → command → Set Hotkey. Bindings listed in `keybindings.md`.
-
-- ✅ Maximize bound (`Ctrl+Cmd+Shift+↑`)
-- ✅ Move Window to Next/Previous Desktop bound
-- ✅ Tile commands bound (halves, quarters as needed)
-
-Why these key choices:
-
-- **`Ctrl+Cmd+Shift+↑` for Maximize:** fits the tile-direction family (3-modifier chord + arrow); arrow direction reads as "make bigger toward the top." Conflict-free with the text-nav rule and app shortcuts.
-- **`Cmd+Option+Shift+arrow` for moving windows between Spaces:** mnemonic — "Spaces switch chord + Shift = drag the window with you." Avoids the bottom-left-corner-key gamble that Ctrl-containing chords have.
+- ✅ Removed — AeroSpace handles all workspace switching, tiling, and focus. Remove any previously bound Raycast Window Management hotkeys (Maximize, tile commands, Move Window to Desktop).
+- ✅ Keep: Search open windows (`Shift+Option+Space`)
 
 #### Plist note
 
@@ -127,41 +131,39 @@ Don't symlink Raycast's config. The plist (`~/Library/Preferences/com.raycast.ma
 
 ---
 
-## System Settings (Mission Control & app menus)
+## AeroSpace
 
-The only things to set in System Settings: Mission Control / Spaces shortcuts, and (rare) per-app menu-item overrides. Mission Control sucks so I set the shortcut but use keyboard shortcuts to switch spaces, then mouse in Mission Control as a backup.
+*What it does: tiling WM with its own workspace model — replaces macOS Spaces and Raycast Window Management entirely. Workspaces switch instantly with no macOS animation. Electron apps cannot intercept bindings.*
 
-#### Mission Control / Spaces shortcuts
+- ✅ Initial confg
 
-Set via System Settings → Keyboard → Keyboard Shortcuts → Mission Control. Bindings listed in `keybindings.md`.
+  Install: `brew install --cask aerospace`
 
-- ✅ Switch Space left/right
-- ✅ Mission Control overview — rebound from default `Ctrl+↑` to `Cmd+Option+↑`
-- ✅ Show desktop
+  Config: `~/.config/aerospace/aerospace.toml` (symlinked to dotfiles)
 
-Why these key choices:
+  - Install AeroSpace: `brew install --cask aerospace`
+  - Symlink config: `mkdir -p ~/.config/aerospace && ln -s ~/local/dotfiles/config/aerospace/aerospace.toml ~/.config/aerospace/aerospace.toml`
+  - Grant Accessibility permission: System Settings → Privacy & Security → Accessibility → AeroSpace → On
+  - Reduce macOS to 1 Space: open Mission Control, delete extra spaces
+  - Disable Mission Control keyboard shortcuts: System Settings → Keyboard → Keyboard Shortcuts → Mission Control → uncheck all (AeroSpace replaces them)
+  - Remove Raycast Window Management bindings: Raycast → Extensions → Window Management → remove hotkeys for Maximize, tile commands, Move Window to Desktop
 
-- **`Cmd+Option+arrow` for Spaces:** matches Linux `Alt+Super+arrow` muscle memory (Mac `Cmd` = Linux `Super`, Mac `Option` = Linux `Alt`); doesn't conflict with the text-nav rule.
-- **`Cmd+Option+↑` for Mission Control:** the macOS default `Ctrl+↑` is awkward to reach after the Ctrl↔Cmd swap (the only Ctrl-signal key is now the outer-left `Cmd` key). `Cmd+Option+↑` mirrors the Spaces switch family (`Cmd+Option+←/→`) and keeps the bottom-left + arrow ergonomic pattern. The simpler `Cmd+↑` was considered but rejected — it shadows Cocoa "go to start of document", Finder's "go to enclosing folder", and browser scroll-to-top. Set in System Settings → Keyboard → Keyboard Shortcuts → Mission Control.
+### Setup tasks
 
-#### Spaces behaviour
-
-System Settings → Desktop & Dock → Mission Control:
-
-- ✅ Automatically rearrange Spaces → Off (Spaces will reorder otherwise)
-- ✅ Number of Spaces: set to 2 *(open Mission Control → click + to add)*
-- ✅ Group windows by application → decide when you get here
+- ✅ Reload config and verify app auto-assignments (open each app, confirm it lands on the right workspace)
+- ✅ Verify bundle IDs for: ChatGPT, Claude desktop, Signal, WhatsApp, Proton Mail — run `osascript -e 'id of app "AppName"'` for each; update `aerospace.toml` if wrong
+- ✅ Set up Raycast Switch Windows: Raycast Settings → Extensions → Window Management → Switch Windows → enable and assign hotkey. Used to navigate Chrome windows across workspaces.
 
 ---
 
-## Ghostty (terminal)
+## System Settings (app menus only)
 
-Config: `~/.config/ghostty/config` *(already ported)*
+The only things left in System Settings: rare per-app menu-item overrides. Input method is handled by Karabiner. Spaces are managed by AeroSpace. Screenshot shortcut is handled by Karabiner (`screencapture -i -c`).
 
-- 🔲 **Do this before using the terminal.** Ghostty is excluded from the Ctrl↔Cmd swap and the Linux text-nav rule, so `Ctrl+C` keeps SIGINT in the terminal and Ctrl-prefixed bindings pass through to the shell unchanged. `Cmd`-based shortcuts (copy, splits) work as the ported config defines.
-- 🔲 Verify SIGINT: `Ctrl+C` interrupts a running process
-- 🔲 Verify clipboard: `Cmd+C` copies selected text to clipboard
-- 🔲 Verify splits: `Cmd+D` / `Cmd+Shift+D` — check against ported config
+#### macOS Spaces cleanup
+
+- ✅ Reduce to 1 Space (AeroSpace manages its own workspaces — macOS Spaces unused)
+- ✅ Disable all Mission Control shortcuts: System Settings → Keyboard → Keyboard Shortcuts → Mission Control → uncheck Switch Space left/right, Mission Control overview, Show desktop
 
 ---
 
@@ -172,13 +174,8 @@ Reserved for app-specific shortcuts that don't have a universal convention.
 ### VS Code
 
 - VS Code is excluded from the Ctrl↔Cmd swap (`com.microsoft.VSCode`) so its own Ctrl-prefixed bindings (e.g., `Ctrl+P` command palette, `Ctrl+B` sidebar) pass through unchanged. Linux text-nav rule still applies, so `Ctrl+←/→` does word nav.
-- 🔲 Enable Settings Sync (if using) to pull Linux keybindings
-- 🔲 Audit conflicts: `Cmd+←/→` is line nav on Mac; check if it clashes with Space switching
-- 🔲 VS Code has its own keybinding layer (`keybindings.json`) — edit via `Cmd+Shift+P` → "Open Keyboard Shortcuts (JSON)"
-
-### Chrome
-
-- ✅ Tabli (or alternative) installed for tab management
+- ✅ Audit conflicts: `Cmd+←/→` is line nav on Mac; check if it clashes with Space switching
+- ✅ VS Code has its own keybinding layer (`keybindings.json`) — edit via `Cmd+Shift+P` → "Open Keyboard Shortcuts (JSON)"
 
 ---
 
@@ -292,7 +289,7 @@ Tooling decisions for Mac-specific jobs that have no Linux equivalent. Most are 
 
 ### Window tiling
 
-- ✅ Using Raycast Window Management — see Raycast > Window Management above for setup. macOS Sequoia native tiling and Rectangle both tested and abandoned (Electron apps intercept the native Fill keystroke).
+- ✅ Using AeroSpace — see AeroSpace section above for setup. macOS Sequoia native tiling, Rectangle, and Raycast Window Management all tested and abandoned (Electron apps intercept native Fill keystroke; Raycast WM had no workspace-switching capability). AeroSpace uses its own workspace model, bypasses Electron interception entirely.
 
 ### Launcher
 
@@ -300,16 +297,7 @@ Tooling decisions for Mac-specific jobs that have no Linux equivalent. Most are 
 
 ### Window switcher
 
-- ✅ Skipped — don't use the app/window switcher on any OS. Workflow uses Raycast launching + Spaces + window-raise hotkeys instead.
-
-### System monitor
-
-Menubar CPU, RAM, network display.
-
-- Example (free): Stats — `brew install --cask stats`
-- Or Linux style CLI tools enough (e.g. `htop`)
-
-- 🔲 **(decide)** ___
+- ✅ Skipped — don't use the app/window switcher on any OS. Workflow uses Raycast app hotkeys + AeroSpace workspaces instead.
 
 ### App uninstaller
 
@@ -331,10 +319,6 @@ AppCleaner removes apps along with their associated preference files, caches, an
 ## Future Consideration
 
 Ideas parked deliberately — not forgotten, just not now.
-
-### Hammerspoon
-
-Listed in the stack as the scripted-automation layer; install only when a need arises. Karabiner + Raycast cover everything so far.
 
 ### Hyper Key tap-for-Escape
 

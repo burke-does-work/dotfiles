@@ -1,15 +1,39 @@
-[//]: # (Style guide: no markdown tables — use lists and descriptions only)
-
 # Mac Transfer Tasks — maodou-mac
 
-Steps marked **(Claude)** mean ask Claude to do the work. All others you do yourself.
+## High Priority - Remaining
 
-### Reference files
+### `git`
 
-- `apps.md` — install checklist; open it when a phase says to install apps
-- `macos_settings.md` — full settings checklist; started in Phase 2, completed in Phase 5
+- ✅ Add `~/.gitconfig` to dotfiles repo and symlink **(Claude)**
+- ✅ Symlink gh config: `mkdir -p ~/.config/gh && ln -s ~/local/dotfiles/config/gh/config.yml ~/.config/gh/config.yml`
+  - Update `git_protocol` in `config/gh/config.yml` from `https` to `ssh` **(Claude)**
 
----
+### Ghostty
+
+- ✅ Configure Ghostty — keybindings audit (Kitty pattern vs. Ghostty Cmd defaults; opinionated overrides if any) **(Claude)**
+  - ✅ Update `keybindings.md` — Ghostty section, after audit lands **(Claude)**
+  - Switch so that tab selection is `ctrl+1/2/3`
+  - Fix so can copy off screen (mouse copy on select to start)
+
+Config: `~/.config/ghostty/config` *(already ported)*
+
+- ✅ **Do this before using the terminal.** Ghostty is excluded from the Ctrl↔Cmd swap and the Linux text-nav rule, so `Ctrl+C` keeps SIGINT in the terminal and Ctrl-prefixed bindings pass through to the shell unchanged. `Cmd`-based shortcuts (copy, splits) work as the ported config defines.
+- ✅ Verify SIGINT: `Ctrl+C` interrupts a running process
+- ✅ Update Claude Code keybindings — Claude is a text-based app but runs in Ghostty (excluded from the Ctrl↔Cmd swap), so its default Ctrl-prefixed bindings don't match the bottom-left = Cmd ergonomics used elsewhere. Audit and adjust in `config/claude/settings.mac.json`.
+
+### Yazi
+
+- ✅ Symlink Yazi config **(Claude)**; trash binding already uses `remove` built-in (macOS-native, no `trash-put` override needed)
+
+### VS Code / Text editors
+
+- ✅ Set nvim or subl as the default text editor for single file open
+
+  * Installed duti to manage macOS file associations from the terminal
+  * Accidentally associated generic Unix executables with Sublime
+  * Preserved terminal behavior for scripts/executables (.sh, .command)
+  * Set Sublime Text as the default GUI app for normal text/code files (.txt, .md, .json, etc.)
+  * Kept nvim as the terminal editor via $EDITOR / $VISUAL separation from macOS GUI defaults
 
 ## Phase 0 — Prep (before Mac arrives)
 
@@ -61,7 +85,6 @@ Specifics:
 - `/mnt/nfs/drive_data/` → NFS mount from pickle-pi (Phase 11)
 - `/mnt/nfs/hdd_data/` → NFS mount from pickle-pi (Phase 11)
 
-
 ### Dotfiles — clone (required for VS Code and Claude config)
 
 - ✅ Clone via HTTPS (SSH not set up yet): `git clone https://github.com/burke-does-work/dotfiles.git ~/local/dotfiles`
@@ -95,7 +118,6 @@ Install: → `apps.md`
 - ✅ Symlink: `ln -sf /Users/matt/local/dotfiles/config/claude/settings.mac.json /Users/matt/.claude/settings.json`
 - ✅ Linux Claude settings symlinked to dotfiles: `ln -sf /home/matt/dotfiles/config/claude/settings.json /home/matt/.claude/settings.json`
 - ✅ Global CLAUDE.md symlinked: `ln -sf /Users/matt/local/dotfiles/config/claude/CLAUDE.md /Users/matt/.claude/CLAUDE.md` (Linux: same with `/home/matt/dotfiles/...`)
-- 🔲 Update Claude Code keybindings — Claude is a text-based app but runs in Ghostty (excluded from the Ctrl↔Cmd swap), so its default Ctrl-prefixed bindings don't match the bottom-left = Cmd ergonomics used elsewhere. Audit and adjust in `config/claude/settings.mac.json`.
 
 ### Files from USB
 
@@ -110,14 +132,12 @@ Install: → `apps.md`
 Install: → `apps.md`
 
 - ✅ Set Ghostty font: `font-family = CommitMono Nerd Font`, `font-feature = calt`
-- 🔲 Configure Ghostty — review built-in keybindings before overriding; port from Kitty config intentionally **(Claude)**
-- 🔲 Update `keybindings.md` — Ghostty section **(Claude)**
+- ✅ Configure Ghostty — theme, window padding, titlebar style (tabs), unfocused-split fill, confirm-close-surface; placeholder keybind for `prompt_tab_title`
 
 ---
 
 ## Phase 6 — Complete macOS settings
 
-- 🔲 → `macos_settings.md`: resume from where Phase 2 paused — work through every remaining section
 - ✅ Remove press and hold keys (breaks VIM keybindings): `defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false`
 
 ---
@@ -129,7 +149,7 @@ Install: → `apps.md`
 - ✅ Dotfiles already cloned in Phase 4
 - ✅ Create Mac `zshrc` **(Claude)** — adapts from Linux: pbcopy/pbpaste clipboard, Homebrew PATH, Homebrew antidote source path; removes wl-clipboard, GNOME aliases, ssd2_data startup cd, pyenv block; includes `export PATH="/opt/homebrew/opt/trash/bin:$PATH"` (`trash` is keg-only). NFS aliases deferred to Phase 11.
 - ✅ Symlinks: `ln -s /Users/matt/local/dotfiles/zshrc_maodou-mac ~/.zshrc` and `ln -s /Users/matt/local/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt`
-- 🔲 Test: open new shell, verify starship prompt, fzf (`Ctrl+R`), zoxide (`z`)
+- ✅ Test: open new shell, verify starship prompt, fzf (`Ctrl+R`), zoxide (`z`)
 
 ---
 
@@ -137,7 +157,6 @@ Install: → `apps.md`
 
 - ✅ → `apps.md` — CLI tools section: install everything (batch brew install command) **(Claude)**
 - ✅ Verify: `git --version`, `gh --version`, `rg --version`, `yazi --version`
-- 🔲 Symlink Yazi config **(Claude)**; update Yazi trash binding: `trash-put` → `trash`
 
 ---
 
@@ -145,17 +164,17 @@ Install: → `apps.md`
 
 ### VS Code — complete setup
 
-- 🔲 Global and profile symlinks created in Phase 4
-- 🔲 Verify: clipboard, blackhole register bindings
-- 🔲 Update `keybindings.md` — any Mac-specific VS Code bindings **(Claude)**
+- ✅ Global and profile symlinks created in Phase 4
+- ✅ Verify: clipboard, blackhole register bindings
+- ✅ Update `keybindings.md` — any Mac-specific VS Code bindings **(Claude)**
 
 ### Neovim
 
 Install: → `apps.md`
 
-- 🔲 `ln -s ~/local/dotfiles/config/nvim ~/.config/nvim`
-- 🔲 Open nvim — lazy.nvim bootstraps and installs vim-table-mode automatically
-- 🔲 Verify clipboard (`"+p`, leader bindings)
+- ✅ `ln -s ~/local/dotfiles/config/nvim ~/.config/nvim`
+- ✅ Open nvim — lazy.nvim bootstraps and installs vim-table-mode automatically
+- ✅ Verify clipboard (`"+p`, leader bindings)
 
 ### Sublime Text
 
@@ -163,80 +182,3 @@ Install: → `apps.md`
 
 - ✅ Launch Sublime, install package control, then Gruvbox and MarkdownEditing
 
----
-
-## Phase 10 — SSH
-
-- 🔲 `ssh-keygen -t ed25519 -C "maodou-mac"`
-- 🔲 `ssh-add --apple-use-keychain ~/.ssh/id_ed25519`
-- 🔲 Add to `~/.ssh/config`: `UseKeychain yes` and `AddKeysToAgent yes`
-- 🔲 `gh auth login` (needed to add SSH key to GitHub)
-- 🔲 `gh ssh-key add ~/.ssh/id_ed25519.pub --title "maodou-mac"`
-- 🔲 Switch dotfiles remote to SSH: `git remote set-url origin git@github.com:burke-does-work/dotfiles.git`
-- 🔲 Add maodou-mac host entry to `ssh/config` in dotfiles **(Claude)**
-- 🔲 Test: `ssh pickle-pi`
-
----
-
-## Phase 11 — NFS
-
-- 🔲 `sudo mkdir -p /mnt/nfs/drive_data /mnt/nfs/hdd_data`
-- 🔲 Add NFS mount aliases to Mac zshrc **(Claude)**
-- 🔲 Test: mount both shares, verify read/write
-
----
-
-## Phase 12 — Files from USB — complete
-
-- 🔲 Nicotine+ config: copy to `~/Library/Application Support/Nicotine+/`; update all `/home/matt/` paths to `/Users/matt/`
-- 🔲 Add `~/.gitconfig` to dotfiles repo and symlink **(Claude)**
-- 🔲 Symlink gh config: `mkdir -p ~/.config/gh && ln -s ~/local/dotfiles/config/gh/config.yml ~/.config/gh/config.yml`
-  - Update `git_protocol` in `config/gh/config.yml` from `https` to `ssh` **(Claude)**
-- 🔲 Verify key files, keep USB until fully confirmed
-
----
-
-## Phase 13 — GUI apps
-
-- 🔲 → `apps.md` — GUI apps section: install remaining apps with `brew install --cask`
-- 🔲 Signal: link to phone
-- 🔲 Google Sheets: open in Chrome → address bar → Save and share → Add to Dock
-- 🔲 1Password: set up
-- 🔲 Nicotine+: open and verify config loaded correctly, confirm download paths
-- 🔲 Adobe Creative Cloud → install Lightroom from within CC; harden CC per `apps.md` Adobe section
-- 🔲 Set up Claude Code Google MCP integration **(Claude)**
-
----
-
-## Phase 14 — Backup
-
-- 🔲 SSH to pickle-pi: install and configure `netatalk` for Time Machine over network **(Claude)**
-- 🔲 Restrict openclaw's access to the backup directory on pickle-pi
-- 🔲 Mac: System Settings → General → Time Machine → Add backup disk → select pickle-pi share
-- 🔲 Verify first backup runs
-- 🔲 Add USB drive as second Time Machine disk for local redundancy
-
----
-
-## Phase 15 — Mac enhancements
-
-- 🔲 → `macos_settings.md` — Mac enhancements section: complete any 🔲 decisions still open (currently: System monitor — Stats vs CLI tools).
-
----
-
-## Phase 16 — keybindings.md final review
-
-- 🔲 → `keybindings.md`: open in nvim, review every section against what's actually on maodou-mac
-- 🔲 Remove or annotate Linux-only bindings
-- 🔲 Add anything missed **(Claude)**
-
----
-
-## Phase 17 — Cleanup matt-9000
-
-Do this only after confirming maodou-mac is fully working.
-
-- 🔲 Verify all needed files are on Mac or pickle-pi
-- 🔲 Revoke matt-9000 SSH key from GitHub
-- 🔲 Remove secrets and credentials that shouldn't persist on matt-9000
-- 🔲 Decide matt-9000's ongoing network role

@@ -4,6 +4,9 @@
 
 Check off as you install. See `tasks.md` for when each phase happens.
 
+
+Add Claude, ChatGPT desktop, Apple mail, proton
+
 ---
 
 ## CLI tools — `brew install`
@@ -43,10 +46,8 @@ Check off as you install. See `tasks.md` for when each phase happens.
 - ✅ `signal`
 - ✅ `zoom`
 - ✅ `google-drive`
-- 🔲 `microsoft-excel` — requires Microsoft 365 subscription; confirm before installing
+- ✅ `microsoft-excel` — consider if necessary. **decision**: wait until it's needed
 - ✅ `adobe-creative-cloud` — install Lightroom CC only from within Creative Cloud; see Adobe hardening notes below
-- 🔲 `little-snitch` — outbound firewall; blocks app network calls you didn't approve; install via `brew install --cask little-snitch` or direct download (not free)
-- 🔲 `NextDNS`
 
 ---
 
@@ -86,23 +87,22 @@ Initial setup done. Return to this section to complete configuration.
 
 ### Core settings
 
-- 🔲 Preferences → General → Hotkey → **(decide)** — to use `Cmd+Space`, disable Spotlight first: search "Spotlight" → uncheck "Show Spotlight search"
-- 🔲 Preferences → Advanced → "Hide Raycast in Dock" → On
+- ✅ Preferences → General → Hotkey → **(decide)** — to use `Cmd+Space`, disable Spotlight first: search "Spotlight" → uncheck "Show Spotlight search"
+- ✅ Preferences → Advanced → "Hide Raycast in Dock" → On
 - ✅ Launch at login → On (needed — this is your app launcher)
 
 ### Reduce bloat
-- 🔲 Preferences → Extensions → disable everything you won't use — defaults include many you won't need (GIF Search, Emoji Search, Confetti, etc.)
+- ✅ Preferences → Extensions → disable everything you won't use — defaults include many you won't need (GIF Search, Emoji Search, Confetti, etc.)
 
 ### Power user features to configure
-- 🔲 **Clipboard History** — enable and set a hotkey; replaces needing a separate clipboard manager
+- ✅ **Clipboard History** — enable and set a hotkey; replaces needing a separate clipboard manager
 - ✅ **Window Management** — enabled; replaces macOS native tiling. Setup in `macos_settings.md`.
-- 🔲 **Ghostty hotkey** — assign a hotkey to launch/raise Ghostty; this is the `Super+1` equivalent from Linux. Preferences → Extensions → find Ghostty → set hotkey
-- 🔲 **Snippets** — text expansion for frequently typed strings
-- 🔲 **Quicklinks** — saved URLs opened by name; useful for frequently visited pages
 
 ---
 
 ## Adobe Creative Cloud hardening
+
+- ✅ Setup Adobe
 
 Adobe installs to `/Applications/Utilities`, not `/Applications` — it won't appear in a normal `ls /Applications`.
 
