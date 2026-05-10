@@ -12,8 +12,7 @@
 
 - ✅ Configure Ghostty — keybindings audit (Kitty pattern vs. Ghostty Cmd defaults; opinionated overrides if any) **(Claude)**
   - ✅ Update `keybindings.md` — Ghostty section, after audit lands **(Claude)**
-  - Switch so that tab selection is `ctrl+1/2/3`
-  - Fix so can copy off screen (mouse copy on select to start)
+  - ✅ Switch so that tab selection is `Ctrl+1..9`
 
 Config: `~/.config/ghostty/config` *(already ported)*
 
@@ -181,4 +180,3 @@ Install: → `apps.md`
 Install: → `apps.md`
 
 - ✅ Launch Sublime, install package control, then Gruvbox and MarkdownEditing
-

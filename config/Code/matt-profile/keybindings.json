@@ -10,7 +10,7 @@
 ///// ──────────────────────────────────────────────────────────────────────
 
   {
-    "key": "ctrl+shift+p",
+    "key": "cmd+shift+p",
     "command": "workbench.action.showCommands"
   },
   {
@@ -24,30 +24,30 @@
 
 // Change view size
   {
-    "key": "ctrl+shift+-",
+    "key": "cmd+shift+-",
     "command": "workbench.action.decreaseViewSize",
   },
   {
-    "key": "ctrl+shift+=",
+    "key": "cmd+shift+=",
     "command": "workbench.action.increaseViewSize",
   },
 
   // Sidebar toggle
   {
-    "key": "ctrl+shift+b",
+    "key": "cmd+shift+b",
     "command": "workbench.action.toggleSidebarVisibility"
   },
   {
-    "key": "ctrl+shift+b",
+    "key": "cmd+shift+b",
     "command": "-workbench.action.tasks.build",
     "when": "taskCommandsRegistered"
   },
   {
-    "key": "ctrl+b",
+    "key": "cmd+b",
     "command": "-workbench.action.toggleSidebarVisibility"
   },
 
-// Ctrl+Tab to navigate editors
+// Ctrl+Tab to navigate editors. Keep this as real Ctrl because Cmd+Tab is macOS app switching.
 
 {"key": "ctrl+tab",
 "command": "-workbench.action.quickOpenNavigateNextInEditorPicker",
@@ -64,6 +64,39 @@
 { "key": "ctrl+shift+tab",
   "command": "workbench.action.previousEditorInGroup",
   "when": "editorFocus || notebookEditorFocused"
+},
+
+// Direct editor access. Stickered Ctrl+1..9 arrives as Cmd+1..9 after Karabiner.
+{ "key": "cmd+1", "command": "workbench.action.openEditorAtIndex1" },
+{ "key": "cmd+2", "command": "workbench.action.openEditorAtIndex2" },
+{ "key": "cmd+3", "command": "workbench.action.openEditorAtIndex3" },
+{ "key": "cmd+4", "command": "workbench.action.openEditorAtIndex4" },
+{ "key": "cmd+5", "command": "workbench.action.openEditorAtIndex5" },
+{ "key": "cmd+6", "command": "workbench.action.openEditorAtIndex6" },
+{ "key": "cmd+7", "command": "workbench.action.openEditorAtIndex7" },
+{ "key": "cmd+8", "command": "workbench.action.openEditorAtIndex8" },
+{ "key": "cmd+9", "command": "workbench.action.lastEditorInGroup" },
+
+// VSCodeVim control chords. Stickered Ctrl+u/d/r/v arrives as Cmd+u/d/r/v after Karabiner.
+{
+  "key": "cmd+u",
+  "command": "extension.vim_ctrl+u",
+  "when": "editorTextFocus && vim.active && vim.mode != 'Insert' && !inDebugRepl"
+},
+{
+  "key": "cmd+d",
+  "command": "extension.vim_ctrl+d",
+  "when": "editorTextFocus && vim.active && vim.mode != 'Insert' && !inDebugRepl"
+},
+{
+  "key": "cmd+r",
+  "command": "extension.vim_ctrl+r",
+  "when": "editorTextFocus && vim.active && vim.mode != 'Insert' && !inDebugRepl"
+},
+{
+  "key": "cmd+v",
+  "command": "extension.vim_ctrl+v",
+  "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inDebugRepl"
 },
 
 //Panel
@@ -88,7 +121,7 @@
 "when": "editorTextFocus && !suggestWidgetVisible"
 },
 {
-"key": "ctrl+g",
+"key": "cmd+g",
 "command": "hideSuggestWidget",
 "when": "editorTextFocus && suggestWidgetVisible"
 },
@@ -122,4 +155,4 @@
   "when": "activeEditor == 'workbench.editor.interactive' && editorTextFocus && !suggestWidgetVisible"
 }
 
-]   
+]

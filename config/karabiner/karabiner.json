@@ -5,15 +5,100 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Two-way Ctrl ↔ Cmd swap (except in Terminal, Ghostty, VS Code). Subsumes the previous Ctrl+C/V/X/A per-binding rule.",
+                        "description": "Rescue Ctrl+Tab tab navigation in VS Code and Chrome",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.google\\.Chrome$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "Ctrl+Tab → Ctrl+Tab",
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": {
+                                        "mandatory": ["left_command"],
+                                        "optional": ["caps_lock"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": ["left_control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.VSCode$",
+                                            "^com\\.google\\.Chrome$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "Ctrl+Shift+Tab → Ctrl+Shift+Tab",
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": {
+                                        "mandatory": ["left_command", "left_shift"],
+                                        "optional": ["caps_lock"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": ["left_control", "left_shift"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Neutralize macOS app switcher (Cmd+Tab / Cmd+Shift+Tab)",
+                        "manipulators": [
+                            {
+                                "description": "Cmd+Tab → no-op",
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": {
+                                        "mandatory": ["left_command"],
+                                        "optional": ["caps_lock"]
+                                    }
+                                },
+                                "to": [{ "key_code": "vk_none" }],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "Cmd+Shift+Tab → no-op",
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": {
+                                        "mandatory": ["left_command", "left_shift"],
+                                        "optional": ["caps_lock"]
+                                    }
+                                },
+                                "to": [{ "key_code": "vk_none" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Two-way Ctrl ↔ Cmd swap (except in Terminal and Ghostty). Subsumes the previous Ctrl+C/V/X/A per-binding rule.",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.apple\\.Terminal$",
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^com\\.mitchellh\\.ghostty$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -31,8 +116,7 @@
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.apple\\.Terminal$",
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^com\\.mitchellh\\.ghostty$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -325,20 +409,19 @@
                         ]
                     },
                     {
-                        "description": "Cmd+Shift+S → screenshot selection to clipboard (screencapture -i -c). Shell command runs directly — no macOS shortcut settings needed, works in all apps including Ghostty. Two manipulators: left_command+shift in excluded apps (no swap), left_control+shift elsewhere (swap fires on modifier keydown).",
+                        "description": "Cmd+Shift+S → screenshot selection to clipboard (screencapture -i -c). Shell command runs directly — no macOS shortcut settings needed, works in all apps including Ghostty. Two manipulators: left_command+shift in terminal apps (no swap), left_control+shift elsewhere (swap fires on modifier keydown).",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.apple\\.Terminal$",
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^com\\.mitchellh\\.ghostty$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
                                 ],
-                                "description": "Excluded apps: left_command + Shift + S",
+                                "description": "Terminal apps: left_command + Shift + S",
                                 "from": {
                                     "key_code": "s",
                                     "modifiers": {
@@ -354,13 +437,12 @@
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.apple\\.Terminal$",
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^com\\.mitchellh\\.ghostty$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
-                                "description": "Non-excluded apps: left_control + Shift + S",
+                                "description": "Non-terminal apps: left_control + Shift + S",
                                 "from": {
                                     "key_code": "s",
                                     "modifiers": {
@@ -374,21 +456,24 @@
                         ]
                     },
                     {
-                        "description": "Cmd+Space → toggle input method (English ↔ Chinese Pinyin). Uses Karabiner variable 'input_chinese' to track state — no macOS shortcut settings needed. Both sides use language regex ('^en' / '^zh') to avoid hardcoding input source IDs. Variable can go out of sync if switched via menu bar; press twice to re-sync. Four manipulators: 2 app contexts × 2 toggle states.",
+                        "description": "Cmd+Space → toggle input method (English ↔ Chinese Pinyin). Uses Karabiner variable 'input_chinese' to track state — no macOS shortcut settings needed. Both sides use language regex ('^en' / '^zh') to avoid hardcoding input source IDs. Variable can go out of sync if switched via menu bar; press twice to re-sync. Four manipulators: 2 app contexts (terminal/non-terminal) × 2 toggle states.",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.apple\\.Terminal$",
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^com\\.mitchellh\\.ghostty$"
                                         ],
                                         "type": "frontmost_application_if"
                                     },
-                                    { "name": "input_chinese", "type": "variable_if", "value": 0 }
+                                    {
+                                        "name": "input_chinese",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
                                 ],
-                                "description": "Excluded apps, English→Chinese: left_command + Space",
+                                "description": "Terminal apps, English→Chinese: left_command + Space",
                                 "from": {
                                     "key_code": "spacebar",
                                     "modifiers": {
@@ -398,7 +483,12 @@
                                 },
                                 "to": [
                                     { "select_input_source": { "language": "^zh" } },
-                                    { "set_variable": { "name": "input_chinese", "value": 1 } }
+                                    {
+                                        "set_variable": {
+                                            "name": "input_chinese",
+                                            "value": 1
+                                        }
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -407,14 +497,17 @@
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.apple\\.Terminal$",
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^com\\.mitchellh\\.ghostty$"
                                         ],
                                         "type": "frontmost_application_if"
                                     },
-                                    { "name": "input_chinese", "type": "variable_if", "value": 1 }
+                                    {
+                                        "name": "input_chinese",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
                                 ],
-                                "description": "Excluded apps, Chinese→English: left_command + Space",
+                                "description": "Terminal apps, Chinese→English: left_command + Space",
                                 "from": {
                                     "key_code": "spacebar",
                                     "modifiers": {
@@ -424,7 +517,12 @@
                                 },
                                 "to": [
                                     { "select_input_source": { "language": "^en" } },
-                                    { "set_variable": { "name": "input_chinese", "value": 0 } }
+                                    {
+                                        "set_variable": {
+                                            "name": "input_chinese",
+                                            "value": 0
+                                        }
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -433,14 +531,17 @@
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.apple\\.Terminal$",
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^com\\.mitchellh\\.ghostty$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     },
-                                    { "name": "input_chinese", "type": "variable_if", "value": 0 }
+                                    {
+                                        "name": "input_chinese",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
                                 ],
-                                "description": "Non-excluded apps, English→Chinese: left_control + Space",
+                                "description": "Non-terminal apps, English→Chinese: left_control + Space",
                                 "from": {
                                     "key_code": "spacebar",
                                     "modifiers": {
@@ -450,7 +551,12 @@
                                 },
                                 "to": [
                                     { "select_input_source": { "language": "^zh" } },
-                                    { "set_variable": { "name": "input_chinese", "value": 1 } }
+                                    {
+                                        "set_variable": {
+                                            "name": "input_chinese",
+                                            "value": 1
+                                        }
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -459,14 +565,17 @@
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.apple\\.Terminal$",
-                                            "^com\\.mitchellh\\.ghostty$",
-                                            "^com\\.microsoft\\.VSCode$"
+                                            "^com\\.mitchellh\\.ghostty$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     },
-                                    { "name": "input_chinese", "type": "variable_if", "value": 1 }
+                                    {
+                                        "name": "input_chinese",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
                                 ],
-                                "description": "Non-excluded apps, Chinese→English: left_control + Space",
+                                "description": "Non-terminal apps, Chinese→English: left_control + Space",
                                 "from": {
                                     "key_code": "spacebar",
                                     "modifiers": {
@@ -476,7 +585,12 @@
                                 },
                                 "to": [
                                     { "select_input_source": { "language": "^en" } },
-                                    { "set_variable": { "name": "input_chinese", "value": 0 } }
+                                    {
+                                        "set_variable": {
+                                            "name": "input_chinese",
+                                            "value": 0
+                                        }
+                                    }
                                 ],
                                 "type": "basic"
                             }

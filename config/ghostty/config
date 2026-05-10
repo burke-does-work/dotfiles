@@ -17,8 +17,8 @@ macos-titlebar-style = tabs
 unfocused-split-fill = #252628
 
 # Clipboard
-keybind = ctrl+shift+p=paste_from_clipboard
-keybind = ctrl+shift+y=copy_to_clipboard
+keybind = ctrl+shift+c=copy_to_clipboard
+keybind = ctrl+shift+v=paste_from_clipboard
 copy-on-select = clipboard
 
 # Tabs

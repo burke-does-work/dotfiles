@@ -39,7 +39,7 @@ Installed. Config at `~/.config/karabiner/karabiner.json` (symlinked to dotfiles
 
 Mac defaults to `Cmd` as the primary modifier; Linux uses `Ctrl`. Most CLI tools, tmux, vim-style bindings, and cross-platform apps already speak `Ctrl` — fighting that on Mac with `Cmd` muscle memory creates a split-brain problem specifically in the terminal where you live.
 
-The fix: remap the Mac to behave like Linux. The physical layout matches (`Ctrl | Fn | Super | Alt | Space`), and a two-way `Ctrl ↔ Cmd` swap at the modifier-key level means every `Cmd`-prefixed shortcut (clipboard, save, find, new tab, …) is reachable from the bottom-left `Ctrl` key. Excluded apps: `com.apple.Terminal`, `com.mitchellh.ghostty`, `com.microsoft.VSCode` — there `Ctrl+C` stays as SIGINT, `Ctrl+A` stays as readline line-start, and VS Code's Ctrl-prefixed bindings pass through unchanged.
+The fix: remap the Mac to behave like Linux. The physical layout matches (`Ctrl | Fn | Super | Alt | Space`), and a two-way `Ctrl ↔ Cmd` swap at the modifier-key level means every `Cmd`-prefixed shortcut (clipboard, save, find, new tab, …) is reachable from the bottom-left `Ctrl` key. Excluded apps: `com.apple.Terminal`, `com.mitchellh.ghostty` — there `Ctrl+C` stays as SIGINT and `Ctrl+A` stays as readline line-start. VS Code participates in the swap, so its custom GUI-style keybindings are written as `Cmd` bindings.
 
 ### Decision: full modifier swap over per-binding remaps
 
@@ -69,10 +69,12 @@ The one exception is `karabiner.json` itself — that file uses original physica
 Defined in `config/karabiner/karabiner.json`:
 
 - **Simple modifications** — swap `Fn`↔`Ctrl` and `Cmd`↔`Option` on the left side
-- **Complex modification — Ctrl ↔ Cmd swap** — two-way swap of the `left_control` and `left_command` modifier keys, excluding `com.apple.Terminal`, `com.mitchellh.ghostty`, and `com.microsoft.VSCode`. In any non-excluded app, the bottom-left `Ctrl` key acts as `Cmd` and the outer-left `Cmd` key acts as `Ctrl`. Subsumes the earlier per-binding `Ctrl+C/V/X/A` rule and covers every other Ctrl- and Cmd-prefixed shortcut at once.
+- **Complex modification — Ctrl+Tab rescue** — in VS Code and Chrome, stickered `Ctrl+Tab` / `Ctrl+Shift+Tab` is rescued before macOS app-switcher handling and delivered as real `Ctrl+Tab` / `Ctrl+Shift+Tab` for tab navigation. Add future apps only after testing shows they need the same rescue.
+- **Complex modification — app switcher neutralizer** — real `Cmd+Tab` / `Cmd+Shift+Tab` is sent to `vk_none` so the unused macOS app switcher does not appear.
+- **Complex modification — Ctrl ↔ Cmd swap** — two-way swap of the `left_control` and `left_command` modifier keys, excluding `com.apple.Terminal` and `com.mitchellh.ghostty`. In any non-terminal app, including VS Code, the bottom-left `Ctrl` key acts as `Cmd` and the outer-left `Cmd` key acts as `Ctrl`. Subsumes the earlier per-binding `Ctrl+C/V/X/A` rule and covers every other Ctrl- and Cmd-prefixed shortcut at once.
 - **Complex modification — Linux text nav** — `Home/End` → `Cmd+←/→` (line), `Shift+Home/End` → `Cmd+Shift+←/→` (select line), `Ctrl+Home/End` → `Cmd+↑/↓` (document), `Ctrl+←/→` → `Option+←/→` (word), `Ctrl+Shift+←/→` → `Option+Shift+←/→` (select word). Excludes `com.apple.Terminal` and `com.mitchellh.ghostty` (not VS Code — Linux text nav is wanted there). Works in both Cocoa and Electron apps since translation happens at the input layer. Note: in apps where the Ctrl↔Cmd swap is *also* active, the Ctrl-prefix arrow nav is reached from the outer-left key (which now signals `Ctrl`); the bottom-left key signals `Cmd` and produces Mac-native line/document nav directly.
 - **Complex modification — Caps Lock → Hyper** — Caps Lock held = `Cmd+Option+Ctrl+Shift` (the Hyper chord). Tap-for-Escape (common practice for VIM users) is deferred for now.
-- **Complex modification — Cmd+Space → toggle input method (English ↔ Chinese Pinyin)** — Uses `select_input_source` with a `input_chinese` variable to toggle — no macOS shortcut settings required. Variable can go out of sync if input is switched via menu bar; press twice to re-sync. Four manipulators: 2 app contexts (excluded/non-excluded) × 2 toggle states.
+- **Complex modification — Cmd+Space → toggle input method (English ↔ Chinese Pinyin)** — Uses `select_input_source` with a `input_chinese` variable to toggle — no macOS shortcut settings required. Variable can go out of sync if input is switched via menu bar; press twice to re-sync. Four manipulators: 2 app contexts (terminal/non-terminal) × 2 toggle states.
 - **Complex modification — Cmd+Shift+S → screenshot to clipboard** — Runs `screencapture -i -c` via `shell_command` — no macOS shortcut settings required. Works in Ghostty because Karabiner intercepts before the terminal sees the event.
 
 ### Symlink note
@@ -84,7 +86,7 @@ Defined in `config/karabiner/karabiner.json`:
 - ✅ Configure Karabiner rules
 - ✅ Symlink: `ln -s /Users/matt/local/dotfiles/config/karabiner /Users/matt/.config/karabiner`
 - ✅ Verify: copy/paste in TextEdit, SIGINT in Ghostty
-- ✅ Verify (Ctrl↔Cmd swap): in Chrome, `Ctrl+T` opens new tab, `Ctrl+L` focuses URL, `Ctrl+W` closes tab; in Ghostty, `Ctrl+C` still SIGINTs; in VS Code, `Ctrl+P` opens command palette (no remap)
+- ✅ Verify (Ctrl↔Cmd swap): in Chrome, `Ctrl+T` opens new tab, `Ctrl+L` focuses URL, `Ctrl+W` closes tab; in Ghostty, `Ctrl+C` still SIGINTs; in VS Code, `Ctrl+Shift+P` opens command palette via the post-swap `Cmd+Shift+P` binding
 - ✅ Verify `Cmd+Space` toggles input method in Chrome and Ghostty (no macOS settings step needed).
 - ✅ Verify `Cmd+Shift+S` takes screenshot in Chrome and Ghostty (no macOS settings step needed). If `screencapture -i -c` shows the toolbar instead of going straight to crosshair selection, adjust the flag.
 
@@ -100,7 +102,7 @@ Karabiner's "Linux text nav" rule handles text navigation. After Karabiner reloa
 **Do not use Cmd+Option+Space or Ctrl+Option+Space for any shortcuts.** "Ctrl+Option+Space" → Karabiner outputs Cmd+Option+Space → macOS Spotlight "Find in Finder" intercepts it
 - "Cmd+Option+Space" → Karabiner outputs Ctrl+Option+Space → macOS accessibility features intercept it
 
-Note: Do not swap Ctrl and Cmd in VS Code — VIM extension Ctrl bindings (Ctrl+u/d, Ctrl+r, Ctrl+v visual block, etc.) would break.
+Note: VS Code now participates in the Ctrl↔Cmd swap. GUI-style VS Code shortcuts should be written as `Cmd` bindings, matching the post-swap event that VS Code receives. High-value VSCodeVim Ctrl chords (`Ctrl+u/d`, `Ctrl+r`, `Ctrl+v` visual block) are restored to stickered `Ctrl` in VS Code keybindings.
 
 ---
 
@@ -173,7 +175,9 @@ Reserved for app-specific shortcuts that don't have a universal convention.
 
 ### VS Code
 
-- VS Code is excluded from the Ctrl↔Cmd swap (`com.microsoft.VSCode`) so its own Ctrl-prefixed bindings (e.g., `Ctrl+P` command palette, `Ctrl+B` sidebar) pass through unchanged. Linux text-nav rule still applies, so `Ctrl+←/→` does word nav.
+- VS Code participates in the Ctrl↔Cmd swap, so custom GUI-style bindings are written for the post-swap event (`Cmd+Shift+P` command palette, `Cmd+Shift+B` sidebar). Linux text-nav rule still applies, so `Ctrl+←/→` does word nav from the key that sends real Control.
+- Stickered `Ctrl+Tab` / `Ctrl+Shift+Tab` is rescued in Karabiner and delivered to VS Code as real `Ctrl+Tab` / `Ctrl+Shift+Tab` for editor/panel tab navigation.
+- Stickered `Ctrl+1..9` direct editor selection is handled in VS Code keybindings as post-swap `Cmd+1..9`, not in Karabiner.
 - ✅ Audit conflicts: `Cmd+←/→` is line nav on Mac; check if it clashes with Space switching
 - ✅ VS Code has its own keybinding layer (`keybindings.json`) — edit via `Cmd+Shift+P` → "Open Keyboard Shortcuts (JSON)"
 

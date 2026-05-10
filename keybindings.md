@@ -31,7 +31,7 @@ Copy/paste/delete notes:
 - `<Space>d`, `<Space>x`, `<Space>c` (and uppercase variants) send to the blackhole register — no clipboard effect.
 - `<Space>` is the leader key in normal mode.
 - `Ctrl+C` / `Ctrl+V` for copy/paste in GUI apps — use in Chrome and GUI apps without VIM bindings.
-- Ghostty (terminal): `Ctrl+C` copies if text is selected, sends SIGINT otherwise. `Ctrl+V` pastes from clipboard. Do not use in Neovim or VS Code (these intercept the keys).
+- Ghostty (terminal): mouse selection copies to clipboard; `Ctrl+Shift+C` copies an active selection; `Ctrl+Shift+V` pastes from clipboard. Do not use GUI paste in Neovim or VS Code (these intercept the keys).
 - Vi-mode with macOS clipboard integration. Yank/delete operations sync to the system clipboard via `pbcopy`/`pbpaste`; `p`/`P` paste from system clipboard.
 
 ## Leader key (Space)
@@ -122,8 +122,9 @@ Ghostty is excluded from the Ctrl↔Cmd swap — Ctrl is Ctrl, Cmd is Cmd. `supe
 
 | Shortcut | Action                            |
 | -------- | --------------------------------- |
-| Ctrl+C   | Copy if selection; SIGINT if none |
-| Ctrl+V   | Paste                             |
+| Mouse select | Copy to clipboard              |
+| Ctrl+Shift+C | Copy active selection          |
+| Ctrl+Shift+V | Paste                          |
 
 ## Claude Code
 
@@ -196,15 +197,29 @@ Runs in Ghostty (excluded from Ctrl↔Cmd swap), so sticker names equal signal n
 | -------------- | ------------------------ |
 | Ctrl+Tab       | Next editor / panel tab  |
 | Ctrl+Shift+Tab | Prev editor / panel tab  |
-| Ctrl+Shift+B   | Toggle sidebar           |
-| Ctrl+Shift+-/= | Decrease / increase pane |
+| Ctrl+1–8       | Select editor tab 1–8    |
+| Ctrl+9         | Select last editor tab   |
+| Cmd+Shift+B    | Toggle sidebar           |
+| Cmd+Shift+-/=  | Decrease / increase pane |
+
+VS Code participates in the Ctrl↔Cmd swap. GUI-style shortcuts above are written as the post-swap key event VS Code receives. `Ctrl+Tab` stays on real Control because `Cmd+Tab` is reserved by macOS for app switching.
+Karabiner rescues stickered `Ctrl+Tab` / `Ctrl+Shift+Tab` in VS Code and Chrome before the global app-switcher no-op. Ghostty handles the same shortcuts natively because terminals are excluded from the Ctrl↔Cmd swap.
+
+### Search / Pickers
+
+| Shortcut      | Action                                                     |
+| ------------- | ---------------------------------------------------------- |
+| Ctrl+Shift+O  | Search symbols in current document: functions, headings    |
+| Ctrl+T        | Search symbols across workspace                            |
+| Ctrl+P        | Search files/documents across workspace                    |
+| Ctrl+K Ctrl+P | Search currently open tabs/editors                         |
 
 ### Intellisense
 
 | Shortcut | Action                |
 | -------- | --------------------- |
 | Tab      | Accept suggestion     |
-| Ctrl+G   | Dismiss suggestions   |
+| Cmd+G    | Dismiss suggestions   |
 | Arrows   | Scroll btw selections |
 
 **Enter**: Set to do nothing for tab completion.
