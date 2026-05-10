@@ -1,134 +1,105 @@
-[//]: # (Style guide: no markdown tables — use lists and descriptions only)
+# Apps — maodou-mac
 
-# Install Checklist — maodou-mac
+Current app inventory and install notes. Completed migration checklist details are
+archived.
 
-Check off as you install. See `tasks.md` for when each phase happens.
+## CLI Tools
 
+Installed with Homebrew unless noted:
 
-Add Claude, ChatGPT desktop, Apple mail, proton
+- `git`
+- `gh`
+- `ripgrep`
+- `fd`
+- `fzf`
+- `zoxide`
+- `unar`
+- `ffmpegthumbnailer`
+- `imagemagick`
+- `trash`
+- `antidote`
+- `starship`
+- `yazi`
+- `neovim`
+- `node`
 
----
+Notes:
 
-## CLI tools — `brew install`
+- Homebrew Apple Silicon path is `/opt/homebrew/bin`.
+- `trash` is keg-only and needs `/opt/homebrew/opt/trash/bin` in PATH.
+- macOS uses `trash <file>`, not Linux `trash-put`.
 
-- ✅ `git`
-- ✅ `gh`
-- ✅ `ripgrep`
-- ✅ `fd`
-- ✅ `fzf`
-- ✅ `zoxide`
-- ✅ `unar`
-- ✅ `ffmpegthumbnailer`
-- ✅ `imagemagick`
-- ✅ `trash` — replaces Linux `trash-cli`; command is `trash <file>`, not `trash-put`; keg-only (not auto-linked) — requires PATH entry in zshrc
-- ✅ `antidote`
-- ✅ `starship`
-- ✅ `yazi`
-- ✅ `neovim`
-- ✅ `node`
+## GUI Apps
 
----
+Installed with Homebrew casks unless noted:
 
-## GUI apps — `brew install --cask`
+- Ghostty
+- CommitMono Nerd Font
+- JetBrains Mono Nerd Font
+- Visual Studio Code
+- Sublime Text
+- Google Chrome
+- VLC
+- draw.io
+- Proton VPN
+- qBittorrent
+- 1Password
+- Signal
+- Zoom
+- Google Drive
+- Adobe Creative Cloud
 
-- ✅ `ghostty`
-- ✅ `font-commit-mono-nerd-font` — current default font (replaces JetBrains Mono Nerd Font)
-- ✅ `font-jetbrains-mono-nerd-font`
-- ✅ `visual-studio-code`
-- ✅ `sublime-text`
-- ✅ `google-chrome`
-- ✅ `vlc`
-- ✅ `drawio`
-- ✅ `nicotine-plus` — not available as cask; install via formula (`brew install nicotine-plus`, GTK4) or download from nicotine-plus.org
-- ✅ `protonvpn`
-- ✅ `qbittorrent` — deprecated in Homebrew; Gatekeeper issue, will be disabled 2026-09-01
-- ✅ `1password`
-- ✅ `signal`
-- ✅ `zoom`
-- ✅ `google-drive`
-- ✅ `microsoft-excel` — consider if necessary. **decision**: wait until it's needed
-- ✅ `adobe-creative-cloud` — install Lightroom CC only from within Creative Cloud; see Adobe hardening notes below
+Special cases:
 
----
+- `nicotine-plus` is installed as a formula or from upstream, not a cask.
+- Microsoft Excel is deferred until needed.
+- Lightroom is installed from inside Adobe Creative Cloud.
 
-## Special installs
+## Special Installs
 
-- ✅ Claude Code: `npm install -g @anthropic-ai/claude-code`
-- ✅ Chinese input: System Settings → Keyboard → Input Sources → add Pinyin - Simplified; install `squirrel` via Homebrew if the built-in is insufficient
+- Claude Code: `npm install -g @anthropic-ai/claude-code`
+- Chinese input: built-in Pinyin - Simplified
 
-To install apps from an unknown developer (wtv that means), follow these directions:
+## Browser Extensions
 
-[Open a Mac app from an unknown developer](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unknown-developer-mh40616/mac)
+- Vimium
+- 1Password
+- Simple New Tab URL, or equivalent blank-tab behavior
 
---
+## Raycast
 
-## Browser extensions (Chrome)
+Raycast is the launcher and window search tool.
 
-- ✅ Vimium
-- ✅ 1Password
-- ✅ Simple New Tab URL (or set blank new tab)
+Configured:
 
----
+- Launch at login.
+- Hidden from Dock.
+- Spotlight shortcut disabled.
+- Unused default extensions disabled.
+- Clipboard History enabled.
+- Switch Windows enabled.
 
-## Finding and browsing installed apps
+AeroSpace handles workspaces and tiling, so Raycast Window Management bindings are
+not part of the current workflow.
 
-- `brew list --cask` — GUI apps installed via Homebrew
-- `brew list --formula` — CLI tools installed via Homebrew
-- This file (`apps.md`) — source of truth for everything else (npm installs, manual downloads)
-- `/Applications` in Finder — actual file system; matches `ls /Applications` in terminal
-- **Launchpad** (4-finger pinch) — visual overview of all apps, equivalent to GNOME Super grid; good for occasionally browsing or auditing installed apps. Not a file system view — includes Adobe's app catalogue (available-to-install apps), which clutters it
-- **Raycast** — power user launcher; replaces the need to visually browse apps day-to-day
+## Adobe Creative Cloud
 
----
+After installing Lightroom, harden Creative Cloud:
 
-## Raycast configuration
+- Launch at login off.
+- Auto-updates off.
+- Notifications off.
+- File sync off.
 
-Initial setup done. Return to this section to complete configuration.
+Installer cleanup:
 
-### Core settings
-
-- ✅ Preferences → General → Hotkey → **(decide)** — to use `Cmd+Space`, disable Spotlight first: search "Spotlight" → uncheck "Show Spotlight search"
-- ✅ Preferences → Advanced → "Hide Raycast in Dock" → On
-- ✅ Launch at login → On (needed — this is your app launcher)
-
-### Reduce bloat
-- ✅ Preferences → Extensions → disable everything you won't use — defaults include many you won't need (GIF Search, Emoji Search, Confetti, etc.)
-
-### Power user features to configure
-- ✅ **Clipboard History** — enable and set a hotkey; replaces needing a separate clipboard manager
-- ✅ **Window Management** — enabled; replaces macOS native tiling. Setup in `macos_settings.md`.
-
----
-
-## Adobe Creative Cloud hardening
-
-- ✅ Setup Adobe
-
-Adobe installs to `/Applications/Utilities`, not `/Applications` — it won't appear in a normal `ls /Applications`.
-
-After installing Lightroom, harden Creative Cloud in Preferences:
-- Launch at login → Off
-- Auto-updates → Off
-- Notifications → Off
-- File sync → Off (this is CC Files folder sync, separate from Lightroom photo sync — photo sync still works)
-
-Then remove the installer daemon that CC leaves behind:
-```
+```bash
 sudo rm /Library/LaunchDaemons/com.adobe.acc.installer.v2.plist
 ```
 
-Verify clean:
-```
+Verify:
+
+```bash
 ls ~/Library/LaunchAgents | grep -i adobe
 ls /Library/LaunchDaemons | grep -i adobe
 ```
-
----
-
-## Notes
-
-- Homebrew Apple Silicon path: `/opt/homebrew/bin/` — must be in PATH
-- `trash` syntax differs from Linux: `trash <file>`, not `trash-put <file>` — Yazi config updated in Phase 6
-- `trash` is keg-only — must add `export PATH="/opt/homebrew/opt/trash/bin:$PATH"` to Mac zshrc (Phase 7); without it `trash` command is not found
-- `wl-clipboard` has no place on Mac — zshrc clipboard integration rewritten with `pbcopy`/`pbpaste` in Phase 5
-- Google Docs and Sheets: web-only via Chrome

@@ -1,34 +1,31 @@
 # pickle-pi
 
-Raspberry Pi on LAN. Serves NFS shares and runs the field_notes agent (Rusty).
+Raspberry Pi on the LAN. Used for local storage and related home services.
 
-## Connecting
+## Connect
 
 ```bash
 ssh pickle-pi
 ```
 
-Host alias is defined in `ssh/config`. Key-based auth, passphrase cached by GNOME Keyring.
+The host alias is defined in `ssh/config`.
 
-## Config files
+## Dotfile Deployment
 
-The Pi's shell config is maintained in this repo and deployed manually (no symlink):
+The Pi shell config is maintained here and deployed manually:
 
-| File in dotfiles      | Deployed to (on pickle-pi) |
-| --------------------- | -------------------------- |
-| `zshrc_pickle-pi`     | `~/.zshrc`                 |
-| `ssh/config`          | `~/.ssh/config`            |
+| File in repo | Deployed to |
+| --- | --- |
+| `zshrc_pickle-pi` | `~/.zshrc` |
+| `ssh/config` | `~/.ssh/config` |
 
-To deploy a change:
+Deploy shell changes with:
 
 ```bash
 scp zshrc_pickle-pi pickle-pi:~/.zshrc
 ```
 
-## NFS share
+## Storage
 
-pickle-pi exposes a drive over NFS. Mount it from this machine with the `mountnfs` alias.
-
-## field_notes agent (Rusty)
-
-Rusty is a separate project — see `/mnt/ssd2_data/documents/field_notes_pi/` for its documentation.
+NFS mount aliases are defined in the shell config. Operational setup history is
+archived under `setup/archive/`.

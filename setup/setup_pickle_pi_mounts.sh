@@ -9,6 +9,9 @@ set -euo pipefail
 
 echo "=== pickle-pi external HDD mount setup ==="
 
+: "${HDD_LUKS_UUID:?Set HDD_LUKS_UUID before running this local setup script}"
+: "${HDD_FS_UUID:?Set HDD_FS_UUID before running this local setup script}"
+
 # --- 1. Verify key file exists ---
 if [[ ! -f /etc/cryptsetup-keys.d/hdd_data.key ]]; then
     echo "[ERROR] Key file not found at /etc/cryptsetup-keys.d/hdd_data.key"
@@ -26,8 +29,7 @@ touch /etc/crypttab 2>/dev/null || true
 cp -n /etc/crypttab /etc/crypttab.bak && echo "[OK] /etc/crypttab.bak created (or already existed)"
 
 # --- 3. Add crypttab entry ---
-# LUKS container UUID: b7cef311-0dc7-41c2-addd-f64d053fae6d (/dev/sda1)
-CRYPTTAB_ENTRY="hdd_data  UUID=b7cef311-0dc7-41c2-addd-f64d053fae6d  /etc/cryptsetup-keys.d/hdd_data.key  luks"
+CRYPTTAB_ENTRY="hdd_data  /dev/disk/by-uuid/${HDD_LUKS_UUID}  /etc/cryptsetup-keys.d/hdd_data.key  luks"
 if grep -q "hdd_data" /etc/crypttab 2>/dev/null; then
     echo "[SKIP] hdd_data already in /etc/crypttab"
 else
@@ -36,13 +38,12 @@ else
 fi
 
 # --- 4. Add fstab entry ---
-# Inner filesystem UUID: 9d170708-5e41-4212-9a54-249a1ec4f741 (/dev/mapper/hdd_data)
 if grep -q "/mnt/hdd_data" /etc/fstab; then
     echo "[SKIP] /mnt/hdd_data already in /etc/fstab"
 else
     echo "" >> /etc/fstab
     echo "# External HDD (LUKS-encrypted, auto-unlocked via key file)" >> /etc/fstab
-    echo "UUID=9d170708-5e41-4212-9a54-249a1ec4f741  /mnt/hdd_data  ext4  defaults,nofail  0  2" >> /etc/fstab
+    echo "/dev/disk/by-uuid/${HDD_FS_UUID}  /mnt/hdd_data  ext4  defaults,nofail  0  2" >> /etc/fstab
     echo "[OK] Added /mnt/hdd_data entry to /etc/fstab"
 fi
 
@@ -58,4 +59,4 @@ findmnt --verify && echo "[OK] fstab syntax valid"
 echo ""
 echo "=== Setup complete ==="
 echo "On next boot the drive will auto-unlock and mount at /mnt/hdd_data"
-echo "NFS export (/etc/exports) should already have: /mnt/hdd_data 192.168.8.0/24(...)"
+echo "NFS export (/etc/exports) should already have: /mnt/hdd_data pickle-pi LAN(...)"

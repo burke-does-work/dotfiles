@@ -2,6 +2,10 @@
 
 # Config Changes
 
+Historical migration log. This file is preserved for audit context and may not
+match the current setup. Current references live in `README.md`, `docs/system.md`,
+and `keybindings.md`.
+
 ## Documentation (2026-03-29)
 
 - Created `README.md`, `docs/system.md`, `docs/diagram.md`, `docs/workflows.md`, `docs/pickle-pi.md`
@@ -10,7 +14,7 @@
 
 Config file: `~/dotfiles/ssh/config` → symlinked to `~/.ssh/config`
 
-- Added `Host pickle-pi` entry: hostname `192.168.8.154`, user `matt`, key `~/.ssh/id_ed25519`
+- Added `Host pickle-pi` entry: hostname `pickle-pi`, user `matt`, key `~/.ssh/id_ed25519`
 - Copied public key to pickle-pi with `ssh-copy-id` — key-based auth only, no password required
 - Disabled password authentication on pickle-pi: `PasswordAuthentication no` in `/etc/ssh/sshd_config`
 - SSH config moved to dotfiles repo and symlinked (same pattern as other dotfiles configs)
@@ -307,7 +311,7 @@ Setup script: `~/dotfiles/setup_proj_2026-03/setup_pickle_pi_mounts.sh`
 
 - External HDD (`/dev/sda1`) is LUKS-encrypted; generated a random key file and added it to the LUKS device with `cryptsetup luksAddKey`
 - Key file stored at `/etc/cryptsetup-keys.d/hdd_data.key` (root-only, mode 400)
-- Added `crypttab` entry: `hdd_data UUID=b7cef311... /etc/cryptsetup-keys.d/hdd_data.key luks` — auto-unlocks on boot
+- Added `crypttab` entry: `hdd_data <hdd-luks-device> /etc/cryptsetup-keys.d/hdd_data.key luks` — auto-unlocks on boot
 - Added `fstab` entry: inner filesystem UUID (`9d170708...`) → `/mnt/hdd_data`, ext4, `nofail` — same pattern as matt-9000
 - NFS export `/mnt/hdd_data` already existed in `/etc/exports`; ran `exportfs -ra` to activate it
 - `/mnt/nfs/hdd_data` now accessible from matt-9000 (7.3T drive, 2.4T used)

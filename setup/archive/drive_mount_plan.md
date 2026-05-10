@@ -2,6 +2,9 @@
 
 # Encrypted Drive Mount Setup Plan
 
+Historical local-infrastructure plan. This file is archived for context and is
+not the current setup reference.
+
 ## Context
 
 The current approach uses bash scripts (`ssd2_drive_mount.sh`, `nfs_mount.sh`) invoked via zsh aliases (`mountlocal`, `mountnfs`). The scripts were written to solve two requirements:
@@ -56,7 +59,7 @@ sudo cp /etc/crypttab /etc/crypttab.bak
 ### 3. `/etc/crypttab` — add ssd2_world entry
 
 ```
-ssd2_world  UUID=3efbea31-d5bb-493b-ac77-b747808217b3  /etc/cryptsetup-keys.d/ssd2_world.key  luks,noauto
+ssd2_world  /dev/disk/by-uuid/<ssd2-luks-uuid>  /etc/cryptsetup-keys.d/ssd2_world.key  luks,noauto
 ```
 
 - `noauto` — systemd skips this at boot; safe even if key file is inaccessible at boot
@@ -68,9 +71,9 @@ ssd2_world  UUID=3efbea31-d5bb-493b-ac77-b747808217b3  /etc/cryptsetup-keys.d/ss
 # SSD2 encrypted data drive
 /dev/mapper/ssd2_world  /mnt/ssd2_data  ext4  noauto  0  0
 
-# NFS shares from Raspberry Pi (192.168.8.154)
-192.168.8.154:/mnt/drive_data  /mnt/nfs/drive_data  nfs  noauto,_netdev  0  0
-192.168.8.154:/mnt/hdd_data    /mnt/nfs/hdd_data    nfs  noauto,_netdev  0  0
+# NFS shares from Raspberry Pi (pickle-pi)
+pickle-pi:/mnt/drive_data  /mnt/nfs/drive_data  nfs  noauto,_netdev  0  0
+pickle-pi:/mnt/hdd_data    /mnt/nfs/hdd_data    nfs  noauto,_netdev  0  0
 ```
 
 - `noauto` — not mounted at boot

@@ -6,6 +6,8 @@ set -euo pipefail
 
 echo "=== Encrypted drive setup ==="
 
+: "${SSD2_LUKS_UUID:?Set SSD2_LUKS_UUID before running this local setup script}"
+
 # --- 1. Move key file to system standard location ---
 if [[ ! -f /etc/cryptsetup-keys.d/ssd2_world.key ]]; then
     mkdir -p /etc/cryptsetup-keys.d
@@ -23,7 +25,7 @@ touch /etc/crypttab 2>/dev/null || true
 cp -n /etc/crypttab /etc/crypttab.bak && echo "[OK] /etc/crypttab.bak created (or already existed)"
 
 # --- 3. Add crypttab entry ---
-CRYPTTAB_ENTRY="ssd2_world  UUID=3efbea31-d5bb-493b-ac77-b747808217b3  /etc/cryptsetup-keys.d/ssd2_world.key  luks,noauto"
+CRYPTTAB_ENTRY="ssd2_world  /dev/disk/by-uuid/${SSD2_LUKS_UUID}  /etc/cryptsetup-keys.d/ssd2_world.key  luks,noauto"
 if grep -q "ssd2_world" /etc/crypttab 2>/dev/null; then
     echo "[SKIP] ssd2_world already in /etc/crypttab"
 else
@@ -45,9 +47,9 @@ if grep -q "/mnt/nfs/drive_data" /etc/fstab; then
     echo "[SKIP] NFS entries already in /etc/fstab"
 else
     echo "" >> /etc/fstab
-    echo "# NFS shares from Raspberry Pi (192.168.8.154)" >> /etc/fstab
-    echo "192.168.8.154:/mnt/drive_data  /mnt/nfs/drive_data  nfs  noauto,_netdev  0  0" >> /etc/fstab
-    echo "192.168.8.154:/mnt/hdd_data    /mnt/nfs/hdd_data    nfs  noauto,_netdev  0  0" >> /etc/fstab
+    echo "# NFS shares from Raspberry Pi (pickle-pi)" >> /etc/fstab
+    echo "pickle-pi:/mnt/drive_data  /mnt/nfs/drive_data  nfs  noauto,_netdev  0  0" >> /etc/fstab
+    echo "pickle-pi:/mnt/hdd_data    /mnt/nfs/hdd_data    nfs  noauto,_netdev  0  0" >> /etc/fstab
     echo "[OK] Added NFS entries to /etc/fstab"
 fi
 

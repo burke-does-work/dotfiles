@@ -1,5 +1,8 @@
 # Mac Transfer Tasks — maodou-mac
 
+Historical completed-task log. Current setup status lives in
+`../tasks_outstanding.md` and the current references linked from `../../../README.md`.
+
 ## High Priority - Remaining
 
 ### `git`

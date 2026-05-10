@@ -1,103 +1,92 @@
 # System Overview
 
-All tools use the Gruvbox Dark Hard color scheme and CommitMono Nerd Font for visual consistency.
+Current machine: `maodou-mac`.
 
----
+The setup uses Gruvbox Dark Hard colors and CommitMono Nerd Font where practical.
+Config lives in this repo and is symlinked into the locations each tool expects.
 
 ## Shell — zsh
 
-Config: `zshrc`, `zsh_plugins.txt`
+Config: `zshrc_maodou-mac`, `zsh_plugins.txt`
 
-The shell is the center of the environment. Key design decisions:
-
-- **Vi mode** — press `Esc` to enter normal mode at the command line. Enables vim motions for editing commands. Cursor changes shape (block in normal, line in insert) to show which mode you're in.
-- **Antidote** — plugin manager. Loads four plugins in order: completions → fzf-tab → autosuggestions → syntax highlighting. Order matters.
-- **fzf integration** — fuzzy search over command history (`Ctrl+R`) and files (`Ctrl+T`). Tab completion uses fzf-tab for a visual dropdown.
-- **macOS clipboard sync** — yank/delete in zsh vi-mode pipes through `pbcopy`/`pbpaste` to the system clipboard so you can paste into any app.
-
----
+- Vi mode is enabled.
+- Antidote loads zsh completions, fzf-tab, autosuggestions, and syntax highlighting.
+- fzf provides file and history search.
+- macOS clipboard integration uses `pbcopy` and `pbpaste`.
 
 ## Terminal — Ghostty
 
-Config: `config/ghostty/`
+Config: `config/ghostty/config`
 
-Ghostty replaced Kitty. It handles splits and tabs natively, no tmux needed.
-
----
+Ghostty is the main terminal. It handles tabs and splits directly. Terminals are
+excluded from the Ctrl/Cmd swap so `Ctrl+C` stays SIGINT.
 
 ## Prompt — Starship
 
 Config: `config/starship.toml`
 
-Two-line prompt. Line 1 shows context (directory, git branch/status, active Python venv). Line 2 is the `❯` input character (green on success, red on error).
+Two-line prompt with directory, git state, active Python venv, and command status.
 
-Python venv only appears when a venv is active — it doesn't show the system Python version.
+## Window Management — AeroSpace
 
----
+Config: `config/aerospace/aerospace.toml`
 
-## Primary editor — VS Code
+AeroSpace manages workspaces, tiling, directional focus, and app assignment.
+Raycast remains the launcher and window search tool.
 
-Config: `config/Code/matt-profile/`
+## Keyboard Layer — Karabiner
 
-VS Code uses a named profile (`matt-profile`) rather than the default profile. This keeps settings isolated.
+Config: `config/karabiner/`
 
-- **VSCodeVim** — vim modal editing inside VS Code. Leader key is `Space`. Same blackhole register bindings as Neovim (`<Space>d/c/x`).
-- **Tab completion** — `Tab` accepts suggestions. Enter does not (prevents accidental accepts on newline).
-- **Black formatter** — auto-formats Python on save.
-- **Project Manager extension** — quick-switch between `~/dotfiles` and `/mnt/ssd2_data/documents`.
+Karabiner handles modifier remapping, Linux-style text navigation, input-source
+toggle, screenshot shortcut, and app-specific rescue rules.
 
----
+`~/.config/karabiner` is a directory symlink because Karabiner rewrites files
+atomically.
 
-## Secondary editor — Neovim
+## Editors
 
-Config: `config/nvim/init.lua`
+VS Code config:
 
-Minimal config, used for single-file edits from the terminal. Not a full IDE.
+- `config/Code/global/`
+- `config/Code/matt-profile/`
 
-- **vim-table-mode** — for editing markdown tables. Toggle with `<Space>tm`.
-- **Clipboard** — uses the system clipboard (`unnamedplus`), so yanks paste into other apps.
+Neovim config:
 
-Open a file from the terminal: `nvim filename`. The `keybindings` alias opens `keybindings.md` directly.
+- `config/nvim/init.lua`
 
----
+VS Code is the project editor. Neovim is the terminal editor for quick file edits
+and config work.
 
-## File manager — Yazi
+## File Manager — Yazi
 
 Config: `config/yazi/`
 
-Terminal file manager. Launched from zsh or from the terminal.
-
-- `dd` — move to trash (safe, recoverable)
-- `D` — permanent delete
-- `Delete` — move to trash
-
-Yazi integrates with `zoxide` — use `z <partial-path>` to jump to frequently visited directories.
-
----
+Yazi is the terminal file manager. It uses vim-like file operations and integrates
+with zoxide.
 
 ## Claude Code
 
-Config: `config/claude/settings.mac.json` — symlinked to `~/.claude/settings.json`.
-Global instructions: `config/claude/CLAUDE.md` — symlinked to `~/.claude/CLAUDE.md`, loaded for every session.
+Config:
 
-Permission model:
+- `config/claude/settings.mac.json` -> `~/.claude/settings.json`
+- `config/claude/CLAUDE.md` -> `~/.claude/CLAUDE.md`
 
-- **Read tool** is unrestricted (`Read(**)` + `additionalDirectories: ["/"]`). Deny list covers `~/.ssh`, `~/.gnupg`, and `.env*` files.
-- **Bash** uses an explicit allow list of read-only commands (`find`, `ls`, `grep`, `rg`, `wc`, `git log/status/diff`, etc.). `cat`, `head`, `tail` are intentionally excluded — Claude is instructed to use the Read tool for file content.
-- **Edit/Write** are not allow-listed, so they always prompt.
+Claude Code is configured for vim mode, explicit permissions, and terminal use
+inside Ghostty.
 
-Two rules in `~/.claude/CLAUDE.md` close the most common prompt gaps:
+## Codex
 
-1. Use the Read tool for file content — never `cat`/`head`/`tail` in Bash.
-2. One command per Bash call — no chaining with `&&`, `||`, or `;`. Compound commands don't match single-command allow patterns and will always prompt.
+Config:
 
----
+- `config/codex/config.toml` -> `~/.codex/config.toml`
+
+Only user-editable Codex config is tracked. Auth, logs, caches, history, sessions,
+and state remain local.
 
 ## SSH
 
 Config: `ssh/config`
 
-Single configured host: `pickle-pi` (192.168.8.154). Connect with `ssh pickle-pi`.
-
-- Key-based auth with an ed25519 key. Passphrase cached by GNOME Keyring — you only enter it once per session.
-- Connection multiplexing enabled — a second `ssh pickle-pi` reuses the existing connection instantly.
+Main configured host: `pickle-pi`. Key-based auth and connection multiplexing are
+enabled.

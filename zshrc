@@ -165,16 +165,21 @@ export VISUAL=nvim
 ##### ──────────────────────────────────────────────────────────────────────────
 
 # Mount the encrypted external SSD at /mnt/ssd2_data.
-# GNOME auto-mounts the drive at /media/matt/ssd2_world when it's plugged in, blocking our mount.
-# Steps: dismiss GNOME's mount → close GNOME's LUKS device → open LUKS using /etc/crypttab
-# (key file: /etc/cryptsetup-keys.d/ssd2_world.key) → mount via /etc/fstab.
-# The first two steps use ; and suppress errors so they no-op cleanly if GNOME hasn't auto-mounted.
-alias mountlocal='sudo umount /media/matt/ssd2_world 2>/dev/null; sudo cryptsetup close luks-3efbea31-d5bb-493b-ac77-b747808217b3 2>/dev/null; sudo cryptdisks_start ssd2_world && sudo mount /mnt/ssd2_data'
+# GNOME may auto-mount it first; close that mapper before opening the named crypttab entry.
+mountlocal() {
+  local gnome_mapper
+  gnome_mapper="$(findmnt -n -o SOURCE /media/matt/ssd2_world 2>/dev/null)"
+  sudo umount /media/matt/ssd2_world 2>/dev/null
+  if [[ -n "$gnome_mapper" ]]; then
+    sudo cryptsetup close "${gnome_mapper:t}" 2>/dev/null
+  fi
+  sudo cryptdisks_start ssd2_world && sudo mount /mnt/ssd2_data
+}
 
 # Unmount the encrypted SSD and close the LUKS device.
 alias umountlocal='sudo umount /mnt/ssd2_data && sudo cryptdisks_stop ssd2_world'
 
-# Mount NFS shares exported by the Raspberry Pi (192.168.8.154).
+# Mount NFS shares exported by the Raspberry Pi (pickle-pi).
 # Entries are defined in /etc/fstab with noauto,_netdev — not mounted at boot.
 alias mountnfs='sudo mount /mnt/nfs/drive_data && sudo mount /mnt/nfs/hdd_data'
 

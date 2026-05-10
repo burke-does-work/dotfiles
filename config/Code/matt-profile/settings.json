@@ -34,7 +34,7 @@
   // Tab completion
   // NOTE: VSCodeVim intercepts Tab in insert mode for snippet expansion — verify
   // that tab completion works as expected. Add vim.handleKeys for <tab> if needed.
-  // Return to this when reviewing tab completion in setup_tasks.md.
+  // Return to this when reviewing tab completion in setup notes.
   //////////////////////////////////////////////////////////////////////////////
 
   "editor.acceptSuggestionOnEnter": "off",

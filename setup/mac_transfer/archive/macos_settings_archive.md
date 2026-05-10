@@ -1,5 +1,7 @@
 # macOS Interface Settings — maodou-mac
 
+Historical draft. Current macOS settings live in `../macos_settings.md`.
+
 Work through each section during Phase 2 of the transfer. Most settings live in System Settings unless noted. Items marked **(known)** reflect confirmed preferences from dconf. Items marked **(decide)** need a choice.
 
 ## Keyboard
@@ -341,4 +343,3 @@ On Linux, `text-scaling-factor=1.25` — text is 25% larger than default. Replic
 - ✅ New Finder window opens to: `local/`
 - ✅ Sidebar: Finder → Settings → Sidebar — configure to taste
 - ✅ Remove tags from sidebar if unused
-

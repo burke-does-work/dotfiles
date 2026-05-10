@@ -1,6 +1,6 @@
 
 Host pickle-pi
-    HostName 192.168.8.154
+    HostName pickle-pi
     User matt
     IdentityFile ~/.ssh/id_ed25519
 
