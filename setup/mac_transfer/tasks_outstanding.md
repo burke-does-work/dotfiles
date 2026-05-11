@@ -31,9 +31,10 @@ Menubar CPU, RAM, network display.
 
 ## Phase 11 — NFS
 
-- 🔲 `sudo mkdir -p /mnt/nfs/drive_data /mnt/nfs/hdd_data`
-- 🔲 Add NFS mount aliases to Mac zshrc **(Claude)**
-- 🔲 Test: mount both shares, verify read/write
+- ✅ Add autofs setup script for Mac `/Volumes` mount points **(Claude)**
+- ✅ Remove manual NFS mount aliases from Mac zshrc **(Claude)**
+- ✅ Run autofs setup script
+- ✅ Test: access both shares, verify read/write
 
 ## Phase 12 - Cleanup
 
