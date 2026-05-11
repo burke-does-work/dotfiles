@@ -154,15 +154,6 @@
   "interactiveWindow.collapseCellInputCode": "never",
 
   //////////////////////////////////////////////////////////////////////////////
-  // Project Manager
-  //////////////////////////////////////////////////////////////////////////////
-
-  "projectManager.git.baseFolders": [
-    "/mnt/ssd2_data/documents",
-    "/home/matt/dotfiles"
-  ],
-
-  //////////////////////////////////////////////////////////////////////////////
   // Inline fold (markdown)
   // Folds the URL in markdown links [link text](url), leaving only the link
   // text visible while editing. Reduces visual noise in markdown files.
@@ -185,6 +176,10 @@
     "Panelmate",
     "Powerpole",
     "Starlink"
+  ],
+  "projectManager.git.baseFolders": [
+    "/Users/matt/local/documents",
+    "/Users/matt/local/dotfiles"
   ]
 
 }
