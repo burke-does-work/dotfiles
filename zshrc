@@ -7,7 +7,7 @@
 
 # Add user local binaries to PATH (kitty, etc.)
 path=($HOME/.local/bin $path)
-
+    
 # Add personal helper scripts to PATH
 path=($HOME/helper_scripts $path)
 

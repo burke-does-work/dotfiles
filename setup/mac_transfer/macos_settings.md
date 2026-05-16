@@ -5,13 +5,13 @@ Settled configuration for the current Mac. User-facing shortcuts live in
 
 ## Layer Model
 
-| Layer | Tool | Scope |
-| --- | --- | --- |
-| Modifier and key remapping | Karabiner-Elements | Ctrl/Cmd swap, text nav, per-app rules |
-| App launching and search | Raycast | Launcher, clipboard history, window search |
-| Workspaces and layout | AeroSpace | Workspaces, tiling, directional focus |
-| Terminal | Ghostty | Tabs, splits, terminal keybindings |
-| Per-app bindings | App configs | VS Code, Claude Code, browser extensions |
+| Layer                      | Tool               | Scope                                      |
+| -------------------------- | ------------------ | ------------------------------------------ |
+| Modifier and key remapping | Karabiner-Elements | Ctrl/Cmd swap, text nav, per-app rules     |
+| App launching and search   | Raycast            | Launcher, clipboard history, window search |
+| Workspaces and layout      | AeroSpace          | Workspaces, tiling, directional focus      |
+| Terminal                   | Ghostty            | Tabs, splits, terminal keybindings         |
+| Per-app bindings           | App configs        | VS Code, Claude Code, browser extensions   |
 
 Use System Settings only for OS preferences and rare app menu shortcuts.
 

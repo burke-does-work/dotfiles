@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 # Run once on macOS to configure autofs for pickle-pi NFS shares.
+#
+# Uses an indirect map under /private/nfs. automount owns the parent directory
+# and re-creates it on every boot, so no manual mkdir is needed after restarts.
 
 set -euo pipefail
 
 HOST="${PICKLE_PI_HOST:-pickle-pi.local}"
 DRIVE_EXPORT="/mnt/drive_data"
 HDD_EXPORT="/mnt/hdd_data"
-DRIVE_MOUNT="/Volumes/pickle-pi-drive_data"
-HDD_MOUNT="/Volumes/pickle-pi-hdd_data"
 NFS_OPTS="resvport,nolocks,tcp"
+AUTO_PARENT="/private/nfs"
 AUTO_MAP="/etc/auto_pickle_pi"
 AUTO_MASTER="/etc/auto_master"
-AUTO_MASTER_ENTRY="/- ${AUTO_MAP}"
 BACKUP_SUFFIX="backup-before-pickle-pi"
 
 echo "=== macOS pickle-pi autofs setup ==="
 
 backup_file() {
     local path="$1"
-
     if [[ -f "$path" ]]; then
         local backup="${path}.${BACKUP_SUFFIX}"
         if [[ -e "$backup" ]]; then
@@ -38,25 +38,20 @@ showmount -e "$HOST"
 
 echo "[INFO] Installing $AUTO_MAP"
 sudo tee "$AUTO_MAP" >/dev/null <<EOF
-$DRIVE_MOUNT -fstype=nfs,$NFS_OPTS ${HOST}:${DRIVE_EXPORT}
-$HDD_MOUNT -fstype=nfs,$NFS_OPTS ${HOST}:${HDD_EXPORT}
+drive_data -fstype=nfs,${NFS_OPTS} ${HOST}:${DRIVE_EXPORT}
+hdd_data   -fstype=nfs,${NFS_OPTS} ${HOST}:${HDD_EXPORT}
 EOF
 
-if grep -qE "^[[:space:]]*/-[[:space:]]+${AUTO_MAP//\//\\/}([[:space:]]|$)" "$AUTO_MASTER"; then
-    echo "[SKIP] $AUTO_MASTER already includes $AUTO_MAP"
-else
-    echo "[INFO] Registering $AUTO_MAP in $AUTO_MASTER"
-    printf '\n# pickle-pi NFS shares\n%s\n' "$AUTO_MASTER_ENTRY" | sudo tee -a "$AUTO_MASTER" >/dev/null
-fi
+# Remove any previous (direct or indirect) pickle-pi entry from auto_master
+sudo sed -i '' "/$(basename "$AUTO_MAP")/d" "$AUTO_MASTER"
 
-echo "[INFO] Creating autofs mount points"
-sudo mkdir -p "$DRIVE_MOUNT" "$HDD_MOUNT"
+echo "[INFO] Registering $AUTO_MAP in $AUTO_MASTER"
+printf '\n# pickle-pi NFS shares\n%s\n' "${AUTO_PARENT} ${AUTO_MAP}" | sudo tee -a "$AUTO_MASTER" >/dev/null
 
 echo "[INFO] Reloading automount maps"
 sudo automount -vc
 
 echo
-echo "[OK] autofs configured"
-echo "Accessing these paths will mount the shares on demand:"
-echo "  $DRIVE_MOUNT"
-echo "  $HDD_MOUNT"
+echo "[OK] autofs configured. Update symlinks in ~/local/:"
+echo "  ln -sf ${AUTO_PARENT}/hdd_data ~/local/pickle-pi-hdd_data"
+echo "  ln -sf ${AUTO_PARENT}/drive_data ~/local/pickle-pi-drive_data"

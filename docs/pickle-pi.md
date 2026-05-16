@@ -34,8 +34,10 @@ Exports used by Mac and Linux clients:
 
 | Export | Local macOS mount point |
 | --- | --- |
-| `pickle-pi:/mnt/drive_data` | `/Volumes/pickle-pi-drive_data` |
-| `pickle-pi:/mnt/hdd_data` | `/Volumes/pickle-pi-hdd_data` |
+| `pickle-pi:/mnt/drive_data` | `/private/nfs/drive_data` |
+| `pickle-pi:/mnt/hdd_data` | `/private/nfs/hdd_data` |
+
+Convenience symlinks in `~/local/` point to these paths.
 
 On macOS, configure automatic on-demand mounts with:
 
@@ -53,11 +55,13 @@ resolvable LAN hostname:
 PICKLE_PI_HOST=192.168.1.x setup/setup_macos_nfs_mounts.sh
 ```
 
-The setup script installs `/etc/auto_pickle_pi`, registers it in
-`/etc/auto_master`, and reloads automount. After that, opening either path
-mounts the share automatically.
+The setup script installs an indirect automount map at `/etc/auto_pickle_pi`,
+registers it under `/private/nfs` in `/etc/auto_master`, and reloads automount.
+automount owns `/private/nfs` and re-creates it on every boot — no manual
+intervention needed after restarts. Accessing either path mounts the share
+on demand.
 
 ```bash
-ls /Volumes/pickle-pi-drive_data
-ls /Volumes/pickle-pi-hdd_data
+ls ~/local/pickle-pi-drive_data
+ls ~/local/pickle-pi-hdd_data
 ```

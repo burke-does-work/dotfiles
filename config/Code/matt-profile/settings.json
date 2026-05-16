@@ -180,6 +180,7 @@
   "projectManager.git.baseFolders": [
     "/Users/matt/local/documents",
     "/Users/matt/local/dotfiles"
-  ]
+  ],
+  "workbench.secondarySideBar.defaultVisibility": "hidden"
 
 }
