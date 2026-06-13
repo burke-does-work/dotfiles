@@ -120,7 +120,7 @@ ln -sf ~/local/dotfiles/config/Code/matt-profile/keybindings.json "$VSCODE_PROFI
 Claude Code:
 
 ```bash
-ln -sf ~/local/dotfiles/config/claude/settings.mac.json ~/.claude/settings.json
+ln -sf ~/local/dotfiles/config/claude/settings.json ~/.claude/settings.json
 ln -sf ~/local/dotfiles/config/claude/CLAUDE.md ~/.claude/CLAUDE.md
 ln -sf ~/local/dotfiles/config/claude/keybindings.json ~/.claude/keybindings.json
 ```

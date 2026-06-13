@@ -84,7 +84,7 @@ with zoxide.
 
 Config:
 
-- `config/claude/settings.mac.json` -> `~/.claude/settings.json`
+- `config/claude/settings.json` -> `~/.claude/settings.json`
 - `config/claude/CLAUDE.md` -> `~/.claude/CLAUDE.md`
 
 Claude Code is configured for vim mode, explicit permissions, and terminal use
