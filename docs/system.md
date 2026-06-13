@@ -27,6 +27,21 @@ Config: `config/starship.toml`
 
 Two-line prompt with directory, git state, active Python venv, and command status.
 
+## Python — uv
+
+uv is an all-in-one Python version manager, virtual environment tool, and package
+manager. It replaces pyenv, pip, venv, and pipx.
+
+- Python versions are installed via `uv python install <version>` and stored in
+  `~/.local/share/uv/python/`.
+- The global default is pinned in `~/.config/uv/.python-version` (currently 3.12.4).
+- Per-project `.python-version` files are read automatically.
+- `uv venv` creates `.venv/` in the current directory; activate with
+  `source .venv/bin/activate`.
+- `uv pip install` is a drop-in for `pip install`.
+- `uv tool install <tool>` installs CLI tools in isolated envs (replaces pipx).
+- Shell completions live in `~/.zsh/completions/_uv` (regenerate after `uv self update`).
+
 ## Window Management — AeroSpace
 
 Config: `config/aerospace/aerospace.toml`
@@ -86,7 +101,9 @@ and state remain local.
 
 ## SSH
 
-Config: `ssh/config`
+Config: `ssh/config` → `~/.ssh/config`
 
-Main configured host: `pickle-pi`. Key-based auth and connection multiplexing are
-enabled.
+Configured hosts: `pickle-pi` and `github.com`. Key-based auth and connection
+multiplexing are enabled. The multiplex socket directory `~/.ssh/multiplex/` must be
+created manually on a new machine (`mkdir -p ~/.ssh/multiplex`) — it is not tracked
+in this repo.

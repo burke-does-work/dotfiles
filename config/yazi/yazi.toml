@@ -8,3 +8,14 @@ show_hidden    = false
 [preview]
 image_filter  = "triangle"
 image_quality = 75
+
+[opener]
+pdf = [
+  { run = 'open -a "Google Chrome" "$@"', desc = "Chrome", orphan = true },
+]
+
+[open]
+rules = [
+  { mime = "application/pdf", use = "pdf" },
+  { mime = "*/pdf",           use = "pdf" },
+]

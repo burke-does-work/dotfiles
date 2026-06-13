@@ -159,20 +159,25 @@
   // text visible while editing. Reduces visual noise in markdown files.
   //////////////////////////////////////////////////////////////////////////////
 
-  "inlineFold.regex": "\\[([^\\]]*)\\]\\(([^\\s]+)\\)[^\\)\\s]*\\s",
-  "inlineFold.regexFlags": "g",
-  "inlineFold.regexGroup": 2,
-  "inlineFold.supportedLanguages": [
-    "markdown"
-  ],
+  // "inlineFold.regex": "\\[([^\\]]*)\\]\\(([^\\s]+)\\)[^\\)\\s]*\\s",
+  // "inlineFold.regexFlags": "g",
+  // "inlineFold.regexGroup": 2,
+  // "inlineFold.supportedLanguages": [
+  //   "markdown"
+  // ],
 
   //////////////////////////////////////////////////////////////////////////////
   // Spell check
   //////////////////////////////////////////////////////////////////////////////
 
   "cSpell.userWords": [
+    "Benchdogs",
+    "Bessey",
     "Boeshield",
+    "Computering",
     "datasheet",
+    "Festool",
+    "Makita",
     "Panelmate",
     "Powerpole",
     "Starlink"

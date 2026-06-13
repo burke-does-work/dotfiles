@@ -1,15 +1,7 @@
-[manager]
+[mgr]
 prepend_keymap = [
-  # Disable conflicting defaults
-  { on = ["d"],                  run = "noop",                 desc = "" },
-  { on = ["y"],                  run = "noop",                 desc = "" },
-  { on = ["x"],                  run = "noop",                 desc = "" },
-
-  # Custom vim-consistent bindings
-  { on = ["d", "d"],             run = "yank --cut",           desc = "Cut" },
-  { on = ["y", "y"],             run = "yank",                 desc = "Copy" },
-  { on = ["p"],                  run = "paste",                desc = "Paste" },
-  { on = ["<Space>", "d", "d"],  run = "remove",               desc = "Move to trash" },
-  { on = ["D"],                  run = "remove --permanently", desc = "Delete permanently" },
-  { on = ["<Delete>"],           run = "remove",               desc = "Move to trash" },
+  { on = ["d"],        run = "yank --cut", desc = "Cut" },
+  { on = ["x"],        run = "noop",       desc = "" },
+  { on = ["D"],        run = "noop",       desc = "" },
+  { on = ["<Backspace>"], run = "remove", desc = "Move to trash" },
 ]

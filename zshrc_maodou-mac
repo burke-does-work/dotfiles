@@ -19,6 +19,13 @@ path=($HOME/.local/bin $path)
 path=($HOME/helper_scripts $path)
 
 ##### ──────────────────────────────────────────────────────────────────────────
+##### uv (Python version + package manager)
+##### ──────────────────────────────────────────────────────────────────────────
+
+# uv completions (regenerate after uv self update: uv generate-shell-completion zsh > ~/.zsh/completions/_uv)
+fpath=(~/.zsh/completions $fpath)
+
+##### ──────────────────────────────────────────────────────────────────────────
 ##### Plugins
 ##### ──────────────────────────────────────────────────────────────────────────
 

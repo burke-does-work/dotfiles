@@ -1,6 +1,17 @@
 
+Host github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    AddKeysToAgent yes
+    UseKeychain yes
+
 Host pickle-pi
-    HostName pickle-pi
+    HostName pickle-pi.local
+    User matt
+    IdentityFile ~/.ssh/id_ed25519
+
+Host maodou-pi
+    HostName maodou-pi.local
     User matt
     IdentityFile ~/.ssh/id_ed25519
 
