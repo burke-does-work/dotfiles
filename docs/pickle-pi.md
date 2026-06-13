@@ -27,8 +27,7 @@ scp zshrc_pickle-pi pickle-pi:~/.zshrc
 
 ## Storage
 
-NFS mount aliases are defined in the shell config. Operational setup history is
-archived under `setup/archive/`.
+NFS mount aliases are defined in the shell config.
 
 Exports used by Mac and Linux clients:
 

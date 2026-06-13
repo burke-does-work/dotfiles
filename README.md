@@ -31,23 +31,13 @@ I want the Mac hardware with the Unix-centered workflow. The result is a hybrid.
 The setup is opinionated because, well, I'm opinionated. It favors repeatable operations,
 plain files, and muscle memory over defaults chosen for a broad audience.
 
-## Current Reference
+## Reference
 
 - [System overview](docs/system.md) — current tools, roles, and config locations.
 - [Keybindings](keybindings.md) — current keyboard reference.
+- [macOS setup](docs/macos.md) — settled macOS configuration.
+- [Apps](docs/apps.md) — installed app inventory and install notes.
 - [pickle-pi](docs/pickle-pi.md) — local Raspberry Pi notes.
-
-## Setup Notes
-
-- [macOS setup](setup/mac_transfer/macos_settings.md) — settled macOS configuration.
-- [Apps](setup/mac_transfer/apps.md) — installed app inventory and install notes.
-- [Outstanding tasks](setup/mac_transfer/tasks_outstanding.md) — remaining setup work.
-
-## Archive
-
-Historical migration logs and old setup plans live under `setup/archive/` and
-`setup/mac_transfer/archive/`. They are kept for audit value, not as current
-setup instructions.
 
 ## Public Repo Notes
 

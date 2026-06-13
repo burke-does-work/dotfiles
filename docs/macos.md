@@ -1,7 +1,7 @@
 # macOS Setup — maodou-mac
 
 Settled configuration for the current Mac. User-facing shortcuts live in
-`../../keybindings.md`.
+`../keybindings.md`.
 
 ## Layer Model
 
@@ -143,7 +143,6 @@ Sharing:
 
 - AppCleaner is used for manually installed app removal.
 - Menubar is kept minimal.
-- Backup work remains in `tasks_outstanding.md`.
 
 ## Future Considerations
 
