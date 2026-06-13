@@ -122,6 +122,7 @@ Claude Code:
 ```bash
 ln -sf ~/local/dotfiles/config/claude/settings.json ~/.claude/settings.json
 ln -sf ~/local/dotfiles/config/claude/CLAUDE.md ~/.claude/CLAUDE.md
+ln -sf ~/local/dotfiles/config/claude/AGENTS.md ~/.claude/AGENTS.md
 ln -sf ~/local/dotfiles/config/claude/keybindings.json ~/.claude/keybindings.json
 ```
 

@@ -86,6 +86,7 @@ Config:
 
 - `config/claude/settings.json` -> `~/.claude/settings.json`
 - `config/claude/CLAUDE.md` -> `~/.claude/CLAUDE.md`
+- `config/claude/AGENTS.md` -> `~/.claude/AGENTS.md`
 
 Claude Code is configured for vim mode, explicit permissions, and terminal use
 inside Ghostty.
