@@ -16,13 +16,13 @@ The Pi shell config is maintained here and deployed manually:
 
 | File in repo | Deployed to |
 | --- | --- |
-| `zshrc_pickle-pi` | `~/.zshrc` |
+| `config/zsh/zshrc_pickle-pi` | `~/.zshrc` |
 | `ssh/config` | `~/.ssh/config` |
 
 Deploy shell changes with:
 
 ```bash
-scp zshrc_pickle-pi pickle-pi:~/.zshrc
+scp config/zsh/zshrc_pickle-pi pickle-pi:~/.zshrc
 ```
 
 ## Storage

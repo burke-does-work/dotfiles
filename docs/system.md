@@ -7,7 +7,7 @@ Config lives in this repo and is symlinked into the locations each tool expects.
 
 ## Shell — zsh
 
-Config: `zshrc_maodou-mac`, `zsh_plugins.txt`
+Config: `config/zsh/zshrc_maodou-mac`, `config/zsh/zsh_plugins.txt`
 
 - Vi mode is enabled.
 - Antidote loads zsh completions, fzf-tab, autosuggestions, and syntax highlighting.

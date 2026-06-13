@@ -71,8 +71,8 @@ these after cloning. Repo root is assumed to be `~/local/dotfiles`.
 Shell:
 
 ```bash
-ln -sf ~/local/dotfiles/zshrc_maodou-mac ~/.zshrc
-ln -sf ~/local/dotfiles/zsh_plugins.txt ~/.zsh_plugins.txt
+ln -sf ~/local/dotfiles/config/zsh/zshrc_maodou-mac ~/.zshrc
+ln -sf ~/local/dotfiles/config/zsh/zsh_plugins.txt ~/.zsh_plugins.txt
 ```
 
 Git:
