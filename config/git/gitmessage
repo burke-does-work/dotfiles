@@ -1,0 +1,12 @@
+
+
+# Type: description
+#
+# Context: (for large commits)
+#
+# Changes:
+# 
+# --NOTES-- 
+# First line, aim for ~50 chars, max 72)
+#     Subsequent lines, aim for 72 / wrap at 72 if needed
+# Valid types: Docs, Chore, Build, Refactor, Fix

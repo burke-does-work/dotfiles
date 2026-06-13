@@ -1,3 +1,6 @@
 [user]
 	name = Matt Burke
 	email = matt@burkedoes.work
+
+[commit]
+	template = ~/local/dotfiles/config/git/gitmessage
