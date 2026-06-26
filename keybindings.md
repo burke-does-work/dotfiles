@@ -11,14 +11,14 @@ Applies across VS Code and Neovim unless overridden.
 | ---                 | ---                           |
 | `h/j/k/l`           | Move left/down/up/right       |
 | `gg` / `G`          | Top / bottom of file          |
-| `Ctrl+u` / `Ctrl+d` | Half-page up / down           |
+| `ctrl+u` / `ctrl+d` | Half-page up / down           |
 | `w` / `b`           | Next / previous word          |
 | `0` / `$`           | Start / end of line           |
 | `/`, `n`, `N`       | Search, next, previous        |
 | `i` / `a`           | Insert before / after cursor  |
 | `o` / `O`           | New line below / above        |
 | `dd` / `yy` / `p`   | Delete line / yank line / put |
-| `u` / `Ctrl+r`      | Undo / redo                   |
+| `u` / `ctrl+r`      | Undo / redo                   |
 | `ciw` / `diw`       | Change / delete inner word    |
 | `v` / `V`           | Visual character / line mode  |
 | `>` / `<`           | Indent / dedent selection     |
@@ -33,7 +33,7 @@ Clipboard pattern:
 
 ## Leader Key
 
-Leader is `Space` in VS Code and Neovim.
+Leader is `space` in VS Code and Neovim.
 
 | Shortcut   | Action                                 |
 | ---        | ---                                    |
@@ -49,76 +49,75 @@ Leader is `Space` in VS Code and Neovim.
 AeroSpace manages workspaces and tiling. Raycast handles app launching and window
 search. macOS Spaces are not used.
 
-| Shortcut                | Action                          |
-| ---                     | ---                             |
-| `Option+1`              | Workspace `1-main`              |
-| `Option+2`              | Workspace `2-focus`             |
-| `Option+3`              | Workspace `3-coms`              |
-| `Option+4`              | Workspace `4-play`              |
-| `Option+5`              | Workspace `5-blank`             |
-| `Option+6-9`            | Workspaces `6-9`                |
-| `Option+Shift+1-9`      | Move window to workspace        |
-| `Option+Tab`            | Last workspace                  |
-| `Option+Shift+Tab`      | Move workspace to next monitor  |
-| `Option+H/J/K/L`        | Focus window left/down/up/right |
-| `Option+Shift+H/J/K/L`  | Move window left/down/up/right  |
-| `Option+-` / `Option+=` | Resize smaller / larger         |
-| `Option+,`              | Toggle layout                   |
-| `Option+Space`          | Raycast                         |
-| `Shift+Option+Space`    | Raycast window search           |
-| `Hyper+Option+Space`    | Raycast workspace window search |
+| Shortcut              | Action                          |
+| ---                   | ---                             |
+| `alt+0`               | Workspace `0-blank`             |
+| `alt+1`               | Workspace `1-main`              |
+| `alt+2`               | Workspace `2-focus`             |
+| `alt+3`               | Workspace `3-admin`             |
+| `alt+4`               | Workspace `4-coms`              |
+| `alt+5`               | Workspace `5-play`              |
+| `alt+6-8`             | Workspaces `6-8`                |
+| `alt+shift+0-8`       | Move window to workspace        |
+| `alt+h/j/k/l`         | Focus window left/down/up/right |
+| `alt+shift+h/j/k/l`   | Move window left/down/up/right  |
+| `alt+-` / `alt+=`     | Resize smaller / larger         |
+| `alt+,`               | Toggle layout                   |
+| `alt+space`           | Raycast                         |
+| `shift+alt+space`     | Raycast window search           |
+| `hyper+alt+space`     | Raycast workspace window search |
 
 ## System
 
-| Shortcut      | Action                            |
-| ---           | ---                               |
-| `Cmd+Space`   | Toggle English / Chinese input    |
-| `Cmd+Shift+S` | Screenshot selection to clipboard |
+| Shortcut        | Action                            |
+| ---             | ---                               |
+| `super+space`   | Toggle English / Chinese input    |
+| `super+shift+s` | Screenshot selection to clipboard |
 
 ## Ghostty
 
-Ghostty is excluded from the Ctrl/Cmd swap. Ctrl is Ctrl and Cmd is Cmd.
+Ghostty is excluded from the ctrl/super swap. ctrl is ctrl and super is super.
 
 | Shortcut                | Action                      |
 | ---                     | ---                         |
-| `Ctrl+Shift+T`          | New tab                     |
-| `Ctrl+Shift+W`          | Close surface               |
-| `Ctrl+Tab`              | Next tab                    |
-| `Ctrl+Shift+Tab`        | Previous tab                |
-| `Ctrl+Shift+R`          | Set tab title               |
-| `Ctrl+Shift+Enter`      | New split right             |
-| `Ctrl+Shift+B`          | New split down              |
-| `Ctrl+Shift+H/J/K/L`    | Move split focus            |
-| `Ctrl+Shift+Left/Right` | Resize split narrower/wider |
-| `Ctrl+Shift+Up/Down`    | Resize split taller/shorter |
-| `Ctrl+Shift+0`          | Reset split sizes           |
-| `Ctrl+Shift+C`          | Copy active selection       |
-| `Ctrl+Shift+V`          | Paste                       |
+| `ctrl+shift+t`          | New tab                     |
+| `ctrl+shift+w`          | Close surface               |
+| `ctrl+tab`              | Next tab                    |
+| `ctrl+shift+tab`        | Previous tab                |
+| `ctrl+shift+r`          | Set tab title               |
+| `ctrl+shift+enter`      | New split right             |
+| `ctrl+shift+b`          | New split down              |
+| `ctrl+shift+h/j/k/l`    | Move split focus            |
+| `ctrl+shift+left/right` | Resize split narrower/wider |
+| `ctrl+shift+up/down`    | Resize split taller/shorter |
+| `ctrl+shift+0`          | Reset split sizes           |
+| `ctrl+shift+c`          | Copy active selection       |
+| `ctrl+shift+v`          | Paste                       |
 
 ## Claude Code
 
-Runs in Ghostty, so Ghostty intercepts some chords. `Ctrl+Shift+B` is reserved
-for Ghostty splits; Claude brief is on `Ctrl+Shift+I`.
+Runs in Ghostty, so Ghostty intercepts some chords. `ctrl+shift+b` is reserved
+for Ghostty splits; Claude brief is on `ctrl+shift+i`.
 
 | Shortcut                   | Action                  |
 | ---                        | ---                     |
-| `Ctrl+R`                   | History search          |
-| `Ctrl+T`                   | Toggle todos            |
-| `Ctrl+O`                   | Toggle transcript       |
-| `Ctrl+Shift+I`             | Toggle brief            |
-| `Ctrl+Shift+O`             | Toggle teammate preview |
-| `Enter`                    | Submit                  |
-| `Escape`                   | Cancel                  |
-| `Ctrl+P` / `Cmd+P`         | Model picker            |
-| `Ctrl+L`                   | Clear input             |
-| `Ctrl+S`                   | Stash                   |
-| `Ctrl+J`                   | New line                |
-| `Ctrl+G` / `Ctrl+X Ctrl+E` | External editor         |
-| `Up` / `Down`              | History previous / next |
-| `Shift+Tab`                | Cycle mode              |
-| `Cmd+O`                    | Fast mode               |
-| `Cmd+T`                    | Thinking toggle         |
-| `Ctrl+B`                   | Background task         |
+| `ctrl+r`                   | History search          |
+| `ctrl+t`                   | Toggle todos            |
+| `ctrl+o`                   | Toggle transcript       |
+| `ctrl+shift+i`             | Toggle brief            |
+| `ctrl+shift+o`             | Toggle teammate preview |
+| `enter`                    | Submit                  |
+| `escape`                   | Cancel                  |
+| `ctrl+p` / `super+p`       | Model picker            |
+| `ctrl+l`                   | Clear input             |
+| `ctrl+s`                   | Stash                   |
+| `ctrl+j`                   | New line                |
+| `ctrl+g` / `ctrl+x ctrl+e` | External editor         |
+| `up` / `down`              | History previous / next |
+| `shift+tab`                | Cycle mode              |
+| `super+o`                  | Fast mode               |
+| `super+t`                  | Thinking toggle         |
+| `ctrl+b`                   | Background task         |
 
 ## Codex
 
@@ -129,9 +128,9 @@ Codex keybindings are configured in `config/codex/config.toml` under
 
 | Shortcut | Action                 |
 | ---      | ---                    |
-| `Ctrl+T` | File path picker       |
-| `Ctrl+R` | Command history picker |
-| `Alt+C`  | Directory picker       |
+| `ctrl+t` | File path picker       |
+| `ctrl+r` | Command history picker |
+| `alt+c`  | Directory picker       |
 
 ## Yazi
 
@@ -142,11 +141,12 @@ Codex keybindings are configured in `config/codex/config.toml` under
 | `a`         | Create file; append `/` to name for directory |
 | `r`         | Rename                                        |
 | `d`         | Cut                                           |
-| `<Delete>`  | Move to trash                                 |
-| `Enter`     | Open                                          |
-| `Space`     | Toggle selection                              |
-| `Ctrl+A`    | Select all                                    |
-| `Ctrl+R`    | Invert selection                              |
+| `cc`        | Copy file path                                |
+| `delete`    | Move to trash                                 |
+| `enter`     | Open                                          |
+| `space`     | Toggle selection                              |
+| `ctrl+a`    | Select all                                    |
+| `ctrl+r`    | Invert selection                              |
 | `.`         | Toggle hidden files                           |
 | `f`         | Filter files                                  |
 | `s` / `S`   | Search by name (fd) / content (ripgrep)       |
@@ -155,25 +155,26 @@ Codex keybindings are configured in `config/codex/config.toml` under
 | `[` / `]`   | Previous / next tab                           |
 | `1 / 2 / 3` | Select tab (1, 2, 3, etc.)                    |
 
+
 ## VS Code
 
-VS Code participates in the Ctrl/Cmd swap. GUI-style shortcuts are written as
+VS Code participates in the ctrl/super swap. GUI-style shortcuts are written as
 the event VS Code receives.
 
-| Shortcut         | Action                             |
-| ---              | ---                                |
-| `Ctrl+Tab`       | Next editor / panel tab            |
-| `Ctrl+Shift+Tab` | Previous editor / panel tab        |
-| `Ctrl+1-8`       | Select editor tab 1-8              |
-| `Ctrl+9`         | Select last editor tab             |
-| `Cmd+Shift+B`    | Toggle sidebar                     |
-| `Cmd+Shift+-/=`  | Decrease / increase pane           |
-| `Ctrl+Shift+O`   | Search symbols in current document |
-| `Ctrl+T`         | Search symbols across workspace    |
-| `Ctrl+P`         | Search files                       |
-| `Ctrl+K Ctrl+P`  | Search open tabs/editors           |
-| `Tab`            | Accept suggestion                  |
-| `Cmd+G`          | Dismiss suggestions                |
+| Shortcut           | Action                             |
+| ---                | ---                                |
+| `ctrl+tab`         | Next editor / panel tab            |
+| `ctrl+shift+tab`   | Previous editor / panel tab        |
+| `ctrl+1-8`         | Select editor tab 1-8              |
+| `ctrl+9`           | Select last editor tab             |
+| `super+shift+b`    | Toggle sidebar                     |
+| `super+shift+-/=`  | Decrease / increase pane           |
+| `ctrl+shift+o`     | Search symbols in current document |
+| `ctrl+t`           | Search symbols across workspace    |
+| `ctrl+p`           | Search files                       |
+| `ctrl+k ctrl+p`    | Search open tabs/editors           |
+| `tab`              | Accept suggestion                  |
+| `super+g`          | Dismiss suggestions                |
 
 Enter does not accept suggestions.
 
@@ -190,7 +191,7 @@ when native spreadsheet shortcuts matter.
 | `f` / `F`     | Open link current tab / new tab                 |
 | `yf`          | Copy link URL                                   |
 | `r`           | Reload                                          |
-| `i`           | Ignore Vimium until Escape                      |
+| `i`           | Ignore Vimium until escape                      |
 | `yy`          | Copy current URL                                |
 | `H` / `L`     | Back / forward                                  |
 | `t`           | New tab                                         |
