@@ -37,7 +37,11 @@ plain files, and muscle memory over defaults chosen for a broad audience.
 - [Keybindings](keybindings.md) — current keyboard reference.
 - [macOS setup](docs/macos.md) — settled macOS configuration.
 - [Apps](docs/apps.md) — installed app inventory and install notes.
-- [pickle-pi](docs/pickle-pi.md) — local Raspberry Pi notes.
+
+## Infrastructure
+
+- [pickle-pi](infra/pickle-pi/README.md) — local Raspberry Pi setup and storage.
+- [reverse-vpn](infra/reverse-vpn/SPEC.md) — remote LAN access via Tailscale.
 
 ## Public Repo Notes
 

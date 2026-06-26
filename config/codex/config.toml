@@ -1,6 +1,9 @@
 [projects."/Users/matt/local/dotfiles"]
 trust_level = "trusted"
 
+[projects."/Users/matt/local/documents/ignite-pitch"]
+trust_level = "trusted"
+
 [plugins."github@openai-curated"]
 enabled = true
 
