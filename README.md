@@ -40,8 +40,7 @@ plain files, and muscle memory over defaults chosen for a broad audience.
 
 ## Infrastructure
 
-- [pickle-pi](infra/pickle-pi/README.md) — local Raspberry Pi setup and storage.
-- [reverse-vpn](infra/reverse-vpn/SPEC.md) — remote LAN access via Tailscale.
+Workshop infrastructure documentation lives in the `network-infra` repo.
 
 ## Public Repo Notes
 

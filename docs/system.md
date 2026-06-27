@@ -104,7 +104,7 @@ and state remain local.
 
 Config: `ssh/config` → `~/.ssh/config`
 
-Configured hosts: `pickle-pi` and `github.com`. Key-based auth and connection
+Configured hosts: `pickle-pi`, `maodou-pi`, and `github.com`. Key-based auth and connection
 multiplexing are enabled. The multiplex socket directory `~/.ssh/multiplex/` must be
 created manually on a new machine (`mkdir -p ~/.ssh/multiplex`) — it is not tracked
 in this repo.
