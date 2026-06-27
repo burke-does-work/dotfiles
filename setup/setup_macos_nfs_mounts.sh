@@ -6,7 +6,7 @@
 
 set -euo pipefail
 
-HOST="${PICKLE_PI_HOST:-pickle-pi.local}"
+HOST="${PICKLE_PI_HOST:-192.168.8.154}"
 DRIVE_EXPORT="/mnt/drive_data"
 HDD_EXPORT="/mnt/hdd_data"
 NFS_OPTS="resvport,nolocks,tcp"
