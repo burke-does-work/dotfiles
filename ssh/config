@@ -9,11 +9,13 @@ Host pickle-pi
     HostName pickle-pi.local
     User matt
     IdentityFile ~/.ssh/id_ed25519
+    SetEnv TERM=xterm-256color
 
 Host maodou-pi
     HostName maodou-pi.local
     User matt
     IdentityFile ~/.ssh/id_ed25519
+    SetEnv TERM=xterm-256color
 
 # Ping the server to keep the connection alive.
 #

@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "onshape": {
+      "command": "/Users/matt/local/dotfiles/mcp/onshape/.venv/bin/python",
+      "args": ["-m", "onshape_mcp.server"],
+      "cwd": "/Users/matt/local/dotfiles/mcp/onshape"
+    }
+  }
+}

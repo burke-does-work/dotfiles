@@ -98,5 +98,7 @@
   "enabledPlugins": {
     "vercel@claude-plugins-official": true
   },
-  "vim": true
+  "effortLevel": "xhigh",
+  "vim": true,
+  "promptSuggestionEnabled": false
 }

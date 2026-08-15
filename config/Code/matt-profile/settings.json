@@ -11,6 +11,7 @@
   "window.newWindowProfile": "matt",
   "application.shellEnvironmentResolutionTimeout": 60,
   "files.autoSave": "onFocusChange",
+  "workbench.editor.labelFormat": "short",
 
   //////////////////////////////////////////////////////////////////////////////
   // Basic functionality
@@ -179,14 +180,17 @@
     "datasheet",
     "Festool",
     "Makita",
+    "Outdoorsing",
     "Panelmate",
     "Powerpole",
+    "Shinwa",
     "Starlink"
   ],
   "projectManager.git.baseFolders": [
     "/Users/matt/local/documents",
     "/Users/matt/local/dotfiles"
   ],
-  "workbench.secondarySideBar.defaultVisibility": "hidden"
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "workbench.editor.enablePreview": false
 
 }

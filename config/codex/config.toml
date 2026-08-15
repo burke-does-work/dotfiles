@@ -1,11 +1,82 @@
+notify = ["/Users/matt/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+personality = "pragmatic"
+model = "gpt-5.6-terra"
+model_reasoning_effort = "high"
+
 [projects."/Users/matt/local/dotfiles"]
 trust_level = "trusted"
 
 [projects."/Users/matt/local/documents/ignite-pitch"]
 trust_level = "trusted"
 
+[projects."/Users/matt/local/documents/denning_and_outdoorsing/denning_and_outdoorsing_build"]
+trust_level = "trusted"
+
 [plugins."github@openai-curated"]
+enabled = true
+
+[plugins."google-calendar@openai-curated"]
+enabled = true
+
+[plugins."slack@openai-curated"]
+enabled = true
+
+[plugins."sites@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
 enabled = true
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
+
+[marketplaces.openai-bundled]
+last_updated = "2026-07-15T04:36:13Z"
+source_type = "local"
+source = "/Users/matt/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-07-15T03:33:37Z"
+source_type = "local"
+source = "/Users/matt/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[features]
+js_repl = false
+
+[mcp_servers.onshape]
+command = "/Users/matt/local/dotfiles/mcp/onshape/.venv/bin/python"
+args = ["-m", "onshape_mcp.server"]
+cwd = "/Users/matt/local/dotfiles/mcp/onshape"
+enabled = true
+
+[mcp_servers.computer-use]
+command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+args = ["mcp"]
+cwd = "."
+enabled = false
+
+[desktop]
+conversationDetailMode = "STEPS_PROSE"
+sansFontSize = 14
+codeFontSize = 13
+ambient-suggestions-enabled = false
+followUpQueueMode = "queue"
+mac-menu-bar-enabled = false
+show-context-window-usage = true
+notifications-permissions-enabled = false
+notifications-questions-enabled = false

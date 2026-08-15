@@ -1,0 +1,7 @@
+[project]
+name = "onshape-env"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "onshape-mcp @ git+https://github.com/hedless/onshape-mcp.git",
+]
