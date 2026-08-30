@@ -1,5 +1,23 @@
 # Work Log
 
+## 2026-08-30 -- Commit template reworked around a real subject line
+
+Drafting a commit message for the OnShape MCP migration exposed that the commit template was not being followed and, in one respect, could not be. Claude proposed `Add:` as a type prefix. It appears exactly once in this repo's history and is not valid vocabulary -- the valid list has been sitting in `config/git/gitmessage` all along, wired up as `commit.template` in `config/git/gitconfig`.
+
+Auditing the template against actual practice turned up two defects rather than one.
+
+The template asked for a first line of roughly 50 characters, 72 maximum. Real subject lines in this repo run 238, 359, 424 and 455 characters. The cause is structural: the stacked `Type:` lines carry no blank line after the first, so git treats the whole message as the subject. The guidance was describing something that had never once happened. Decided the format should have a real subject line, since that is what makes `git log --oneline`, GitHub, and everything else that reads a subject useful.
+
+A first pass at the new format carried the old stacked `Type:` prefixes into the body. That was wrong: once the subject line carries the type, repeating it on every body line is redundant, and on a single-type commit it is pure noise. The body is plain bullets, one topic each, and the type appears once in the subject.
+
+The template also said to wrap at 72. `denning_and_outdoorsing_build/README.md` says the opposite -- split a long line into another line, and wrap only for atomic content that cannot cleanly split. The split rule is the better one and is general, so it replaces the wrap rule here. Two further rules were promoted from that README on the same grounds: no dates and no file lists, since git stores both.
+
+Deliberately not promoted, as repo-specific rather than general: the no-Conventional-Commits rule, which contradicts this template's entire premise, and one-commit-per-session, which was overridden in this repo the same day by splitting the MCP migration away from unrelated config drift. The unused `Context:` and `Changes:` scaffolding was dropped as well.
+
+The two commits pushed earlier in the day carried a `Claude-Session:` trailer. `global_workflows/AGENTS.md` forbids AI self-attribution footers and no prior commit here has one, so it should never have gone in. Confirmed no clone of this repo exists on any other machine, which makes a force-push safe, and took the opportunity to restructure both messages into the new subject-line format while the history was already being rewritten. Rewritten with `git filter-branch --msg-filter`, diffed against a backup ref to confirm the file contents were byte-identical and only the messages had changed, then force-pushed and the backup deleted.
+
+---
+
 ## 2026-08-29 -- OnShape MCP migrated to the official Labs server
 
 Replaced the OnShape MCP server entirely. The previous setup was `hedless/onshape-mcp` -- a community Python server run locally out of `mcp/onshape/` under a uv-managed environment, needing OnShape API keys. That setup never reached working state: it had been blocked waiting on OnShape support to resolve an API key creation error, so the keys were never issued and the server was never exercised.
