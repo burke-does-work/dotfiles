@@ -7,6 +7,7 @@
     "pr": ""
   },
   "permissions": {
+    "defaultMode": "manual",
     "allow": [
       "WebFetch(*)",
       "WebSearch(*)",
@@ -92,13 +93,11 @@
     "_comment": "Reads: unrestricted (additionalDirectories + Read(**) cover all paths). Edits/Writes: always prompt.",
     "_comment_deny": "Deny: SSH+GPG keys (traditional on-disk), .env files (1Password used for API keys; .env blocked as safety net)."
   },
-  "model": "opus",
   "enabledPlugins": {
     "vercel@claude-plugins-official": true
   },
   "effortLevel": "high",
   "promptSuggestionEnabled": false,
   "awaySummaryEnabled": false,
-  "vim": true,
   "agentPushNotifEnabled": false
 }
