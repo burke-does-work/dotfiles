@@ -2,13 +2,13 @@
 
 # Type: short summary of the whole change
 #
-# Type: topic -- detail
-# Type: topic -- detail
+# - topic -- detail
+# - topic -- detail
 #
 # --NOTES--
 # Subject: one line, max 72 chars, followed by a BLANK LINE.
 #   Without the blank line git treats the whole message as the subject.
-# Body: one line per topic, same Type: prefixes. Target 72, max 80.
+# Body: one bullet per topic. Target 72, max 80.
 # Split a long line into another line -- do not wrap.
 #   Wrap only for atomic content that cannot cleanly split.
 # No dates, no file lists -- git stores both.
