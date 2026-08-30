@@ -1,12 +1,15 @@
 
 
-# Type: description
+# Type: short summary of the whole change
 #
-# Context: (for large commits)
+# Type: topic -- detail
+# Type: topic -- detail
 #
-# Changes:
-# 
-# --NOTES-- 
-# First line, aim for ~50 chars, max 72)
-#     Subsequent lines, aim for 72 / wrap at 72 if needed
+# --NOTES--
+# Subject: one line, max 72 chars, followed by a BLANK LINE.
+#   Without the blank line git treats the whole message as the subject.
+# Body: one line per topic, same Type: prefixes. Target 72, max 80.
+# Split a long line into another line -- do not wrap.
+#   Wrap only for atomic content that cannot cleanly split.
+# No dates, no file lists -- git stores both.
 # Valid types: Docs, Chore, Build, Refactor, Fix
