@@ -12,6 +12,9 @@ trust_level = "trusted"
 [projects."/Users/matt/local/documents/denning_and_outdoorsing/denning_and_outdoorsing_build"]
 trust_level = "trusted"
 
+[projects."/Users/matt/local/documents/global_workflows"]
+trust_level = "trusted"
+
 [plugins."github@openai-curated"]
 enabled = true
 
@@ -58,10 +61,9 @@ source = "/Users/matt/.cache/codex-runtimes/codex-primary-runtime/plugins/openai
 [features]
 js_repl = false
 
-[mcp_servers.onshape]
-command = "/Users/matt/local/dotfiles/mcp/onshape/.venv/bin/python"
-args = ["-m", "onshape_mcp.server"]
-cwd = "/Users/matt/local/dotfiles/mcp/onshape"
+[mcp_servers.onshape-fs]
+transport = "http"
+url = "https://fs-mcp.labs.onshape.app/mcp"
 enabled = true
 
 [mcp_servers.computer-use]
