@@ -96,6 +96,7 @@ inside Ghostty.
 Config:
 
 - `config/codex/config.toml` -> `~/.codex/config.toml`
+- `local/documents/global_workflows/skills` -> `~/.agents/skills`
 
 Only user-editable Codex config is tracked. Auth, logs, caches, history, sessions,
 and state remain local.

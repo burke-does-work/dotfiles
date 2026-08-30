@@ -18,7 +18,10 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 automatically-unhide-macos-hidden-apps = false
 
-persistent-workspaces = ["0-blank", "1-main", "2-focus", "3-admin", "4-coms", "5-play", "6", "7", "8"]
+persistent-workspaces = ["0-blank", "1-main", "2-focus", "3-admin", "4-coms", "5-play", "6", "7", "8", "9-mac-only"]
+
+[workspace-to-monitor-force-assignment]
+9-mac-only = 'built-in'
 
 on-mode-changed = []
 
@@ -64,17 +67,23 @@ on-mode-changed = []
     alt-6 = 'workspace 6'
     alt-7 = 'workspace 7'
     alt-8 = 'workspace 8'
+    alt-9 = 'workspace 9-mac-only'
+    alt-m = 'workspace 9-mac-only'
+
+    # Move window between monitors
+    alt-shift-m = 'move-node-to-monitor --wrap-around --focus-follows-window next'
 
     # Move window to workspace
-    alt-shift-0 = 'move-node-to-workspace 0-blank'
-    alt-shift-1 = 'move-node-to-workspace 1-main'
-    alt-shift-2 = 'move-node-to-workspace 2-focus'
-    alt-shift-3 = 'move-node-to-workspace 3-admin'
-    alt-shift-4 = 'move-node-to-workspace 4-coms'
-    alt-shift-5 = 'move-node-to-workspace 5-play'
-    alt-shift-6 = 'move-node-to-workspace 6'
-    alt-shift-7 = 'move-node-to-workspace 7'
-    alt-shift-8 = 'move-node-to-workspace 8'
+    alt-shift-0 = 'move-node-to-workspace --focus-follows-window 0-blank'
+    alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1-main'
+    alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2-focus'
+    alt-shift-3 = 'move-node-to-workspace --focus-follows-window 3-admin'
+    alt-shift-4 = 'move-node-to-workspace --focus-follows-window 4-coms'
+    alt-shift-5 = 'move-node-to-workspace --focus-follows-window 5-play'
+    alt-shift-6 = 'move-node-to-workspace --focus-follows-window 6'
+    alt-shift-7 = 'move-node-to-workspace --focus-follows-window 7'
+    alt-shift-8 = 'move-node-to-workspace --focus-follows-window 8'
+    alt-shift-9 = 'move-node-to-workspace --focus-follows-window 9-mac-only'
 
     # Enter service mode
     alt-shift-semicolon = 'mode service'

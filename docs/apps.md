@@ -130,6 +130,8 @@ Codex:
 
 ```bash
 ln -sf ~/local/dotfiles/config/codex/config.toml ~/.codex/config.toml
+mkdir -p ~/.agents
+ln -sfn ~/local/documents/global_workflows/skills ~/.agents/skills
 ```
 
 SSH:

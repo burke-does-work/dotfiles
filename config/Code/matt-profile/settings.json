@@ -191,6 +191,7 @@
     "/Users/matt/local/dotfiles"
   ],
   "workbench.secondarySideBar.defaultVisibility": "hidden",
-  "workbench.editor.enablePreview": false
+  "workbench.editor.enablePreview": false,
+  "editor.accessibilitySupport": "off"
 
 }
