@@ -1,5 +1,17 @@
 # Work Log
 
+## 2026-09-06 -- Design records added
+
+`DESIGN_RECORDS.md` was added to this repo as part of a workflow change made in `global_workflows` the same day, which replaced a never-instantiated `DEV_HISTORY.md` with a flat, ADR-style decision record. The full reasoning is in `global_workflows/WORK_LOG.md`, 2026-09-06.
+
+Seeded by sweeping this log. Seven decisions qualified under the two-part admission test -- a real alternative was rejected, and reversing the decision would now cost more than an edit. Four from the 2026-08-30 commit template rework: the subject line carrying the type, splitting long bullets rather than wrapping, holding back two rules as repo-specific, and the `filter-branch` rewrite that stripped the `Claude-Session:` trailers. Two from the 2026-08-29 MCP session: the move to the official hosted server and the decision to keep a hand-maintained inventory in `docs/mcp.md`. One from 2026-08-22, the `~/.agents/skills` symlink.
+
+The 2026-08-15 work log session was swept but its decisions were filed in `global_workflows/DESIGN_RECORDS.md` instead. They were taken here, but they govern an artifact that lives in `AGENTS.md`, and the record belongs where the artifact is -- the citation points back at this log for the narrative. The unpromoted commit rules entry points the other way, at `global_workflows` for the lookup order that resolves which repo's conventions apply.
+
+Nothing in this repo required a style sweep; both work logs were already ASCII throughout.
+
+---
+
 ## 2026-08-30 -- Commit template reworked around a real subject line
 
 Drafting a commit message for the OnShape MCP migration exposed that the commit template was not being followed and, in one respect, could not be. Claude proposed `Add:` as a type prefix. It appears exactly once in this repo's history and is not valid vocabulary -- the valid list has been sitting in `config/git/gitmessage` all along, wired up as `commit.template` in `config/git/gitconfig`.
