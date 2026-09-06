@@ -7,7 +7,6 @@
     "pr": ""
   },
   "permissions": {
-    "defaultMode": "manual",
     "allow": [
       "WebFetch(*)",
       "WebSearch(*)",
@@ -87,6 +86,7 @@
       "Read(**/.env)",
       "Read(**/.env.*)"
     ],
+    "defaultMode": "default",
     "additionalDirectories": [
       "/"
     ],
@@ -99,5 +99,6 @@
   "effortLevel": "high",
   "promptSuggestionEnabled": false,
   "awaySummaryEnabled": false,
-  "agentPushNotifEnabled": false
+  "agentPushNotifEnabled": false,
+  "model": "opus"
 }
