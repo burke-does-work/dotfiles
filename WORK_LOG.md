@@ -1,5 +1,17 @@
 # Work Log
 
+## 2026-09-06 -- Commit template gains the tighten step
+
+`gitmessage` said "split a long line into another line -- do not wrap," which states a semantic rule in typographic units. An agent following it literally reported two wrapped bullets as violations when the real defect was that both joined two claims with a semicolon. Splitting was the only remedy the template offered, and splitting a rambling bullet gives two rambling bullets.
+
+`denning_and_outdoorsing_build/README.md` already carried the missing clause -- tighten wording before splitting -- and the template never received it, even though the split rule itself was promoted out of that same README on 2026-08-30. The better-worded copy stayed in the override while the base kept the weaker one.
+
+Reworded to state the order plainly: tighten, then split only when it is genuinely two topics, then wrap only when it can't split. Splitting is still preferred over wrapping and the atomic-content exception survives, so the 2026-08-30 choice stands. The tighten step sits ahead of splitting and mitigates its known cost -- bullets multiplying where a single topic will not compress.
+
+`DESIGN_RECORDS.md` was cleared in this repo and in `global_workflows` in the same pass. Both had been seeded by sweeping their work logs, and the entries read as test material rather than decisions worth keeping. The file remains, empty.
+
+The template is now the base layer for every repo rather than a fallback, following the `AGENTS.md` change made in `global_workflows` the same day. Full reasoning in `global_workflows/WORK_LOG.md`, 2026-09-06. That raises the stakes on edits here: a change to `gitmessage` now reaches every repo that has not overridden the rule being changed.
+
 ## 2026-09-06 -- Design records added
 
 `DESIGN_RECORDS.md` was added to this repo as part of a workflow change made in `global_workflows` the same day, which replaced a never-instantiated `DEV_HISTORY.md` with a flat, ADR-style decision record. The full reasoning is in `global_workflows/WORK_LOG.md`, 2026-09-06.
