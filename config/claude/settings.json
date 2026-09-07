@@ -88,6 +88,7 @@
       "Read(**/.env.*)"
     ],
     "defaultMode": "default",
+    "disableAutoMode": "disable",
     "additionalDirectories": [
       "/"
     ],
@@ -97,10 +98,9 @@
   "enabledPlugins": {
     "vercel@claude-plugins-official": true
   },
+  "feedbackDrafts": "off",
   "effortLevel": "high",
   "promptSuggestionEnabled": false,
-  "feedbackDrafts": "off",
   "awaySummaryEnabled": false,
-  "agentPushNotifEnabled": false,
-  "model": "opus"
+  "agentPushNotifEnabled": false
 }
