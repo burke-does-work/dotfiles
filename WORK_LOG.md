@@ -1,5 +1,19 @@
 # Work Log
 
+## 2026-09-13 -- Claude global instructions leave this repo
+
+`config/claude/CLAUDE.md` was deleted. It existed only to import `global_workflows/AGENTS.md`, and that import had been failing silently; `~/.claude/CLAUDE.md` now symlinks straight to `AGENTS.md` instead. Full reasoning in `global_workflows/WORK_LOG.md`, 2026-09-13.
+
+Three rules went with the file. Two of them -- never reading files through `cat`, `head` or `tail`, and one command per Bash call -- were permission rules written as prose while permissions were being worked out, and they belong in `settings.json`. That migration is the next piece of work. The third asked for copy-pasteable CLI commands in responses; it is a formatting preference with no permissions equivalent and is currently unwritten.
+
+The split this leaves is clean. `global_workflows` owns agent-agnostic instructions and skills, this repo owns tool-specific config, and everything under `~/.claude` is now a single top-level symlink into one repo or the other -- `CLAUDE.md` and `skills` to `global_workflows`, `settings.json` and `keybindings.json` to here. `README.md` records the split so the next person to look does not have to trace symlinks to find it.
+
+## 2026-09-08 -- Conversation recap setting left unchanged
+
+Wanted to turn off the recap that appears in Codex, but only if a specific setting controls it. Checked the tracked Codex configuration and found `conversationDetailMode = "STEPS_PROSE"`, but could not establish its supported alternatives or whether it controls the recap. Left the setting unchanged rather than guessing.
+
+A broad no-recap instruction was briefly added to `global_workflows/AGENTS.md`. Rejected that approach because it changes agent behavior rather than the requested interface setting, then reverted it. The attempted matching change to the shared `voice` skill was interrupted before it applied.
+
 ## 2026-09-06 -- Commit template gains the tighten step
 
 `gitmessage` said "split a long line into another line -- do not wrap," which states a semantic rule in typographic units. An agent following it literally reported two wrapped bullets as violations when the real defect was that both joined two claims with a semicolon. Splitting was the only remedy the template offered, and splitting a rambling bullet gives two rambling bullets.

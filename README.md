@@ -41,6 +41,10 @@ The setup is opinionated because, well, I'm opinionated. It favors repeatable op
 
 Workshop infrastructure documentation lives in the `network-infra` repo.
 
+## Agent instructions
+
+Global AI agent instructions live in the `global_workflows` repo, not here. This repo holds only tool-specific config, currently `config/claude/settings.json` and `config/claude/keybindings.json`.
+
 ## Public Repo Notes
 
 Secrets, credentials, local state, generated backups, and app caches are not tracked. Host names and public Git identity are intentional.
