@@ -1,5 +1,25 @@
 # Work Log
 
+## 2026-09-13 -- Claude permission model reworked
+
+Started as a project setup problem and turned into a permissions audit. An install ran without an approval gate, which prompted the question of whether the allowlist had authorised it. It had -- `Bash(uv *)` covered `uv python install` -- and reading the file properly turned up more than expected.
+
+Three problems. Global installs were auto-approved: `brew install`, `pip install`, `npm install *`, and the whole of `uv`. Filesystem mutation was auto-approved in Manual mode across the entire disk -- `mkdir`, `cp`, `mv`, `touch`, `chmod`, `ln`, `sed`. And `additionalDirectories` was `["/"]`, which meant accept-edits mode granted `rm` and `sed -i` anywhere on the machine.
+
+The fix that ties them together is that filesystem mutation should be granted by the permission mode, not the allowlist. Six of those seven commands are exactly what accept-edits auto-approves, but accept-edits confines them to the working directories and an allow rule cannot. Removing them means Manual grants no writes at all, and accept-edits becomes the single bounded lever. Stated the goals as: changes outside the working scope need approval rather than being forbidden, no changes at all in Manual, and no approvals for read commands.
+
+Working scope is now `documents/` and `dotfiles/`. Kept `dotfiles` in scope because it holds this settings file and the commit template -- scoping to `documents/` alone would have made editing config a prompt per line.
+
+Chose `ask` over `deny` for anything a person might legitimately want to approve, since `ask` overrides the permission mode but still offers the prompt. Reserved `deny` for operations that destroy history rather than change it. `rm` and `rmdir` went to `ask` specifically because accept-edits auto-approves them by mode and an `ask` rule is the only thing that overrides a mode; without it, switching modes would have granted unprompted deletion across both trees.
+
+The find that mattered most was accidental. The deny rules protecting the SSH and GPG keys used a single leading slash, which anchors at the settings source rather than the filesystem root. `Read(/Users/matt/.ssh/**)` had been resolving to `~/.claude/Users/matt/.ssh/**` and matching nothing. Those keys had been unprotected for as long as the rules existed. Absolute paths need `//`.
+
+Two claims made during the session turned out to be wrong and were corrected before anything was written: that `Read(**)` covers the whole filesystem -- it resolves to `<cwd>/**` -- and that a chained command had prompted because of `tail`, which is in Claude Code's built-in read-only set and never prompts. Verified the remaining behavior against the docs and the installed schema for 2.1.251 rather than trusting recall, after the earlier errors.
+
+Documentation added at `docs/claude-permissions.md`, following the existing `docs/` pattern, covering the model, the mode interaction table, path anchoring, and the known gaps -- prefix matching cannot constrain a late argument, and a deny rule matches command text rather than the program, so it narrows accidents rather than forming a boundary. `DESIGN_RECORDS.md` was empty and now holds the decisions.
+
+This closes part of what the entry below anticipated, but not the way it expected. Neither of the two rules it flagged for migration could become a permission rule. One command per Bash call is a behavioral preference with no rule equivalent, so it went into `AGENTS.md` under Tool-specific direction instead. Never reading files through `cat`, `head` or `tail` cannot be expressed either -- those commands are in Claude Code's built-in read-only set, which is not configurable except by forcing a prompt on them, and that would trade a formatting preference for constant interruption. It remains unwritten.
+
 ## 2026-09-13 -- Claude global instructions leave this repo
 
 `config/claude/CLAUDE.md` was deleted. It existed only to import `global_workflows/AGENTS.md`, and that import had been failing silently; `~/.claude/CLAUDE.md` now symlinks straight to `AGENTS.md` instead. Full reasoning in `global_workflows/WORK_LOG.md`, 2026-09-13.

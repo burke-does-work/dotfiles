@@ -36,6 +36,7 @@ The setup is opinionated because, well, I'm opinionated. It favors repeatable op
 - [macOS setup](docs/macos.md) — settled macOS configuration.
 - [Apps](docs/apps.md) — installed app inventory and install notes.
 - [MCP servers](docs/mcp.md) — MCP inventory and per-client setup for Claude Code and Codex.
+- [Claude Code permissions](docs/claude-permissions.md) — the permission model, its reasoning, and its known gaps.
 
 ## Infrastructure
 
