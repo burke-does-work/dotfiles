@@ -120,7 +120,8 @@
       "Bash(rmdir *)",
       "Bash(uv pip install *)",
       "Bash(python3 -m pip *)",
-      "Bash(gh extension install *)"
+      "Bash(gh extension install *)",
+      "Bash(gh api *)"
     ],
     "deny": [
       "Read(//Users/matt/.ssh/**)",
@@ -131,7 +132,9 @@
       "Bash(gh repo archive*)",
       "Bash(gh release delete*)",
       "Bash(gh api -X DELETE*)",
+      "Bash(gh api -XDELETE*)",
       "Bash(gh api --method DELETE*)",
+      "Bash(gh api --method=DELETE*)",
       "Bash(git push --force*)",
       "Bash(git push -f*)",
       "Bash(git push --delete*)",

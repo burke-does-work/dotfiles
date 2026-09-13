@@ -53,6 +53,7 @@ Several entries duplicate Claude Code's built-in read-only set (`ls`, `cat`, `ec
 - `uv pip install` -- `--system`, `--target`, `--prefix`, and `--break-system-packages` can all redirect it outside the project.
 - `python3 -m pip` -- `python3` itself stays allowed.
 - `gh extension install` -- a global install.
+- `gh api` -- the general-purpose API escape hatch. It can DELETE, PATCH or PUT anything the token reaches, and the method flag can sit anywhere in the command, so no prefix pattern catches every destructive form. Putting the whole subcommand behind `ask` sidesteps the position problem. The recognizable DELETE spellings are additionally in `deny`, so those are blocked outright rather than offered.
 
 **`deny`** -- hard block, no prompt offered. Reserved for reads of credentials and for git and GitHub operations that destroy history rather than changing it: repo deletion, archive, release deletion, `gh api` DELETE, force push, remote branch deletion, and reflog expiry.
 
@@ -68,7 +69,7 @@ Note that `npm install` is allowed only in its bare form. Any argument at all --
 
 These are properties of prefix matching, not oversights.
 
-- **Argument position.** Rules anchor at the front of the command. `uv pip install -r req.txt --system` is not caught by an `ask` pattern written for `uv pip install --system`. The docs state the general case: patterns that try to constrain command arguments are fragile.
+- **Argument position.** Rules anchor at the front of the command. `uv pip install -r req.txt --system` is not caught by an `ask` pattern written for `uv pip install --system`. The docs state the general case: patterns that try to constrain command arguments are fragile. The only reliable answer is to put the whole subcommand behind `ask` rather than trying to name the dangerous flag, which is what `gh api` does and what `uv pip install` already does.
 - **Deny rules are not program boundaries.** A deny rule matches the command text Claude writes. `/opt/homebrew/bin/gh repo delete` and `sh -c 'gh repo delete'` are not covered. Deny narrows the accident, not a determined path. Real enforcement for GitHub is the `delete_repo` OAuth scope and branch protection, both server-side.
 - **`sort -o` and `awk`** can write files despite being allowlisted as read tools.
 - **Indirect writes.** A Python or Node script that opens files itself is not covered by any file rule. Only sandboxing enforces at the OS level.
