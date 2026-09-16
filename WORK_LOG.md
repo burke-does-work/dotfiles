@@ -1,5 +1,17 @@
 # Work Log
 
+## 2026-09-15 -- Push creates the remote branch on its own
+
+Kept forgetting `git push --set-upstream origin <branch>` on the first push of a new branch. Set `push.autoSetupRemote` in `config/git/gitconfig` so a plain `git push` creates the remote branch and sets tracking itself.
+
+Nothing does this at branch creation, and nothing should -- a branch with no commits of its own would only put a duplicate ref at `main`'s commit. First push is the right moment, and it is the moment I was forgetting.
+
+Accepted the trade-off that a branch named with a typo now reaches the remote unprompted, where the old error would have stopped me. `git push origin --delete` undoes it, and the friction is not worth keeping for solo repos.
+
+Edited the file directly rather than running `git config --global`, which writes the same setting but would not have matched the existing tab indentation and blank lines between sections.
+
+Came out of the git workflow session recorded in `global_workflows/WORK_LOG.md`, same date.
+
 ## 2026-09-13 -- Claude permission model reworked
 
 Started as a project setup problem and turned into a permissions audit. An install ran without an approval gate, which prompted the question of whether the allowlist had authorised it. It had -- `Bash(uv *)` covered `uv python install` -- and reading the file properly turned up more than expected.
