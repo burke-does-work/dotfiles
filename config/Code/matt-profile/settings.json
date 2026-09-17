@@ -31,6 +31,14 @@
   "editor.autoClosingBrackets": "never",
   "editor.autoClosingQuotes": "never",
 
+  // Pylance
+  "python.analysis.typeCheckingMode": "off",
+  "python.analysis.diagnosticMode": "openFilesOnly",
+  "python.analysis.inlayHints.variableTypes": false,
+  "python.analysis.inlayHints.functionReturnTypes": false,
+  "python.analysis.inlayHints.callArgumentNames": "off",
+  "python.analysis.inlayHints.pytestParameters": false,
+
   //////////////////////////////////////////////////////////////////////////////
   // Tab completion
   // NOTE: VSCodeVim intercepts Tab in insert mode for snippet expansion — verify
@@ -54,23 +62,31 @@
 
   "markdown.validate.enabled": true,
   "markdown.validate.referenceLinks.enabled": "ignore",
-  
+
   // Archived - Markdown linter no longer used
+  // markdownlint now runs from the CLI per repo, configured in
+  // .markdownlint-cli2.jsonc. The extension is not installed.
 
   "markdownlint.config": {
     "default": true,
     "MD033": false, // no inline HTML
     "MD045": false, // images require alt text
     "MD036": false, // no emphasis as headings
-    "MD024": false  // no duplicate heading text
+    "MD024": false // no duplicate heading text
   },
+
+  // Prettier is the markdown formatter, matching the CLI in each repo's
+  // ## Verify command. markdown-all-in-one stays installed for its table of
+  // contents, list continuation and shortcuts, but no longer formats.
+  // requireConfig keeps Prettier inert in repos with no .prettierrc.
+
+  "prettier.requireConfig": true,
 
   "[markdown]": {
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
     "editor.rulers": [],
-
-   "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
 "editor.tokenColorCustomizations": {
@@ -101,13 +117,16 @@
     "editor.insertSpaces": true,
     "editor.rulers": []
   },
+  // Ruff is the Python formatter and linter, matching the ruff block each
+  // project carries in pyproject.toml. Replaces Black.
+
   "[python]": {
     "editor.codeLens": false,
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "editor.indentSize": 4,
     "editor.detectIndentation": false,
-    "editor.defaultFormatter": "ms-python.black-formatter"
+    "editor.defaultFormatter": "charliermarsh.ruff"
   },
   
   //////////////////////////////////////////////////////////////////////////////
@@ -193,6 +212,6 @@
   ],
   "workbench.secondarySideBar.defaultVisibility": "hidden",
   "workbench.editor.enablePreview": false,
-  "editor.accessibilitySupport": "off"
+  "editor.accessibilitySupport": "off",
 
 }
