@@ -2,8 +2,8 @@
 
 # Type: short summary of the whole change
 #
-# - topic -- detail
-# - topic -- detail
+# - topic - detail
+# - topic - detail
 #
 # --NOTES--
 # Subject: one line, max 72 chars, followed by a BLANK LINE.
@@ -12,5 +12,5 @@
 # Tighten wording before splitting a long bullet.
 #   Split only when it is genuinely two topics.
 #   Wrap only when it can't split.
-# No dates, no file lists -- git stores both.
+# No dates, no file lists - git stores both.
 # Valid types: Docs, Chore, Build, Refactor, Fix
