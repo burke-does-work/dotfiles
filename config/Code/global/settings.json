@@ -19,6 +19,56 @@
     { "before": ["<leader>", "c"], "after": ["\"", "_", "c"] }
   ],
   "workbench.colorTheme": "Dark Modern",
-  "window.newWindowProfile": "matt"
+  "window.newWindowProfile": "matt",
 
+  //////////////////////////////////////////////////////////////////////////////
+  // Formatting — mirrors the matt profile so the Default profile behaves the
+  // same. Prettier formats every type it supports; requireConfig keeps it
+  // inert in repos with no .prettierrc.
+  //////////////////////////////////////////////////////////////////////////////
+
+  "prettier.requireConfig": true,
+
+  "[markdown]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.rulers": [],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.rulers": [],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
 }

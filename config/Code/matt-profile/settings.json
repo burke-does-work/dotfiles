@@ -75,10 +75,13 @@
     "MD024": false // no duplicate heading text
   },
 
-  // Prettier is the markdown formatter, matching the CLI in each repo's
-  // ## Verify command. markdown-all-in-one stays installed for its table of
-  // contents, list continuation and shortcuts, but no longer formats.
-  // requireConfig keeps Prettier inert in repos with no .prettierrc.
+  // Prettier is the formatter for every type it supports, matching the CLI in
+  // each repo's ## Verify command. The per-language blocks below name it
+  // explicitly rather than setting it globally, so Python stays with ruff and
+  // types Prettier cannot parse are left alone. markdown-all-in-one stays
+  // installed for its table of contents, list continuation and shortcuts, but
+  // no longer formats. requireConfig keeps Prettier inert in repos with no
+  // .prettierrc.
 
   "prettier.requireConfig": true,
 
@@ -115,7 +118,37 @@
   "[json]": {
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
-    "editor.rulers": []
+    "editor.rulers": [],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
   },
   // Ruff is the Python formatter and linter, matching the ruff block each
   // project carries in pyproject.toml. Replaces Black.
