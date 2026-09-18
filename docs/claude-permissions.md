@@ -23,13 +23,13 @@ Anything outside the two trees prompts. That is approval, not prohibition -- the
 
 Rules and modes are orthogonal. Allow, ask, and deny are evaluated identically in every mode. The mode only decides what happens to a call that no rule covers.
 
-| | Manual (`default`) | `acceptEdits` |
-| --- | --- | --- |
-| Matches `allow` | Runs | Runs |
-| Matches `ask` or `deny` | Prompts / blocked | Prompts / blocked |
-| Built-in read-only set | Runs | Runs |
-| Uncovered Bash command | Prompts | Prompts |
-| Uncovered file edit | Prompts | Auto-accepted, in scope |
+|                         | Manual (`default`) | `acceptEdits`           |
+| ----------------------- | ------------------ | ----------------------- |
+| Matches `allow`         | Runs               | Runs                    |
+| Matches `ask` or `deny` | Prompts / blocked  | Prompts / blocked       |
+| Built-in read-only set  | Runs               | Runs                    |
+| Uncovered Bash command  | Prompts            | Prompts                 |
+| Uncovered file edit     | Prompts            | Auto-accepted, in scope |
 
 Accept-edits also auto-approves seven filesystem commands by mode: `mkdir`, `touch`, `rm`, `rmdir`, `mv`, `cp`, and `sed`.
 
@@ -47,7 +47,7 @@ The result: Manual mode grants no writes at all. Shift-Tab into accept-edits and
 
 Several entries duplicate Claude Code's built-in read-only set (`ls`, `cat`, `echo`, `pwd`, `head`, `tail`, `grep`, `find`, `wc`, `which`, `diff`, `stat`, `du`, `cd`, read-only `git`), which runs without prompting in every mode and is not configurable. They are kept deliberately: the built-in set makes an exception for unquoted globs on write-capable commands such as `find` and `sort`, and the explicit rules cover those cases.
 
-**`ask`** -- overrides the mode. These prompt even in accept-edits, and fire when *any* subcommand matches, including inside a subshell or command substitution.
+**`ask`** -- overrides the mode. These prompt even in accept-edits, and fire when _any_ subcommand matches, including inside a subshell or command substitution.
 
 - `rm`, `rmdir` -- the highest-value entry. Without it, accept-edits auto-approves deletion across the whole working scope.
 - `uv pip install` -- `--system`, `--target`, `--prefix`, and `--break-system-packages` can all redirect it outside the project.
@@ -78,12 +78,12 @@ These are properties of prefix matching, not oversights.
 
 Read and Edit rules use gitignore pattern syntax, and the anchoring is easy to get wrong.
 
-| Pattern | Resolves to |
-| --- | --- |
-| `//path` | `/path` -- absolute from the filesystem root |
-| `~/path` | `$HOME/path` |
-| `/path` | relative to the **settings source**, i.e. `~/.claude/path` here |
-| `path` or `./path` | relative to the current working directory |
+| Pattern            | Resolves to                                                     |
+| ------------------ | --------------------------------------------------------------- |
+| `//path`           | `/path` -- absolute from the filesystem root                    |
+| `~/path`           | `$HOME/path`                                                    |
+| `/path`            | relative to the **settings source**, i.e. `~/.claude/path` here |
+| `path` or `./path` | relative to the current working directory                       |
 
 A single leading slash is not an absolute path. The deny rules in this file use `//` for that reason -- written with one slash, `Read(/Users/matt/.ssh/**)` resolves to `~/.claude/Users/matt/.ssh/**` and silently matches nothing.
 
@@ -98,7 +98,7 @@ A single leading slash is not an absolute path. The deny rules in this file use 
 
 A malformed settings file silently disables every setting in it, so validate before trusting it:
 
-```
+```bash
 jq -e . ~/.claude/settings.json
 ```
 

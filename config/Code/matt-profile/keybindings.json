@@ -4,10 +4,9 @@
 //// Remember to remove replaced key bindings with a '-'.
 
 [
-
-///// ──────────────────────────────────────────────────────────────────────
-///// Command palette and project switcher
-///// ──────────────────────────────────────────────────────────────────────
+  ///// ──────────────────────────────────────────────────────────────────────
+  ///// Command palette and project switcher
+  ///// ──────────────────────────────────────────────────────────────────────
 
   {
     "key": "cmd+shift+p",
@@ -18,18 +17,18 @@
     "command": "projectManager.listProjects"
   },
 
-///// ──────────────────────────────────────────────────────────────────────
-///// Global navigation
-///// ──────────────────────────────────────────────────────────────────────
+  ///// ──────────────────────────────────────────────────────────────────────
+  ///// Global navigation
+  ///// ──────────────────────────────────────────────────────────────────────
 
-// Change view size
+  // Change view size
   {
     "key": "cmd+shift+-",
-    "command": "workbench.action.decreaseViewSize",
+    "command": "workbench.action.decreaseViewSize"
   },
   {
     "key": "cmd+shift+=",
-    "command": "workbench.action.increaseViewSize",
+    "command": "workbench.action.increaseViewSize"
   },
 
   // Sidebar toggle
@@ -47,112 +46,112 @@
     "command": "-workbench.action.toggleSidebarVisibility"
   },
 
-// Ctrl+Tab to navigate editors. Keep this as real Ctrl because Cmd+Tab is macOS app switching.
+  // Ctrl+Tab to navigate editors. Keep this as real Ctrl because Cmd+Tab is macOS app switching.
 
-{"key": "ctrl+tab",
-"command": "-workbench.action.quickOpenNavigateNextInEditorPicker",
-},
+  {
+    "key": "ctrl+tab",
+    "command": "-workbench.action.quickOpenNavigateNextInEditorPicker"
+  },
 
-{"key": "ctrl+tab",
-"command": "-workbench.action.previousEditorInGroup",
-},
+  { "key": "ctrl+tab", "command": "-workbench.action.previousEditorInGroup" },
 
-{ "key": "ctrl+tab",
-  "command": "workbench.action.nextEditorInGroup",
-  "when": "editorFocus || notebookEditorFocused"
-},
-{ "key": "ctrl+shift+tab",
-  "command": "workbench.action.previousEditorInGroup",
-  "when": "editorFocus || notebookEditorFocused"
-},
+  {
+    "key": "ctrl+tab",
+    "command": "workbench.action.nextEditorInGroup",
+    "when": "editorFocus || notebookEditorFocused"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "workbench.action.previousEditorInGroup",
+    "when": "editorFocus || notebookEditorFocused"
+  },
 
-// Direct editor access. Stickered Ctrl+1..9 arrives as Cmd+1..9 after Karabiner.
-{ "key": "cmd+1", "command": "workbench.action.openEditorAtIndex1" },
-{ "key": "cmd+2", "command": "workbench.action.openEditorAtIndex2" },
-{ "key": "cmd+3", "command": "workbench.action.openEditorAtIndex3" },
-{ "key": "cmd+4", "command": "workbench.action.openEditorAtIndex4" },
-{ "key": "cmd+5", "command": "workbench.action.openEditorAtIndex5" },
-{ "key": "cmd+6", "command": "workbench.action.openEditorAtIndex6" },
-{ "key": "cmd+7", "command": "workbench.action.openEditorAtIndex7" },
-{ "key": "cmd+8", "command": "workbench.action.openEditorAtIndex8" },
-{ "key": "cmd+9", "command": "workbench.action.lastEditorInGroup" },
+  // Direct editor access. Stickered Ctrl+1..9 arrives as Cmd+1..9 after Karabiner.
+  { "key": "cmd+1", "command": "workbench.action.openEditorAtIndex1" },
+  { "key": "cmd+2", "command": "workbench.action.openEditorAtIndex2" },
+  { "key": "cmd+3", "command": "workbench.action.openEditorAtIndex3" },
+  { "key": "cmd+4", "command": "workbench.action.openEditorAtIndex4" },
+  { "key": "cmd+5", "command": "workbench.action.openEditorAtIndex5" },
+  { "key": "cmd+6", "command": "workbench.action.openEditorAtIndex6" },
+  { "key": "cmd+7", "command": "workbench.action.openEditorAtIndex7" },
+  { "key": "cmd+8", "command": "workbench.action.openEditorAtIndex8" },
+  { "key": "cmd+9", "command": "workbench.action.lastEditorInGroup" },
 
-// VSCodeVim control chords. Stickered Ctrl+u/d/r/v arrives as Cmd+u/d/r/v after Karabiner.
-{
-  "key": "cmd+u",
-  "command": "extension.vim_ctrl+u",
-  "when": "editorTextFocus && vim.active && vim.mode != 'Insert' && !inDebugRepl"
-},
-{
-  "key": "cmd+d",
-  "command": "extension.vim_ctrl+d",
-  "when": "editorTextFocus && vim.active && vim.mode != 'Insert' && !inDebugRepl"
-},
-{
-  "key": "cmd+r",
-  "command": "extension.vim_ctrl+r",
-  "when": "editorTextFocus && vim.active && vim.mode != 'Insert' && !inDebugRepl"
-},
-{
-  "key": "cmd+v",
-  "command": "extension.vim_ctrl+v",
-  "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inDebugRepl"
-},
+  // VSCodeVim control chords. Stickered Ctrl+u/d/r/v arrives as Cmd+u/d/r/v after Karabiner.
+  {
+    "key": "cmd+u",
+    "command": "extension.vim_ctrl+u",
+    "when": "editorTextFocus && vim.active && vim.mode != 'Insert' && !inDebugRepl"
+  },
+  {
+    "key": "cmd+d",
+    "command": "extension.vim_ctrl+d",
+    "when": "editorTextFocus && vim.active && vim.mode != 'Insert' && !inDebugRepl"
+  },
+  {
+    "key": "cmd+r",
+    "command": "extension.vim_ctrl+r",
+    "when": "editorTextFocus && vim.active && vim.mode != 'Insert' && !inDebugRepl"
+  },
+  {
+    "key": "cmd+v",
+    "command": "extension.vim_ctrl+v",
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inDebugRepl"
+  },
 
-//Panel
+  //Panel
 
-{
-  "key": "ctrl+tab",
-  "command": "workbench.action.nextPanelView",
-  "when": "panelFocus || !editorFocus || (activePanel == 'workbench.panel.jupyter' || activePanel == 'workbench.panel.ports')"
-},
-{
-  "key": "ctrl+shift+tab",
-  "command": "workbench.action.previousPanelView",
-  "when": "panelFocus || !editorFocus || (activePanel == 'workbench.panel.jupyter' || activePanel == 'workbench.panel.ports')"
-},
+  {
+    "key": "ctrl+tab",
+    "command": "workbench.action.nextPanelView",
+    "when": "panelFocus || !editorFocus || (activePanel == 'workbench.panel.jupyter' || activePanel == 'workbench.panel.ports')"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "workbench.action.previousPanelView",
+    "when": "panelFocus || !editorFocus || (activePanel == 'workbench.panel.jupyter' || activePanel == 'workbench.panel.ports')"
+  },
 
-///// ──────────────────────────────────────────────────────────────────────
-///// Tab completion and intellisense
-///// ──────────────────────────────────────────────────────────────────────
-{
-"key": "tab",
-"command": "tab",
-"when": "editorTextFocus && !suggestWidgetVisible"
-},
-{
-"key": "cmd+g",
-"command": "hideSuggestWidget",
-"when": "editorTextFocus && suggestWidgetVisible"
-},
+  ///// ──────────────────────────────────────────────────────────────────────
+  ///// Tab completion and intellisense
+  ///// ──────────────────────────────────────────────────────────────────────
+  {
+    "key": "tab",
+    "command": "tab",
+    "when": "editorTextFocus && !suggestWidgetVisible"
+  },
+  {
+    "key": "cmd+g",
+    "command": "hideSuggestWidget",
+    "when": "editorTextFocus && suggestWidgetVisible"
+  },
 
-///// ──────────────────────────────────────────────────────────────────────
-///// Other
-///// ──────────────────────────────────────────────────────────────────────
+  ///// ──────────────────────────────────────────────────────────────────────
+  ///// Other
+  ///// ──────────────────────────────────────────────────────────────────────
 
-{
-  "key": "",
-  "command": "merge-conflict.accept.selection"
-},
+  {
+    "key": "",
+    "command": "merge-conflict.accept.selection"
+  },
 
-///// ──────────────────────────────────────────────────────────────────────
-///// Jupyter Interactive Window
-///// ──────────────────────────────────────────────────────────────────────
-{
-  "key": "enter",
-  "command": "interactive.execute",
-  "when": "activeEditor == 'workbench.editor.interactive' && editorTextFocus && !suggestWidgetVisible"
-},
-{
-  "key": "shift+enter",
-  "command": "-interactive.execute",
-  "when": "activeEditor == 'workbench.editor.interactive'"
-},
-{
-  "key": "shift+enter",
-  "command": "type",
-  "args": { "text": "\n" },
-  "when": "activeEditor == 'workbench.editor.interactive' && editorTextFocus && !suggestWidgetVisible"
-}
-
+  ///// ──────────────────────────────────────────────────────────────────────
+  ///// Jupyter Interactive Window
+  ///// ──────────────────────────────────────────────────────────────────────
+  {
+    "key": "enter",
+    "command": "interactive.execute",
+    "when": "activeEditor == 'workbench.editor.interactive' && editorTextFocus && !suggestWidgetVisible"
+  },
+  {
+    "key": "shift+enter",
+    "command": "-interactive.execute",
+    "when": "activeEditor == 'workbench.editor.interactive'"
+  },
+  {
+    "key": "shift+enter",
+    "command": "type",
+    "args": { "text": "\n" },
+    "when": "activeEditor == 'workbench.editor.interactive' && editorTextFocus && !suggestWidgetVisible"
+  }
 ]

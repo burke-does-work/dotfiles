@@ -6,7 +6,7 @@ Inventory of MCP (Model Context Protocol) servers used across AI clients (Claude
 
 Claude Code stores MCP entries in `~/.claude.json`, which is a state file (session history, OAuth tokens, machine-specific paths) and is not safely tracked in dotfiles. Codex uses a clean config file at `config/codex/config.toml` -- those entries are the live tracked config.
 
-This doc is the human-readable source of truth so the inventory isn't buried in a state file. 
+This doc is the human-readable source of truth so the inventory isn't buried in a state file.
 
 ## onshape-fs (OnShape Labs FeatureScript)
 
@@ -18,7 +18,7 @@ This doc is the human-readable source of truth so the inventory isn't buried in 
 
 Claude Code:
 
-```
+```bash
 claude mcp add -s user -t http onshape-fs https://fs-mcp.labs.onshape.app/mcp
 ```
 

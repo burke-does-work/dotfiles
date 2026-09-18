@@ -18,7 +18,7 @@ The goal is not to create an exact Linux. The goal is to keep the parts that mak
 - **Avoid accidental modes** — fewer overlapping systems means fewer surprises.
 - **Key names follow signal, not label** — keyboard shortcuts are documented by the signal each app receives after Karabiner remapping, not the physical key label printed on the keyboard.
 
-### Conceptual Stack 
+### Conceptual Stack
 
 I want the Mac hardware with the Unix-centered workflow. The result is a hybrid.
 

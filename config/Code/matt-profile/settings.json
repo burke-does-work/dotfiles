@@ -1,5 +1,4 @@
 {
-
   //////////////////////////////////////////////////////////////////////////////
   // VS Code behavior
   //////////////////////////////////////////////////////////////////////////////
@@ -26,7 +25,7 @@
   // Autocomplete & editor
   //////////////////////////////////////////////////////////////////////////////
 
-  "editor.inlineSuggest.enabled": false,  // disabled — inline AI suggestions are distracting
+  "editor.inlineSuggest.enabled": false, // disabled — inline AI suggestions are distracting
   "editor.parameterHints.enabled": false,
   "editor.autoClosingBrackets": "never",
   "editor.autoClosingQuotes": "never",
@@ -92,24 +91,24 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
-"editor.tokenColorCustomizations": {
+  "editor.tokenColorCustomizations": {
     "textMateRules": [
-        {
-            "scope": "heading.1.markdown entity.name.section.markdown",
-            "settings": {
-                "foreground": "#928374",
-                "fontStyle": "bold"
-            }
-        },
-        {
-            "scope": "markup.bold.markdown",
-            "settings": {
-                "foreground": "#8ec07c",
-                "fontStyle": "bold"
-            }
-        },
+      {
+        "scope": "heading.1.markdown entity.name.section.markdown",
+        "settings": {
+          "foreground": "#928374",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "markup.bold.markdown",
+        "settings": {
+          "foreground": "#8ec07c",
+          "fontStyle": "bold"
+        }
+      }
     ]
-},
+  },
 
   //////////////////////////////////////////////////////////////////////////////
   // Formatting
@@ -161,7 +160,7 @@
     "editor.detectIndentation": false,
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
-  
+
   //////////////////////////////////////////////////////////////////////////////
   // Appearance
   //////////////////////////////////////////////////////////////////////////////
@@ -245,6 +244,5 @@
   ],
   "workbench.secondarySideBar.defaultVisibility": "hidden",
   "workbench.editor.enablePreview": false,
-  "editor.accessibilitySupport": "off",
-
+  "editor.accessibilitySupport": "off"
 }

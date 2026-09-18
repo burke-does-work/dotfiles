@@ -7,7 +7,7 @@ Key names are written as the event each app receives after Karabiner remapping, 
 Applies across VS Code and Neovim unless overridden.
 
 | Shortcut            | Action                        |
-| ---                 | ---                           |
+| ------------------- | ----------------------------- |
 | `h/j/k/l`           | Move left/down/up/right       |
 | `gg` / `G`          | Top / bottom of file          |
 | `ctrl+u` / `ctrl+d` | Half-page up / down           |
@@ -35,7 +35,7 @@ Clipboard pattern:
 Leader is `space` in VS Code and Neovim.
 
 | Shortcut   | Action                                 |
-| ---        | ---                                    |
+| ---------- | -------------------------------------- |
 | `<Space>d` | Delete operator to blackhole           |
 | `<Space>D` | Delete to end of line to blackhole     |
 | `<Space>x` | Delete char to blackhole               |
@@ -47,28 +47,28 @@ Leader is `space` in VS Code and Neovim.
 
 AeroSpace manages workspaces and tiling. Raycast handles app launching and window search. macOS Spaces are not used.
 
-| Shortcut              | Action                          |
-| ---                   | ---                             |
-| `alt+0`               | Workspace `0-blank`             |
-| `alt+1`               | Workspace `1-main`              |
-| `alt+2`               | Workspace `2-focus`             |
-| `alt+3`               | Workspace `3-admin`             |
-| `alt+4`               | Workspace `4-coms`              |
-| `alt+5`               | Workspace `5-play`              |
-| `alt+6-8`             | Workspaces `6-8`                |
-| `alt+shift+0-8`       | Move window to workspace        |
-| `alt+h/j/k/l`         | Focus window left/down/up/right |
-| `alt+shift+h/j/k/l`   | Move window left/down/up/right  |
-| `alt+-` / `alt+=`     | Resize smaller / larger         |
-| `alt+,`               | Toggle layout                   |
-| `alt+space`           | Raycast                         |
-| `shift+alt+space`     | Raycast window search           |
-| `hyper+alt+space`     | Raycast workspace window search |
+| Shortcut            | Action                          |
+| ------------------- | ------------------------------- |
+| `alt+0`             | Workspace `0-blank`             |
+| `alt+1`             | Workspace `1-main`              |
+| `alt+2`             | Workspace `2-focus`             |
+| `alt+3`             | Workspace `3-admin`             |
+| `alt+4`             | Workspace `4-coms`              |
+| `alt+5`             | Workspace `5-play`              |
+| `alt+6-8`           | Workspaces `6-8`                |
+| `alt+shift+0-8`     | Move window to workspace        |
+| `alt+h/j/k/l`       | Focus window left/down/up/right |
+| `alt+shift+h/j/k/l` | Move window left/down/up/right  |
+| `alt+-` / `alt+=`   | Resize smaller / larger         |
+| `alt+,`             | Toggle layout                   |
+| `alt+space`         | Raycast                         |
+| `shift+alt+space`   | Raycast window search           |
+| `hyper+alt+space`   | Raycast workspace window search |
 
 ## System
 
 | Shortcut        | Action                            |
-| ---             | ---                               |
+| --------------- | --------------------------------- |
 | `super+space`   | Toggle English / Chinese input    |
 | `super+shift+s` | Screenshot selection to clipboard |
 
@@ -77,7 +77,7 @@ AeroSpace manages workspaces and tiling. Raycast handles app launching and windo
 Ghostty is excluded from the ctrl/super swap. ctrl is ctrl and super is super.
 
 | Shortcut                | Action                      |
-| ---                     | ---                         |
+| ----------------------- | --------------------------- |
 | `ctrl+shift+t`          | New tab                     |
 | `ctrl+shift+w`          | Close surface               |
 | `ctrl+tab`              | Next tab                    |
@@ -97,7 +97,7 @@ Ghostty is excluded from the ctrl/super swap. ctrl is ctrl and super is super.
 Runs in Ghostty, so Ghostty intercepts some chords. `ctrl+shift+b` is reserved for Ghostty splits; Claude brief is on `ctrl+shift+i`.
 
 | Shortcut                   | Action                  |
-| ---                        | ---                     |
+| -------------------------- | ----------------------- |
 | `ctrl+r`                   | History search          |
 | `ctrl+t`                   | Toggle todos            |
 | `ctrl+o`                   | Toggle transcript       |
@@ -123,7 +123,7 @@ Codex keybindings are configured in `config/codex/config.toml` under `[tui.keyma
 ## fzf
 
 | Shortcut | Action                 |
-| ---      | ---                    |
+| -------- | ---------------------- |
 | `ctrl+t` | File path picker       |
 | `ctrl+r` | Command history picker |
 | `alt+c`  | Directory picker       |
@@ -133,7 +133,7 @@ Codex keybindings are configured in `config/codex/config.toml` under `[tui.keyma
 `D` is nooped to prevent accidental permanent deletion; empty trash manually when needed.
 
 | Shortcut    | Action                                        |
-| ---         | ---                                           |
+| ----------- | --------------------------------------------- |
 | `a`         | Create file; append `/` to name for directory |
 | `r`         | Rename                                        |
 | `d`         | Cut                                           |
@@ -151,25 +151,24 @@ Codex keybindings are configured in `config/codex/config.toml` under `[tui.keyma
 | `[` / `]`   | Previous / next tab                           |
 | `1 / 2 / 3` | Select tab (1, 2, 3, etc.)                    |
 
-
 ## VS Code
 
 VS Code participates in the ctrl/super swap. GUI-style shortcuts are written as the event VS Code receives.
 
-| Shortcut           | Action                             |
-| ---                | ---                                |
-| `ctrl+tab`         | Next editor / panel tab            |
-| `ctrl+shift+tab`   | Previous editor / panel tab        |
-| `ctrl+1-8`         | Select editor tab 1-8              |
-| `ctrl+9`           | Select last editor tab             |
-| `super+shift+b`    | Toggle sidebar                     |
-| `super+shift+-/=`  | Decrease / increase pane           |
-| `ctrl+shift+o`     | Search symbols in current document |
-| `ctrl+t`           | Search symbols across workspace    |
-| `ctrl+p`           | Search files                       |
-| `ctrl+k ctrl+p`    | Search open tabs/editors           |
-| `tab`              | Accept suggestion                  |
-| `super+g`          | Dismiss suggestions                |
+| Shortcut          | Action                             |
+| ----------------- | ---------------------------------- |
+| `ctrl+tab`        | Next editor / panel tab            |
+| `ctrl+shift+tab`  | Previous editor / panel tab        |
+| `ctrl+1-8`        | Select editor tab 1-8              |
+| `ctrl+9`          | Select last editor tab             |
+| `super+shift+b`   | Toggle sidebar                     |
+| `super+shift+-/=` | Decrease / increase pane           |
+| `ctrl+shift+o`    | Search symbols in current document |
+| `ctrl+t`          | Search symbols across workspace    |
+| `ctrl+p`          | Search files                       |
+| `ctrl+k ctrl+p`   | Search open tabs/editors           |
+| `tab`             | Accept suggestion                  |
+| `super+g`         | Dismiss suggestions                |
 
 Enter does not accept suggestions.
 
@@ -178,7 +177,7 @@ Enter does not accept suggestions.
 Known limitation: Vimium conflicts with Google Sheets. Disable Vimium on Sheets when native spreadsheet shortcuts matter.
 
 | Shortcut      | Action                                          |
-| ---           | ---                                             |
+| ------------- | ----------------------------------------------- |
 | `h/j/k/l`     | Scroll left/down/up/right                       |
 | `gg` / `G`    | Top / bottom of page                            |
 | `d` / `u`     | Half page down / up                             |
@@ -202,7 +201,7 @@ Known limitation: Vimium conflicts with Google Sheets. Disable Vimium on Sheets 
 Uses Vim keybindings. Tool-specific additions:
 
 | Shortcut     | Action                |
-| ---          | ---                   |
+| ------------ | --------------------- |
 | `<Space>tm`  | Toggle vim-table-mode |
 | `<Space>tdd` | Delete table row      |
 | `<Space>tdc` | Delete table column   |
