@@ -1,4 +1,5 @@
 .DS_Store
+node_modules/
 config/karabiner/automatic_backups/
 .claude/
 .env

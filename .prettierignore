@@ -1,0 +1,10 @@
+archive/
+node_modules/
+dist/
+scratch/
+package-lock.json
+
+# Written by their applications, not by hand. Reformatting them only loses
+# to the next write.
+config/karabiner/karabiner.json
+config/nvim/lazy-lock.json

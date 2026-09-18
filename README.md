@@ -49,3 +49,19 @@ Global AI agent instructions live in the `global_workflows` repo, not here. This
 ## Public Repo Notes
 
 Secrets, credentials, local state, generated backups, and app caches are not tracked. Host names and public Git identity are intentional.
+
+## Verify
+
+```bash
+npx prettier --check .
+npx markdownlint-cli2
+```
+
+Both must pass. If either fails, fix and run again:
+
+```bash
+npx prettier --write .
+npx markdownlint-cli2 --fix
+```
+
+A fresh clone needs `git config blame.ignoreRevsFile .git-blame-ignore-revs` once, so `git blame` skips the bulk formatting commit. Git config is not committed.
