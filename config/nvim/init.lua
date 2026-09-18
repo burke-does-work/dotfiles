@@ -5,6 +5,7 @@ vim.opt.relativenumber = true
 vim.opt.scrolloff = 8
 vim.opt.swapfile = false
 vim.opt.termguicolors = true
+vim.opt.background = "dark"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.smartindent = true
 vim.opt.undofile = true
@@ -35,4 +36,21 @@ vim.opt.rtp:prepend(lazypath)
 -- Plugins
 require("lazy").setup({
   { "dhruvasagar/vim-table-mode" },
+  {
+    "ellisonleao/gruvbox.nvim",
+    priority = 1000,
+    config = function()
+      require("gruvbox").setup({
+        contrast = "hard",
+        italic = {
+          strings = false,
+          emphasis = true,
+          comments = false,
+          operators = false,
+          folds = false,
+        },
+      })
+      vim.cmd("colorscheme gruvbox")
+    end,
+  },
 })
