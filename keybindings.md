@@ -1,7 +1,6 @@
 # Keybindings Reference
 
-Key names are written as the event each app receives after Karabiner remapping,
-not necessarily the original label printed on the keyboard.
+Key names are written as the event each app receives after Karabiner remapping, not necessarily the original label printed on the keyboard.
 
 ## Universal Vim
 
@@ -46,8 +45,7 @@ Leader is `space` in VS Code and Neovim.
 
 ## Window Management
 
-AeroSpace manages workspaces and tiling. Raycast handles app launching and window
-search. macOS Spaces are not used.
+AeroSpace manages workspaces and tiling. Raycast handles app launching and window search. macOS Spaces are not used.
 
 | Shortcut              | Action                          |
 | ---                   | ---                             |
@@ -96,8 +94,7 @@ Ghostty is excluded from the ctrl/super swap. ctrl is ctrl and super is super.
 
 ## Claude Code
 
-Runs in Ghostty, so Ghostty intercepts some chords. `ctrl+shift+b` is reserved
-for Ghostty splits; Claude brief is on `ctrl+shift+i`.
+Runs in Ghostty, so Ghostty intercepts some chords. `ctrl+shift+b` is reserved for Ghostty splits; Claude brief is on `ctrl+shift+i`.
 
 | Shortcut                   | Action                  |
 | ---                        | ---                     |
@@ -121,8 +118,7 @@ for Ghostty splits; Claude brief is on `ctrl+shift+i`.
 
 ## Codex
 
-Codex keybindings are configured in `config/codex/config.toml` under
-`[tui.keymap]` when custom bindings are needed.
+Codex keybindings are configured in `config/codex/config.toml` under `[tui.keymap]` when custom bindings are needed.
 
 ## fzf
 
@@ -158,8 +154,7 @@ Codex keybindings are configured in `config/codex/config.toml` under
 
 ## VS Code
 
-VS Code participates in the ctrl/super swap. GUI-style shortcuts are written as
-the event VS Code receives.
+VS Code participates in the ctrl/super swap. GUI-style shortcuts are written as the event VS Code receives.
 
 | Shortcut           | Action                             |
 | ---                | ---                                |
@@ -180,8 +175,7 @@ Enter does not accept suggestions.
 
 ## Vimium
 
-Known limitation: Vimium conflicts with Google Sheets. Disable Vimium on Sheets
-when native spreadsheet shortcuts matter.
+Known limitation: Vimium conflicts with Google Sheets. Disable Vimium on Sheets when native spreadsheet shortcuts matter.
 
 | Shortcut      | Action                                          |
 | ---           | ---                                             |

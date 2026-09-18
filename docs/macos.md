@@ -1,7 +1,6 @@
 # macOS Setup — maodou-mac
 
-Settled configuration for the current Mac. User-facing shortcuts live in
-`../keybindings.md`.
+Settled configuration for the current Mac. User-facing shortcuts live in `../keybindings.md`.
 
 ## Layer Model
 
@@ -19,8 +18,7 @@ Use System Settings only for OS preferences and rare app menu shortcuts.
 
 Config: `~/.config/karabiner` -> `config/karabiner`
 
-Karabiner makes the keyboard behave closer to a Linux workstation while preserving
-terminal behavior.
+Karabiner makes the keyboard behave closer to a Linux workstation while preserving terminal behavior.
 
 Active decisions:
 
@@ -33,8 +31,7 @@ Active decisions:
 - `Cmd+Shift+S` runs screenshot selection to clipboard.
 - VS Code and Chrome get a `Ctrl+Tab` rescue rule for tab navigation.
 
-Symlink note: Karabiner needs a directory symlink because it rewrites files
-atomically.
+Symlink note: Karabiner needs a directory symlink because it rewrites files atomically.
 
 ## Raycast
 
@@ -49,15 +46,13 @@ Configured:
 - Clipboard History enabled.
 - Switch Windows enabled on `Shift+Option+Space`.
 
-Do not symlink Raycast preferences. The plist is managed by `cfprefsd` and is not
-reliable as a dotfile.
+Do not symlink Raycast preferences. The plist is managed by `cfprefsd` and is not reliable as a dotfile.
 
 ## AeroSpace
 
 Config: `~/.config/aerospace/aerospace.toml` -> `config/aerospace/aerospace.toml`
 
-AeroSpace is the workspace and tiling system. macOS Spaces and Raycast Window
-Management are not used for layout.
+AeroSpace is the workspace and tiling system. macOS Spaces and Raycast Window Management are not used for layout.
 
 Configured:
 
@@ -69,8 +64,7 @@ Configured:
 
 ## Editors
 
-VS Code participates in the Ctrl/Cmd swap. GUI-style custom bindings are written
-for the post-swap event.
+VS Code participates in the Ctrl/Cmd swap. GUI-style custom bindings are written for the post-swap event.
 
 Neovim is the terminal editor and uses the system clipboard.
 
@@ -122,8 +116,7 @@ iCloud and Apple features:
 
 - Apple ID signed in for App Store.
 - iCloud services off except Find My.
-- Siri, Apple Intelligence, Handoff, AirPlay Receiver, Stage Manager, Screen Time,
-  Game Center, and AirDrop disabled.
+- Siri, Apple Intelligence, Handoff, AirPlay Receiver, Stage Manager, Screen Time, Game Center, and AirDrop disabled.
 - Spotlight indexing disabled.
 - Notification Center widgets removed.
 
@@ -136,8 +129,7 @@ Finder:
 
 Sharing:
 
-- Screen Sharing, File Sharing, Remote Login, Remote Management, Bluetooth Sharing,
-  Internet Sharing, Printer Sharing, and Content Caching off.
+- Screen Sharing, File Sharing, Remote Login, Remote Management, Bluetooth Sharing, Internet Sharing, Printer Sharing, and Content Caching off.
 
 ## Mac-Specific Tools
 

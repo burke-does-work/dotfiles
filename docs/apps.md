@@ -1,7 +1,6 @@
 # Apps — maodou-mac
 
-Current app inventory and install notes. Completed migration checklist details are
-archived.
+Current app inventory and install notes. Completed migration checklist details are archived.
 
 ## CLI Tools
 
@@ -65,8 +64,7 @@ Special cases:
 
 ## Symlinks
 
-Config files in this repo are symlinked into the locations each tool expects. Run
-these after cloning. Repo root is assumed to be `~/local/dotfiles`.
+Config files in this repo are symlinked into the locations each tool expects. Run these after cloning. Repo root is assumed to be `~/local/dotfiles`.
 
 Shell:
 
@@ -108,8 +106,7 @@ ln -sf ~/local/dotfiles/config/Code/global/keybindings.json \
   "$HOME/Library/Application Support/Code/User/keybindings.json"
 ```
 
-VS Code — active profile (profile ID is machine-specific; find yours in
-`~/Library/Application Support/Code/User/profiles/`):
+VS Code — active profile (profile ID is machine-specific; find yours in `~/Library/Application Support/Code/User/profiles/`):
 
 ```bash
 VSCODE_PROFILE="$HOME/Library/Application Support/Code/User/profiles/-2716422f"
@@ -159,8 +156,7 @@ Configured:
 - Clipboard History enabled.
 - Switch Windows enabled.
 
-AeroSpace handles workspaces and tiling, so Raycast Window Management bindings are
-not part of the current workflow.
+AeroSpace handles workspaces and tiling, so Raycast Window Management bindings are not part of the current workflow.
 
 ## Adobe Creative Cloud
 

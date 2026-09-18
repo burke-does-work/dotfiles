@@ -2,8 +2,7 @@
 
 Current machine: `maodou-mac`.
 
-The setup uses Gruvbox Dark Hard colors and CommitMono Nerd Font where practical.
-Config lives in this repo and is symlinked into the locations each tool expects.
+The setup uses Gruvbox Dark Hard colors and CommitMono Nerd Font where practical. Config lives in this repo and is symlinked into the locations each tool expects.
 
 ## Shell — zsh
 
@@ -18,8 +17,7 @@ Config: `config/zsh/zshrc_maodou-mac`, `config/zsh/zsh_plugins.txt`
 
 Config: `config/ghostty/config`
 
-Ghostty is the main terminal. It handles tabs and splits directly. Terminals are
-excluded from the Ctrl/Cmd swap so `Ctrl+C` stays SIGINT.
+Ghostty is the main terminal. It handles tabs and splits directly. Terminals are excluded from the Ctrl/Cmd swap so `Ctrl+C` stays SIGINT.
 
 ## Prompt — Starship
 
@@ -29,15 +27,12 @@ Two-line prompt with directory, git state, active Python venv, and command statu
 
 ## Python — uv
 
-uv is an all-in-one Python version manager, virtual environment tool, and package
-manager. It replaces pyenv, pip, venv, and pipx.
+uv is an all-in-one Python version manager, virtual environment tool, and package manager. It replaces pyenv, pip, venv, and pipx.
 
-- Python versions are installed via `uv python install <version>` and stored in
-  `~/.local/share/uv/python/`.
+- Python versions are installed via `uv python install <version>` and stored in `~/.local/share/uv/python/`.
 - The global default is pinned in `~/.config/uv/.python-version` (currently 3.12.4).
 - Per-project `.python-version` files are read automatically.
-- `uv venv` creates `.venv/` in the current directory; activate with
-  `source .venv/bin/activate`.
+- `uv venv` creates `.venv/` in the current directory; activate with `source .venv/bin/activate`.
 - `uv pip install` is a drop-in for `pip install`.
 - `uv tool install <tool>` installs CLI tools in isolated envs (replaces pipx).
 - Shell completions live in `~/.zsh/completions/_uv` (regenerate after `uv self update`).
@@ -46,18 +41,15 @@ manager. It replaces pyenv, pip, venv, and pipx.
 
 Config: `config/aerospace/aerospace.toml`
 
-AeroSpace manages workspaces, tiling, directional focus, and app assignment.
-Raycast remains the launcher and window search tool.
+AeroSpace manages workspaces, tiling, directional focus, and app assignment. Raycast remains the launcher and window search tool.
 
 ## Keyboard Layer — Karabiner
 
 Config: `config/karabiner/`
 
-Karabiner handles modifier remapping, Linux-style text navigation, input-source
-toggle, screenshot shortcut, and app-specific rescue rules.
+Karabiner handles modifier remapping, Linux-style text navigation, input-source toggle, screenshot shortcut, and app-specific rescue rules.
 
-`~/.config/karabiner` is a directory symlink because Karabiner rewrites files
-atomically.
+`~/.config/karabiner` is a directory symlink because Karabiner rewrites files atomically.
 
 ## Editors
 
@@ -70,15 +62,13 @@ Neovim config:
 
 - `config/nvim/init.lua`
 
-VS Code is the project editor. Neovim is the terminal editor for quick file edits
-and config work.
+VS Code is the project editor. Neovim is the terminal editor for quick file edits and config work.
 
 ## File Manager — Yazi
 
 Config: `config/yazi/`
 
-Yazi is the terminal file manager. It uses vim-like file operations and integrates
-with zoxide.
+Yazi is the terminal file manager. It uses vim-like file operations and integrates with zoxide.
 
 ## Claude Code
 
@@ -88,8 +78,7 @@ Config:
 - `config/claude/CLAUDE.md` -> `~/.claude/CLAUDE.md`
 - `local/documents/global_workflows/AGENTS.md` -> `~/.claude/AGENTS.md`
 
-Claude Code is configured for vim mode, explicit permissions, and terminal use
-inside Ghostty.
+Claude Code is configured for vim mode, explicit permissions, and terminal use inside Ghostty.
 
 ## Codex
 
@@ -98,14 +87,10 @@ Config:
 - `config/codex/config.toml` -> `~/.codex/config.toml`
 - `local/documents/global_workflows/skills` -> `~/.agents/skills`
 
-Only user-editable Codex config is tracked. Auth, logs, caches, history, sessions,
-and state remain local.
+Only user-editable Codex config is tracked. Auth, logs, caches, history, sessions, and state remain local.
 
 ## SSH
 
 Config: `ssh/config` → `~/.ssh/config`
 
-Configured hosts: `pickle-pi`, `maodou-pi`, and `github.com`. Key-based auth and connection
-multiplexing are enabled. The multiplex socket directory `~/.ssh/multiplex/` must be
-created manually on a new machine (`mkdir -p ~/.ssh/multiplex`) — it is not tracked
-in this repo.
+Configured hosts: `pickle-pi`, `maodou-pi`, and `github.com`. Key-based auth and connection multiplexing are enabled. The multiplex socket directory `~/.ssh/multiplex/` must be created manually on a new machine (`mkdir -p ~/.ssh/multiplex`) — it is not tracked in this repo.
