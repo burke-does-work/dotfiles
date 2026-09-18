@@ -62,17 +62,9 @@
   "markdown.validate.enabled": true,
   "markdown.validate.referenceLinks.enabled": "ignore",
 
-  // Archived - Markdown linter no longer used
-  // markdownlint now runs from the CLI per repo, configured in
-  // .markdownlint-cli2.jsonc. The extension is not installed.
-
-  "markdownlint.config": {
-    "default": true,
-    "MD033": false, // no inline HTML
-    "MD045": false, // images require alt text
-    "MD036": false, // no emphasis as headings
-    "MD024": false // no duplicate heading text
-  },
+  // markdownlint runs from the CLI per repo, configured in each repo's
+  // .markdownlint-cli2.jsonc. The extension is not installed, so no rule
+  // configuration belongs here.
 
   // Prettier is the formatter for every type it supports, matching the CLI in
   // each repo's ## Verify command. The per-language blocks below name it
