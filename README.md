@@ -2,6 +2,8 @@
 
 Personal public dotfiles for a keyboard-first macOS and Unix workflow.
 
+---
+
 ## Approach
 
 This setup makes a Mac behave like a controlled Unix workstation.
@@ -29,6 +31,8 @@ I want the Mac hardware with the Unix-centered workflow. The result is a hybrid.
 
 The setup is opinionated because, well, I'm opinionated. It favors repeatable operations, plain files, and muscle memory over defaults chosen for a broad audience.
 
+---
+
 ## Reference
 
 - [System overview](docs/system.md) — current tools, roles, and config locations.
@@ -38,17 +42,25 @@ The setup is opinionated because, well, I'm opinionated. It favors repeatable op
 - [MCP servers](docs/mcp.md) — MCP inventory and per-client setup for Claude Code and Codex.
 - [Claude Code permissions](docs/claude-permissions.md) — the permission model, its reasoning, and its known gaps.
 
+---
+
 ## Infrastructure
 
 Workshop infrastructure documentation lives in the `network-infra` repo.
+
+---
 
 ## Agent instructions
 
 Global AI agent instructions live in the `global_workflows` repo, not here. This repo holds only tool-specific config, currently `config/claude/settings.json` and `config/claude/keybindings.json`.
 
+---
+
 ## Public Repo Notes
 
 Secrets, credentials, local state, generated backups, and app caches are not tracked. Host names and public Git identity are intentional.
+
+---
 
 ## Verify
 

@@ -26,13 +26,25 @@ path=($HOME/helper_scripts $path)
 fpath=(~/.zsh/completions $fpath)
 
 ##### ──────────────────────────────────────────────────────────────────────────
+##### fzf
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Must load BEFORE antidote. fzf-tab has to be the last thing to bind ^I — it
+# wraps whatever widget it finds there. completion.zsh binds ^I unqualified, so
+# it only lands in the keymap that happens to be current; if it loaded after the
+# plugins it would shadow fzf-tab, and which of the two won would depend on
+# whether $EDITOR was set when zsh picked its startup keymap (before bindkey -v).
+source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+source /opt/homebrew/opt/fzf/shell/completion.zsh
+
+##### ──────────────────────────────────────────────────────────────────────────
 ##### Plugins
 ##### ──────────────────────────────────────────────────────────────────────────
 
 # Load antidote plugin manager (Homebrew install)
 source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
 
-# Load plugins from ~/.zsh_plugins.txt
+# Load plugins from ~/.zsh_plugins.txt (fzf-tab binds ^I in emacs and viins)
 antidote load
 
 ##### ──────────────────────────────────────────────────────────────────────────
@@ -41,14 +53,6 @@ antidote load
 
 # Initialize Starship prompt
 eval "$(starship init zsh)"
-
-##### ──────────────────────────────────────────────────────────────────────────
-##### fzf
-##### ──────────────────────────────────────────────────────────────────────────
-
-# Load fzf keybindings and completion (Homebrew install path)
-source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
-source /opt/homebrew/opt/fzf/shell/completion.zsh
 
 ##### ──────────────────────────────────────────────────────────────────────────
 ##### Vi mode
