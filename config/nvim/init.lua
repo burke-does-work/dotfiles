@@ -49,6 +49,21 @@ require("lazy").setup({
           operators = false,
           folds = false,
         },
+        -- Gruvbox maps all six heading levels, code and quotes onto one
+        -- green. Spread them across the palette, ordered by how far each
+        -- colour sits from the body-text cream.
+        overrides = {
+          ["@markup.heading.1"] = { fg = "#928374", bold = true },
+          ["@markup.heading.2"] = { fg = "#d65d0e", bold = true },
+          ["@markup.heading.3"] = { fg = "#d3869b", bold = true },
+          ["@markup.heading.4"] = { fg = "#83a598", bold = true },
+          ["@markup.heading.5"] = { fg = "#fe8019", bold = true },
+          ["@markup.heading.6"] = { fg = "#8ec07c", bold = true },
+          ["@markup.strong"] = { fg = "#8ec07c", bold = true },
+          ["@markup.quote"] = { fg = "#928374" },
+          ["@markup.raw"] = { fg = "#a89984" },
+          ["@markup.raw.block"] = { fg = "#a89984" },
+        },
       })
       vim.cmd("colorscheme gruvbox")
     end,
