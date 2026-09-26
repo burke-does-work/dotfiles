@@ -31,10 +31,17 @@
     "command": "workbench.action.increaseViewSize"
   },
 
-  // Sidebar toggle
+  // Sidebar toggle: toggleSidebarVisibility alone shows/hides but never moves
+  // focus, so split it — toggle off when already focused, focus in otherwise.
   {
     "key": "cmd+shift+b",
-    "command": "workbench.action.toggleSidebarVisibility"
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "sideBarFocus"
+  },
+  {
+    "key": "cmd+shift+b",
+    "command": "workbench.action.focusSideBar",
+    "when": "!sideBarFocus"
   },
   {
     "key": "cmd+shift+b",
@@ -97,6 +104,12 @@
     "key": "cmd+v",
     "command": "extension.vim_ctrl+v",
     "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inDebugRepl"
+  },
+
+  // Terminal toggle: default toggleTerminal binding is ctrl+`; add cmd+` too
+  {
+    "key": "cmd+`",
+    "command": "workbench.action.terminal.toggleTerminal"
   },
 
   //Panel
