@@ -115,14 +115,6 @@
       "Bash(ghostty *)",
       "Bash(yazi *)"
     ],
-    "ask": [
-      "Bash(rm *)",
-      "Bash(rmdir *)",
-      "Bash(uv pip install *)",
-      "Bash(python3 -m pip *)",
-      "Bash(gh extension install *)",
-      "Bash(gh api *)"
-    ],
     "deny": [
       "Read(//Users/matt/.ssh/**)",
       "Read(//Users/matt/.gnupg/**)",
@@ -142,9 +134,17 @@
       "Bash(git reflog expire*)",
       "Bash(git gc --prune=now*)"
     ],
+    "ask": [
+      "Bash(rm *)",
+      "Bash(rmdir *)",
+      "Bash(uv pip install *)",
+      "Bash(python3 -m pip *)",
+      "Bash(gh extension install *)",
+      "Bash(gh api *)"
+    ],
     "defaultMode": "default",
-    "disableAutoMode": "disable",
     "disableBypassPermissionsMode": "disable",
+    "disableAutoMode": "disable",
     "additionalDirectories": [
       "/Users/matt/local/documents",
       "/Users/matt/local/dotfiles"
@@ -153,13 +153,21 @@
     "_comment_ask": "Ask overrides the permission mode, so these prompt even in acceptEdits. rm/rmdir are here because acceptEdits would otherwise auto-approve them across the whole working scope.",
     "_comment_deny": "Reads: SSH+GPG keys, .env files (1Password holds API keys; .env blocked as a safety net). Note the // prefix -- a single leading slash anchors at the settings source, not the filesystem root. Commands: irreversible GitHub and git history operations. A deny rule matches command text, not the program, so it narrows accidents rather than forming a boundary."
   },
+  "model": "sonnet",
   "enabledPlugins": {
     "vercel@claude-plugins-official": true
   },
   "feedbackDrafts": "off",
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "high"
+    },
+    "claude-sonnet-5": {
+      "effortLevel": "high"
+    }
+  },
   "promptSuggestionEnabled": false,
   "awaySummaryEnabled": false,
-  "agentPushNotifEnabled": false,
-  "model": "opus"
+  "agentPushNotifEnabled": false
 }
