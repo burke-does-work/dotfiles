@@ -44,6 +44,12 @@ The setup is opinionated because, well, I'm opinionated. It favors repeatable op
 
 ---
 
+## VS Code Profiles
+
+Config splits into `config/Code/global/` and `config/Code/matt-profile/`. Day-to-day work runs on `matt-profile` — check that one first. `global/` exists only for settings that must apply regardless of profile.
+
+---
+
 ## Infrastructure
 
 Workshop infrastructure documentation lives in the `network-infra` repo.
