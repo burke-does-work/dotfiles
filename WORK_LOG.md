@@ -1,5 +1,15 @@
 # Work Log
 
+## 2026-09-24 - Prettier and Ruff were never installed in the active profile
+
+Markdown tables in `scratch.md` (documents repo) had stopped realigning on save after adding Prettier and markdownlint. Checked the settings first and cleared them quickly - `matt-profile/settings.json` and `global/settings.json` both already set `esbenp.prettier-vscode` as the markdown formatter with `formatOnSave` on, `MD060` is explicitly disabled in that repo's `.markdownlint-cli2.jsonc` so markdownlint stays out of Prettier's way, and both settings files are live, symlinked straight into VS Code's real settings paths.
+
+The actual break was extensions, not configuration. `code --list-extensions` (Default profile) showed Prettier installed, but `window.newWindowProfile` is `matt`, the profile used day to day and the one whose settings.json carries the formatter comments. Checking that profile specifically (`code --list-extensions --profile matt`) showed Prettier absent - the settings named a formatter that had never been installed where it mattered. The same gap existed for Ruff: the `[python]` block has named `charliermarsh.ruff` since the 2026-09-16 switch away from Black, but only `ms-python.black-formatter` was actually present in the `matt` profile.
+
+Fixed by installing both directly into that profile - `code --install-extension esbenp.prettier-vscode --profile matt`, then the same for `charliermarsh.ruff`. Confirmed after the Prettier install that tables realigned on save. Checked whether Black was referenced anywhere before letting it be uninstalled - it is not; the only trace left in either settings file is a comment noting Ruff replaces it.
+
+While in the `[python]` block, noticed it had never carried `editor.formatOnSave`, unlike every other language block in the file. Traced it through git history (`git show c6c6610`) to confirm the Ruff switch did not drop it - the block lacked it even under Black, so the gap predates that commit and there is no evidence either way of it being deliberate. Added it for consistency with every other configured language, since Ruff's formatter is deterministic like Black's and the omission had no visible rationale.
+
 ## 2026-09-15 -- Push creates the remote branch on its own
 
 Kept forgetting `git push --set-upstream origin <branch>` on the first push of a new branch. Set `push.autoSetupRemote` in `config/git/gitconfig` so a plain `git push` creates the remote branch and sets tracking itself.
