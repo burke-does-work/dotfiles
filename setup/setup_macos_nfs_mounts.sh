@@ -9,7 +9,9 @@ set -euo pipefail
 HOST="${PICKLE_PI_HOST:-192.168.8.154}"
 DRIVE_EXPORT="/mnt/drive_data"
 HDD_EXPORT="/mnt/hdd_data"
-NFS_OPTS="resvport,nolocks,tcp"
+# rsize and readahead raised above the macOS defaults: fewer round trips per
+# megabyte, the limit on a high-latency mount. Reads only - wsize untested.
+NFS_OPTS="resvport,nolocks,tcp,rsize=65536,readahead=128"
 AUTO_PARENT="/private/nfs"
 AUTO_MAP="/etc/auto_pickle_pi"
 AUTO_MASTER="/etc/auto_master"
