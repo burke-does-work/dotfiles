@@ -153,7 +153,7 @@
     "_comment_ask": "Ask overrides the permission mode, so these prompt even in acceptEdits. rm/rmdir are here because acceptEdits would otherwise auto-approve them across the whole working scope.",
     "_comment_deny": "Reads: SSH+GPG keys, .env files (1Password holds API keys; .env blocked as a safety net). Note the // prefix -- a single leading slash anchors at the settings source, not the filesystem root. Commands: irreversible GitHub and git history operations. A deny rule matches command text, not the program, so it narrows accidents rather than forming a boundary."
   },
-  "model": "sonnet",
+  "model": "opus",
   "enabledPlugins": {
     "vercel@claude-plugins-official": true
   },
