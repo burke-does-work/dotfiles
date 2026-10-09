@@ -15,8 +15,8 @@ export PATH="/opt/homebrew/opt/trash/bin:$PATH"
 # Add user local binaries to PATH
 path=($HOME/.local/bin $path)
 
-# Add personal helper scripts to PATH
-path=($HOME/helper_scripts $path)
+# Tailscale CLI — in the app bundle; a symlink breaks its bundle lookup
+path=(/Applications/Tailscale.app/Contents/MacOS $path)
 
 ##### ──────────────────────────────────────────────────────────────────────────
 ##### uv (Python version + package manager)
