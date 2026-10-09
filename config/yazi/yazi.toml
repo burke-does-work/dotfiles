@@ -13,9 +13,14 @@ image_quality = 75
 pdf = [
   { run = 'open -a "Google Chrome" "$@"', desc = "Chrome", orphan = true },
 ]
+video = [
+  { run = 'open -a VLC "$@"', desc = "VLC", orphan = true },
+]
 
 [open]
 rules = [
   { mime = "application/pdf", use = "pdf" },
   { mime = "*/pdf",           use = "pdf" },
+  { mime = "video/*",         use = "video" },
+  { mime = "application/vnd.rn-realmedia*", use = "video" },
 ]
