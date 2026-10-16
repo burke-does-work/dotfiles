@@ -11,14 +11,24 @@ image_quality = 75
 
 [opener]
 pdf = [
-  { run = 'open -a "Google Chrome" "$@"', desc = "Chrome", orphan = true },
+  { run = 'open -a "Google Chrome" %s', desc = "Chrome", orphan = true },
+]
+epub = [
+  { run = 'open -a "Google Chrome" %s', desc = "Chrome", orphan = true },
+  { run = 'ebook-viewer %s', desc = "Calibre viewer", orphan = true },
+]
+ebook = [
+  { run = 'ebook-viewer %s', desc = "Calibre viewer", orphan = true },
 ]
 video = [
-  { run = 'open -a VLC "$@"', desc = "VLC", orphan = true },
+  { run = 'open -a VLC %s', desc = "VLC", orphan = true },
 ]
 
 [open]
-rules = [
+prepend_rules = [
+  { url = "*.epub",                             use = "epub" },
+  { url = "*.{kepub,azw,azw3,mobi,prc,fb2,fbz}", use = "ebook" },
+  { url = "*.{cbz,cbr,cbc}",                     use = "ebook" },
   { mime = "application/pdf", use = "pdf" },
   { mime = "*/pdf",           use = "pdf" },
   { mime = "video/*",         use = "video" },
