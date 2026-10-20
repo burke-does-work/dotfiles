@@ -91,6 +91,7 @@ Ghostty is excluded from the ctrl/super swap. ctrl is ctrl and super is super.
 | `ctrl+shift+0`          | Reset split sizes           |
 | `ctrl+shift+c`          | Copy active selection       |
 | `ctrl+shift+v`          | Paste                       |
+| `super+left-click`      | Open hyperlink              |
 
 ## Claude Code
 
