@@ -9,8 +9,13 @@ set -euo pipefail
 HOST="${PICKLE_PI_HOST:-192.168.8.154}"
 DRIVE_EXPORT="/mnt/drive_data"
 HDD_EXPORT="/mnt/hdd_data"
+VAULT_EXPORT="/mnt/vault_data"
 # rsize and readahead raised above the macOS defaults: fewer round trips per
-# megabyte, the limit on a high-latency mount. Reads only - wsize untested.
+# megabyte, the limit on a high-latency mount.
+#
+# wsize deliberately unset. Measured 2026-10-19: macOS negotiates wsize=32768
+# and writes at 88.3 MB/s, above the 50.5 MB/s the vault's drive and LUKS
+# impose, so raising it would tune the half that is not slow.
 NFS_OPTS="resvport,nolocks,tcp,rsize=65536,readahead=128"
 AUTO_PARENT="/private/nfs"
 AUTO_MAP="/etc/auto_pickle_pi"
@@ -42,6 +47,7 @@ echo "[INFO] Installing $AUTO_MAP"
 sudo tee "$AUTO_MAP" >/dev/null <<EOF
 drive_data -fstype=nfs,${NFS_OPTS} ${HOST}:${DRIVE_EXPORT}
 hdd_data   -fstype=nfs,${NFS_OPTS} ${HOST}:${HDD_EXPORT}
+vault_data -fstype=nfs,${NFS_OPTS} ${HOST}:${VAULT_EXPORT}
 EOF
 
 # Remove any previous (direct or indirect) pickle-pi entry from auto_master
@@ -54,6 +60,9 @@ echo "[INFO] Reloading automount maps"
 sudo automount -vc
 
 echo
+# -sfn, not -sf. Without -n, re-running these once the symlink exists makes ln
+# follow it into the share and create the link inside the mounted volume.
 echo "[OK] autofs configured. Update symlinks in ~/local/:"
-echo "  ln -sf ${AUTO_PARENT}/hdd_data ~/local/pickle-pi-hdd_data"
-echo "  ln -sf ${AUTO_PARENT}/drive_data ~/local/pickle-pi-drive_data"
+echo "  ln -sfn ${AUTO_PARENT}/hdd_data ~/local/pickle-pi-hdd_data"
+echo "  ln -sfn ${AUTO_PARENT}/drive_data ~/local/pickle-pi-drive_data"
+echo "  ln -sfn ${AUTO_PARENT}/vault_data ~/local/pickle-pi-vault_data"

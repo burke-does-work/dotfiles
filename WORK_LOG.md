@@ -1,5 +1,23 @@
 # Work Log
 
+## 2026-10-19 - Third NFS share added, and wsize settled by measurement
+
+pickle-pi gained a third export, `vault_data`, so `setup/setup_macos_nfs_mounts.sh` needed a map entry and a third symlink. The interesting part was not the entry but the comment sitting above `NFS_OPTS`, which read "Reads only - wsize untested". This is the first share that gets written to, since digiKam writes a sidecar every time a rating changes, so that caveat stopped being harmless.
+
+Rather than set `wsize` on instinct I measured it against the existing `drive_data` mount, which uses the same option string. macOS negotiates `wsize=32768` against `rsize=65536` and still writes at 88.3 MB/s, comfortably above the 50.5 MB/s the vault's drive and LUKS layer impose. Raising it would tune the half of the path that is not the bottleneck, so `wsize` stays unset and the comment now records why instead of flagging an unknown. A checksum across the mount confirmed write correctness, and `all_squash` lands files as `1000:1000` even though macOS writes as uid 501 - the squash works on a written share, not only a read one.
+
+Small writes cost about 73 ms each regardless of block size. That is the `sync` export committing to disk before acknowledging, which belongs to the server rather than to this repo, so it is recorded in `network-infra` and not here. It is worth knowing as a user: a large digiKam rating batch will spend real time writing sidecars.
+
+One bug fixed on the way. The script printed `ln -sf` for the symlinks, and re-running that once the symlink exists makes `ln` follow it into the mounted share and create the link inside the volume. It did exactly that during setup. The printed commands now use `ln -sfn`, verified by running both forms twice against a scratch directory: `-sf` creates an entry inside the target on the second run, `-sfn` creates none.
+
+---
+
+## 2026-10-09 - Ghostty hyperlink binding documented
+
+Markdown links rendered correctly as underlined terminal hyperlinks in Codex but did not open with the initially suggested modified clicks. Reviewing the complete Karabiner chain and the repository's key-naming convention established that shortcuts must describe the signal received after remapping, not a physical key label.
+
+Testing identified `super+left-click` as the working Ghostty gesture, with no `shift` modifier. Added it to the Ghostty table in `keybindings.md`. No Ghostty or Karabiner configuration changed; the documentation now records the existing behavior.
+
 ## 2026-09-24 - Prettier and Ruff were never installed in the active profile
 
 Markdown tables in `scratch.md` (documents repo) had stopped realigning on save after adding Prettier and markdownlint. Checked the settings first and cleared them quickly - `matt-profile/settings.json` and `global/settings.json` both already set `esbenp.prettier-vscode` as the markdown formatter with `formatOnSave` on, `MD060` is explicitly disabled in that repo's `.markdownlint-cli2.jsonc` so markdownlint stays out of Prettier's way, and both settings files are live, symlinked straight into VS Code's real settings paths.
