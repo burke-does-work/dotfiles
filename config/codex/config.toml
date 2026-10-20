@@ -27,6 +27,12 @@ trust_level = "trusted"
 [projects."/Users/matt/local/documents/temp"]
 trust_level = "trusted"
 
+[projects."/Users/matt/local/documents/network-infra"]
+trust_level = "trusted"
+
+[projects."/Users/matt/local/documents/media-dev"]
+trust_level = "trusted"
+
 [plugins."github@openai-curated"]
 enabled = true
 
