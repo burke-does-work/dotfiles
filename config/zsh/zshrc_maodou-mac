@@ -113,6 +113,18 @@ zle -N vi-put-after  _zle-vi-put-after
 zle -N vi-put-before _zle-vi-put-before
 
 ##### ──────────────────────────────────────────────────────────────────────────
+##### Command line editing
+##### ──────────────────────────────────────────────────────────────────────────
+
+# Ctrl+G opens the current command line in $EDITOR. On :wq the edited text
+# returns to the prompt unexecuted, so Enter still runs it. Bound in both
+# keymaps; it replaces list-expand, the only prior occupant of ^G in either.
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M viins '^G' edit-command-line
+bindkey -M vicmd '^G' edit-command-line
+
+##### ──────────────────────────────────────────────────────────────────────────
 ##### Tab completion
 ##### ──────────────────────────────────────────────────────────────────────────
 

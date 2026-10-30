@@ -121,6 +121,14 @@ Runs in Ghostty, so Ghostty intercepts some chords. `ctrl+shift+b` is reserved f
 
 Codex keybindings are configured in `config/codex/config.toml` under `[tui.keymap]` when custom bindings are needed.
 
+## zsh
+
+Vi mode is enabled on the command line. `ctrl+g` works in both insert and normal mode. On `:wq` the edited command returns to the prompt unexecuted, so `enter` still runs it.
+
+| Shortcut | Action                    |
+| -------- | ------------------------- |
+| `ctrl+g` | Edit command line in nvim |
+
 ## fzf
 
 | Shortcut | Action                 |
