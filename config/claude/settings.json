@@ -144,7 +144,6 @@
     ],
     "defaultMode": "default",
     "disableBypassPermissionsMode": "disable",
-    "disableAutoMode": "disable",
     "additionalDirectories": [
       "/Users/matt/local/documents",
       "/Users/matt/local/dotfiles"
@@ -169,5 +168,6 @@
   },
   "promptSuggestionEnabled": false,
   "awaySummaryEnabled": false,
+  "preferredNotifChannel": "ghostty",
   "agentPushNotifEnabled": false
 }
