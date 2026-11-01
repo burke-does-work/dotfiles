@@ -178,6 +178,9 @@ export VISUAL=nvim
 # Open keybindings reference
 alias keybindings='nvim ~/local/dotfiles/keybindings.md'
 
+# Attach to Rusty's conversation. Close the pane to detach, never /exit.
+alias rusty="ssh -t maodou-pi 'incus exec rusty --user 1000 --group 1000 --env HOME=/home/rusty --cwd /home/rusty/field-notes -- dtach -a /run/rusty/session.dtach -r ctrl_l'"
+
 ##### ──────────────────────────────────────────────────────────────────────────
 ##### Yazi
 ##### ──────────────────────────────────────────────────────────────────────────
