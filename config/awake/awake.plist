@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  launchd job for awake. Linked to ~/Library/LaunchAgents/local.awake.plist by
+  setup/setup_awake.sh. Starts at login and restarts if the watcher dies.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>local.awake</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/matt/.local/bin/awake</string>
+        <string>watch</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>/Users/matt/Library/Logs/awake.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/matt/Library/Logs/awake.log</string>
+</dict>
+</plist>

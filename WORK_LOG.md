@@ -1,5 +1,23 @@
 # Work Log
 
+## 2026-11-02 - Lid-closed stay-awake tied to the charger
+
+I wanted the Ubuntu behavior from my last laptop: close the lid and the machine keeps running, so Claude Code remote control stays connected while the laptop sits out of the way on the desk. Ubuntu exposes this as two settings, `HandleLidSwitch` and `HandlePowerKey` in `logind.conf`. macOS has neither. Closing the lid always sleeps the Mac, and a quick press of the Touch ID power button only locks the screen.
+
+The only lever without an external display is `pmset -a disablesleep 1`, which isn't in this Mac's `pmset` manual. With it on, the Mac stayed awake with the lid closed for about 18 minutes on battery, through plugging in and unplugging, and the display still turned off on its timer.
+
+The first design kept that setting on permanently and put sleep on `f12` through a Karabiner rule. Karabiner beat Raycast because it catches the key ahead of apps and keeps the setting as text in the repo. Raycast was only in the running because the early recommendation came before reading the repo, which pointed straight at Karabiner. The design failed its gate test: `disablesleep 1` blocks every sleep request, and `pmset sleepnow` returned error `0xe00002e2`. Testing also showed sleep isn't instant. The display goes dark first, and a touch in the next few seconds cancels sleep, so a dark screen proves nothing. The power log's "Entering Sleep state" line is the evidence.
+
+I then compared three ways to sleep while the setting is on. One was `f12` turning the setting off, sleeping, and a waiting process re-arming it on wake. Another was a single `launchd` check every 15 seconds. The third was Sleepless, an open-source menu bar app. Reading the Sleepless source showed the same `disablesleep` mechanism and the same two-command admin rule, with no sleep action and no re-arming at all. Its issues flagged two risks that apply here: quitting it leaves the setting on, and one user's lid-closed Mac dropped Wi-Fi after a router outage and never rejoined.
+
+I settled on the simplest version: stay-awake on whenever the Mac is plugged in, off whenever it isn't, with no hotkey and no other state. Unplugging is what I do before packing the laptop, so this removes the risk of an awake Mac in a bag without relying on a key press. The cost is that the Mac can't sleep while on the charger, and I accepted that. `awake disable` and `awake enable` are the rare master switch, built on `launchctl disable` so the install itself never changes.
+
+The script polls `pmset -g batt` every 5 seconds rather than reading `pmset -g pslog`. `pslog` output may be held back when piped, which a terminal test wouldn't reveal. Before turning stay-awake off, it waits 3 seconds and rechecks, so a loose cable doesn't end a session. If the lid is already closed when it turns off, the script also runs `pmset sleepnow`. Anything other than AC power, including unreadable output, turns stay-awake off. The setup script validates the admin rule with `visudo` before installing it, and it needs a real terminal, since `sudo` can't prompt through Claude Code's `!` prefix.
+
+After install, the job turned stay-awake off on battery within 4 seconds and back on 2 seconds after plugging in. I committed at that point. The lid-closed tests on the charger, the power-blip test, and unplugging with the lid closed are still open, and are tracked in `live_projects/PLAN.md`.
+
+---
+
 ## 2026-10-19 - Third NFS share added, and wsize settled by measurement
 
 pickle-pi gained a third export, `vault_data`, so `setup/setup_macos_nfs_mounts.sh` needed a map entry and a third symlink. The interesting part was not the entry but the comment sitting above `NFS_OPTS`, which read "Reads only - wsize untested". This is the first share that gets written to, since digiKam writes a sidecar every time a rating changes, so that caveat stopped being harmless.

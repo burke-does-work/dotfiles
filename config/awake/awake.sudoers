@@ -1,0 +1,8 @@
+# awake - passwordless toggle for pmset disablesleep.
+#
+# setup/setup_awake.sh replaces __USER__ with the login name and installs the
+# result to /etc/sudoers.d/awake, owned by root:wheel with mode 0440.
+#
+# sudo matches the full command exactly, so this allows these two commands and
+# nothing else. Any other pmset command still asks for a password.
+__USER__ ALL=(root) NOPASSWD: /usr/bin/pmset -a disablesleep 0, /usr/bin/pmset -a disablesleep 1

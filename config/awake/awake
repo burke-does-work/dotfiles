@@ -1,0 +1,167 @@
+#!/bin/bash
+# awake - keep the Mac awake with the lid closed while it's on the charger.
+#
+# Ties pmset's undocumented disablesleep setting to the power source. On AC
+# power it's 1, so closing the lid doesn't sleep the Mac. On battery it's 0, so
+# the Mac sleeps as normal. The launchd job local.awake runs `awake watch`.
+#
+# Usage:
+#   awake status    show the job, power source, and SleepDisabled
+#   awake enable    start the job, and keep it on across restarts
+#   awake disable   stop the job and restore standard sleep, across restarts
+#   awake apply     set disablesleep once from the current power source
+#   awake watch     run apply every few seconds, used by the launchd job
+
+# No -e, so one failed check doesn't stop the watch loop. No pipefail, because
+# head and grep -q close pipes early and would make matches look like failures.
+set -u
+
+# ==========================================================================
+# Constants
+# ==========================================================================
+
+LABEL="local.awake"
+DOMAIN="gui/$(id -u)"
+PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
+PMSET="/usr/bin/pmset"
+
+# Polled rather than driven by `pmset -g pslog`. The pslog format is
+# undocumented and its output may be buffered when piped, and polling is cheap.
+POLL_SECONDS=5
+
+# A brief loss of power, such as a loose cable, shouldn't end a lid-closed
+# session, so battery power has to last this long before stay-awake turns off.
+UNPLUG_CONFIRM_SECONDS=3
+
+# ==========================================================================
+# Helpers
+# ==========================================================================
+
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') $*"
+}
+
+# Prints ac, battery, or unknown, from the first line of `pmset -g batt`,
+# for example "Now drawing from 'AC Power'".
+power_source() {
+    local line
+    line=$("$PMSET" -g batt 2>/dev/null | head -n 1)
+    case "$line" in
+        *"'AC Power'"*) echo "ac" ;;
+        *"'Battery Power'"*) echo "battery" ;;
+        *) echo "unknown" ;;
+    esac
+}
+
+# Prints 1 or 0. pmset leaves out the SleepDisabled line when it's off.
+sleep_disabled() {
+    local value
+    value=$("$PMSET" -g 2>/dev/null | awk '/SleepDisabled/ { print $2; exit }')
+    echo "${value:-0}"
+}
+
+# The arguments must match /etc/sudoers.d/awake exactly. -n and no input make
+# a missing rule fail at once instead of waiting for a password.
+set_disablesleep() {
+    sudo -n "$PMSET" -a disablesleep "$1" </dev/null
+}
+
+# Sets disablesleep from the power source. Anything other than AC power,
+# including output that can't be read, turns it off, the safe direction.
+apply() {
+    local source want lid
+    source=$(power_source)
+    if [[ "$source" == "ac" ]]; then
+        want=1
+    else
+        want=0
+    fi
+    if [[ "$(sleep_disabled)" == "$want" ]]; then
+        return 0
+    fi
+
+    if [[ "$want" == "0" ]]; then
+        sleep "$UNPLUG_CONFIRM_SECONDS"
+        if [[ "$(power_source)" == "ac" ]]; then
+            log "power blip ignored"
+            return 0
+        fi
+    fi
+
+    if ! set_disablesleep "$want"; then
+        log "power=$source failed to set disablesleep $want"
+        return 1
+    fi
+    log "power=$source set disablesleep $want"
+
+    # With the lid already closed, turning stay-awake off may not sleep the
+    # Mac by itself, so ask for sleep directly.
+    if [[ "$want" == "0" ]]; then
+        lid=$(ioreg -r -k AppleClamshellState -d 1)
+        if [[ "$lid" == *'"AppleClamshellState" = Yes'* ]]; then
+            log "lid closed, sleeping"
+            "$PMSET" sleepnow >/dev/null
+        fi
+    fi
+}
+
+# ==========================================================================
+# Commands
+# ==========================================================================
+
+case "${1:-}" in
+    apply)
+        apply
+        ;;
+
+    watch)
+        log "watch started"
+        while true; do
+            apply
+            sleep "$POLL_SECONDS"
+        done
+        ;;
+
+    enable)
+        launchctl enable "$DOMAIN/$LABEL"
+        if launchctl print "$DOMAIN/$LABEL" >/dev/null 2>&1; then
+            echo "awake is already running"
+        elif launchctl bootstrap "$DOMAIN" "$PLIST"; then
+            echo "awake enabled"
+        else
+            echo "awake: couldn't load $PLIST, run setup/setup_awake.sh" >&2
+            exit 1
+        fi
+        ;;
+
+    disable)
+        # Disable first, so KeepAlive can't restart the job after bootout.
+        launchctl disable "$DOMAIN/$LABEL"
+        launchctl bootout "$DOMAIN/$LABEL" 2>/dev/null
+        if set_disablesleep 0; then
+            echo "awake disabled, standard sleep restored"
+        else
+            echo "awake: couldn't set disablesleep 0, run: sudo pmset -a disablesleep 0" >&2
+            exit 1
+        fi
+        ;;
+
+    status)
+        disabled=$(launchctl print-disabled "$DOMAIN")
+        if [[ "$disabled" == *"\"$LABEL\" => disabled"* ]]; then
+            job="disabled"
+        elif launchctl print "$DOMAIN/$LABEL" >/dev/null 2>&1; then
+            job="running"
+        else
+            job="not loaded"
+        fi
+        echo "job:           $job"
+        echo "power:         $(power_source)"
+        echo "SleepDisabled: $(sleep_disabled)"
+        ;;
+
+    *)
+        echo "usage: awake status | enable | disable | apply | watch" >&2
+        exit 2
+        ;;
+esac
