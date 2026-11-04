@@ -148,7 +148,7 @@
       "/Users/matt/local/documents",
       "/Users/matt/local/dotfiles"
     ],
-    "_comment": "Working scope is documents/ and dotfiles/. Manual mode grants no writes -- filesystem mutation (mkdir, cp, mv, touch, chmod, ln, sed, rm) is deliberately absent from allow so that acceptEdits grants it, scoped to the two trees above. Anything outside them prompts. See dotfiles/docs/claude-permissions.md.",
+    "_comment": "Working scope is documents/ and dotfiles/. Manual mode grants no writes -- filesystem mutation (mkdir, cp, mv, touch, chmod, ln, sed, rm) is deliberately absent from allow so that acceptEdits grants it, scoped to the two trees above. Anything outside them prompts. See dotfiles/docs/DESIGN_claude-permissions.md.",
     "_comment_ask": "Ask overrides the permission mode, so these prompt even in acceptEdits. rm/rmdir are here because acceptEdits would otherwise auto-approve them across the whole working scope.",
     "_comment_deny": "Reads: SSH+GPG keys, .env files (1Password holds API keys; .env blocked as a safety net). Note the // prefix -- a single leading slash anchors at the settings source, not the filesystem root. Commands: irreversible GitHub and git history operations. A deny rule matches command text, not the program, so it narrows accidents rather than forming a boundary."
   },
