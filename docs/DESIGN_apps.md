@@ -2,6 +2,14 @@
 
 Current app inventory and install notes. Completed migration checklist details are archived.
 
+Philosophy:
+
+- Preference for open source but if the closed source version is better, then closed source it is.
+- Install with a package manager, unless unavailable in the standard package managers. If not in the package managers, then in order:
+  - `.sh` file and added to `apt`
+  - App website
+  - App store
+
 ## CLI Tools
 
 Installed with Homebrew unless noted:

@@ -37,10 +37,10 @@ The setup is opinionated because, well, I'm opinionated. It favors repeatable op
 
 - [System overview](docs/system.md) — current tools, roles, and config locations.
 - [Keybindings](keybindings.md) — current keyboard reference.
-- [macOS setup](docs/macos.md) — settled macOS configuration.
-- [Apps](docs/apps.md) — installed app inventory and install notes.
+- [macOS setup](docs/DESIGN_macos.md) — settled macOS configuration.
+- [Apps](docs/DESIGN_apps.md) — installed app inventory and install notes.
 - [MCP servers](docs/mcp.md) — MCP inventory and per-client setup for Claude Code and Codex.
-- [Claude Code permissions](docs/claude-permissions.md) — the permission model, its reasoning, and its known gaps.
+- [Claude Code permissions](docs/DESIGN_claude-permissions.md) — the permission model, its reasoning, and its known gaps.
 
 ---
 
