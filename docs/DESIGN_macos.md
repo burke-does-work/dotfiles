@@ -100,7 +100,6 @@ Sound and power:
 - UI sounds off.
 - Power chime off.
 - AC power does not sleep.
-- Battery sleeps after 30 minutes.
 - Display dim and ambient light sensor off.
 
 Privacy and security:
@@ -130,6 +129,25 @@ Finder:
 Sharing:
 
 - Screen Sharing, File Sharing, Remote Login, Remote Management, Bluetooth Sharing, Internet Sharing, Printer Sharing, and Content Caching off.
+
+## Awake - Custom awake function
+
+The custom awake function keeps the Mac awake with the lid closed while it's on the charger. This lets me close the lid while plugged and have apps continue to run.
+
+On battery, the Mac sleeps normally.
+
+Files and symlinks: `~/.local/bin/awake` -> `config/awake/awake`, and `~/Library/LaunchAgents/local.awake.plist` -> `config/awake/awake.plist`
+
+- A `launchd` job runs `awake watch` at login and restarts it if it stops.
+- The watcher checks the power source every 5 seconds and sets `pmset -a disablesleep` to 1 on AC and 0 on battery.
+- A brief power loss doesn't end a session, because the watcher rechecks after 3 seconds before turning stay-awake off.
+- Unplugging with the lid closed sleeps the Mac within about 5 seconds.
+- `/etc/sudoers.d/awake` allows only `pmset -a disablesleep 0` and `1` without a password.
+- `awake disable` restores standard sleep on any power source until `awake enable`, across restarts. `awake status` shows the job, power source, and setting.
+- Install with `sudo ./setup/setup_awake.sh` from a terminal, because `sudo` needs a password prompt.
+- Log: `~/Library/Logs/awake.log`.
+
+Known gap: `disablesleep` survives logout, restart, and shutdown, but the job stops at logout. Logging out on the charger and then unplugging leaves the Mac awake at the login window. Accepted, because a restart or power-on goes through the FileVault unlock, which logs in and starts the job.
 
 ## Mac-Specific Tools
 
