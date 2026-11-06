@@ -212,6 +212,35 @@
   // ],
 
   //////////////////////////////////////////////////////////////////////////////
+  // To-Do Tree
+  // VS Code renamed its bundled ripgrep to @vscode/ripgrep-universal, which
+  // To-Do Tree cannot find. Point it at the Homebrew rg instead.
+  //////////////////////////////////////////////////////////////////////////////
+
+  "todo-tree.ripgrep.ripgrep": "/opt/homebrew/bin/rg",
+
+  // Annotation markers: `#>>`: is the human's directive or question,
+  // `#<<`: is additional annotation.
+  "todo-tree.general.tags": ["#>>", "#<<", "FIXME"],
+  "todo-tree.highlights.customHighlight": {
+    "#>>": {
+      "foreground": "#1d2021",
+      "background": "#fabd2f",
+      "iconColour": "#fabd2f"
+    },
+    "#<<": {
+      "foreground": "#1d2021",
+      "background": "#d3869b",
+      "iconColour": "#d3869b"
+    },
+    "FIXME": {
+      "foreground": "#1d2021",
+      "background": "#fe8019",
+      "iconColour": "#fe8019"
+    }
+  },
+
+  //////////////////////////////////////////////////////////////////////////////
   // Spell check
   //////////////////////////////////////////////////////////////////////////////
 
