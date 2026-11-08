@@ -56,12 +56,36 @@ Installed with Homebrew casks unless noted:
 - Zoom
 - Google Drive
 - Adobe Creative Cloud
+- LibreOffice
 
 Special cases:
 
 - `nicotine-plus` is installed as a formula or from upstream, not a cask.
 - Microsoft Excel is deferred until needed.
 - Lightroom is installed from inside Adobe Creative Cloud.
+
+---
+
+## CSV editing
+
+LibreOffice Calc is the program for writing CSV files.
+
+For proper systems, prefer web GUI and databases. But CSV is the best for quick working files.
+
+### Testing
+
+- Rainbow CSV shows the file contents, and the "virtual align" option puts it in viewable form without changing the file. Good for what it is: quick check but not for editing, sorting, or easy navigation.
+- Apple numbers saves as a `.numbers` file. F' that.
+- I won't be buying Microsoft Excel, ever.
+- The other VS Code extensions are either klunky or not well maintained.
+- LibreOffice Calc is a disaster, but it works.
+
+### Nuances with LibreOffice
+
+- **Calc rewrites values in its own format.** It stores each cell as a value rather than as text, so `0.0` saves back as `0`. A generated CSV that writes numbers differently shows that change on its first Calc save.
+- **Calc writes LF line endings.** Python's `csv` module defaults to CRLF, so a Python-generated file shows every line changed on its first Calc save. LF is good so this is a Python script specification change.
+
+---
 
 ## Special Installs
 
