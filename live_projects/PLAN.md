@@ -107,14 +107,14 @@ The human runs these after the setup script installs the job, because the tests 
 
 Run on 2026-11-02 and 2026-11-03.
 
-| Test                   | Result | Evidence                                                                         |
-| ---------------------- | ------ | -------------------------------------------------------------------------------- |
-| Install                | Pass   | Setup ran cleanly, job running, rule allows only the two commands                |
-| Unplugged at install   | Pass   | Log shows `disablesleep 0` 4 seconds after the job started on battery            |
-| Plug in                | Pass   | Log shows `disablesleep 1` 2 seconds after the switch to AC                      |
-| Lid closed on charger  | Pass   | Human confirmed, and no sleep entries in 13 hours on AC                          |
-| Power blip             | Pass   | Human confirmed, no log line and no sleep entries                                |
-| Unplug with lid closed | Pass   | "Software Sleep" 5 seconds after the log showed `disablesleep 0` and lid closed  |
+| Test                   | Result | Evidence                                                                        |
+| ---------------------- | ------ | ------------------------------------------------------------------------------- |
+| Install                | Pass   | Setup ran cleanly, job running, rule allows only the two commands               |
+| Unplugged at install   | Pass   | Log shows `disablesleep 0` 4 seconds after the job started on battery           |
+| Plug in                | Pass   | Log shows `disablesleep 1` 2 seconds after the switch to AC                     |
+| Lid closed on charger  | Pass   | Human confirmed, and no sleep entries in 13 hours on AC                         |
+| Power blip             | Pass   | Human confirmed, no log line and no sleep entries                               |
+| Unplug with lid closed | Pass   | "Software Sleep" 5 seconds after the log showed `disablesleep 0` and lid closed |
 
 - Restart on the charger - pass. The Mac booted at 18:43:50, and the log shows "watch started" at 18:46:20 after login, so `launchd` loads the job from its link.
 - Watcher restart - pass. Ending process 800 brought up process 4506 within 1 second, and the log shows a new "watch started" at 18:54:36.
