@@ -219,16 +219,16 @@
 
   "todo-tree.ripgrep.ripgrep": "/opt/homebrew/bin/rg",
 
-  // Annotation markers: `#>>`: is the human's directive or question,
-  // `#<<`: is additional annotation.
-  "todo-tree.general.tags": ["#>>", "#<<", "FIXME"],
+  // Annotation markers: `!>>:` is the human's in-line message to the agent,
+  // `!<<:` marks agent-drafted text the human hasn't yet taken ownership of.
+  "todo-tree.general.tags": ["!>>", "!<<", "FIXME"],
   "todo-tree.highlights.customHighlight": {
-    "#>>": {
+    "!>>": {
       "foreground": "#1d2021",
       "background": "#fabd2f",
       "iconColour": "#fabd2f"
     },
-    "#<<": {
+    "!<<": {
       "foreground": "#1d2021",
       "background": "#d3869b",
       "iconColour": "#d3869b"
