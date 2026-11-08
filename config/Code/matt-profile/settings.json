@@ -254,6 +254,8 @@
     "Computering",
     "datasheet",
     "Festool",
+    "hardlinked",
+    "janky",
     "Lightroom",
     "Makita",
     "negotiables",
@@ -272,5 +274,8 @@
   "workbench.editor.enablePreview": false,
   "editor.accessibilitySupport": "off",
   "workbench.editor.empty.hint": "hidden",
-  "terminal.integrated.initialHint": false
+  "terminal.integrated.initialHint": false,
+  "[csv]": {
+    "editor.inlayHints.maximumLength": 0
+  }
 }
