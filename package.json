@@ -23,6 +23,7 @@
   "homepage": "https://github.com/burke-does-work/dotfiles#readme",
   "devDependencies": {
     "markdownlint-cli2": "0.23.2",
+    "markdownlint-rule-relative-links": "5.1.4",
     "prettier": "3.9.8"
   }
 }
