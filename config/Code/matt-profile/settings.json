@@ -188,6 +188,13 @@
   },
   "githubPullRequests.quickDiff": true,
 
+  // PR sidebar lists, trimmed for solo repos. Replaces the extension defaults;
+  // add "Waiting For My Review" back if collaborators join.
+  "githubPullRequests.queries": [
+    { "label": "Local Pull Request Branches", "query": "default" },
+    { "label": "All Open", "query": "default" }
+  ],
+
   //////////////////////////////////////////////////////////////////////////////
   // Jupyter
   //////////////////////////////////////////////////////////////////////////////
