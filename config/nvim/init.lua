@@ -69,3 +69,9 @@ require("lazy").setup({
     end,
   },
 })
+
+-- Neovide overlay: GUI-only settings. Loaded last so it can override the
+-- shared settings above. Terminal nvim never loads it.
+if vim.g.neovide then
+  require("neovide")
+end

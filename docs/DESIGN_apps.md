@@ -39,12 +39,15 @@ Notes:
 
 ## GUI Apps
 
+!<<:
+
 Installed with Homebrew casks unless noted:
 
 - Ghostty
 - CommitMono Nerd Font
 - JetBrains Mono Nerd Font
 - Visual Studio Code
+- Neovide (cask `neovide-app`)
 - Sublime Text
 - Google Chrome
 - VLC

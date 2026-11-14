@@ -58,11 +58,18 @@ VS Code config:
 - `config/Code/global/`
 - `config/Code/matt-profile/`
 
+!<<:
+
 Neovim config:
 
 - `config/nvim/init.lua`
+- `config/nvim/lua/neovide.lua` - Neovide-only overlay
 
 VS Code is the project editor. Neovim is the terminal editor for quick file edits and config work.
+
+!<<:
+
+Neovide is the GUI editor for single files opened outside the terminal. It runs the same Neovim config, so editing behavior matches the terminal. GUI-only settings live in the overlay, which `init.lua` loads only when `vim.g.neovide` is set. VS Code never opens automatically - it opens only when launched deliberately for a project.
 
 ## File Manager — Yazi
 

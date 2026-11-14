@@ -1,0 +1,6 @@
+-- Neovide overlay.
+--
+-- Loaded from init.lua only when nvim runs inside Neovide (vim.g.neovide).
+-- Holds GUI-only behavior: font, theme, mouse, and window settings.
+-- Editing behavior (motions, leader maps, registers, plugins) stays in
+-- init.lua so the terminal and GUI layers share one mental model.
