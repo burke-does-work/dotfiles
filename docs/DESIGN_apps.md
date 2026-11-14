@@ -52,7 +52,6 @@ Installed with Homebrew casks unless noted:
 - JetBrains Mono Nerd Font
 - Visual Studio Code
 - Neovide (cask `neovide-app`)
-- Sublime Text
 - Google Chrome
 - VLC
 - draw.io
