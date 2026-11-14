@@ -13,24 +13,23 @@ image_quality = 75
 pdf = [
   { run = 'open -a "Google Chrome" %s', desc = "Chrome", orphan = true },
 ]
-epub = [
-  { run = 'open -a "Google Chrome" %s', desc = "Chrome", orphan = true },
-  { run = 'ebook-viewer %s', desc = "Calibre viewer", orphan = true },
-]
 ebook = [
   { run = 'ebook-viewer %s', desc = "Calibre viewer", orphan = true },
 ]
 video = [
   { run = 'open -a VLC %s', desc = "VLC", orphan = true },
 ]
+audio = [
+  { run = 'open -a VLC %s', desc = "VLC", orphan = true },
+]
 
 [open]
 prepend_rules = [
-  { url = "*.epub",                             use = "epub" },
-  { url = "*.{kepub,azw,azw3,mobi,prc,fb2,fbz}", use = "ebook" },
+  { url = "*.{epub,kepub,azw,azw3,mobi,prc,fb2,fbz}", use = "ebook" },
   { url = "*.{cbz,cbr,cbc}",                     use = "ebook" },
   { mime = "application/pdf", use = "pdf" },
   { mime = "*/pdf",           use = "pdf" },
   { mime = "video/*",         use = "video" },
   { mime = "application/vnd.rn-realmedia*", use = "video" },
+  { mime = "audio/*",         use = "audio" },
 ]
