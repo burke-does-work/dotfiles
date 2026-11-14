@@ -2,7 +2,7 @@
 
 Current machine: `maodou-mac`.
 
-The setup uses Gruvbox Dark Hard colors and CommitMono Nerd Font where practical. Config lives in this repo and is symlinked into the locations each tool expects.
+The setup uses Gruvbox Dark Hard colors and CommitMono Nerd Font where practical. Neovide uses jellybeans colors instead. Config lives in this repo and is symlinked into the locations each tool expects.
 
 ## Shell — zsh
 

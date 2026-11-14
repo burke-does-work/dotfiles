@@ -1,5 +1,33 @@
 # Work Log
 
+## 2026-11-14 - Neovide gets its own look
+
+This was the GUI and color plan the previous entry left open. I kept it deliberately small. Ghostty is the baseline for anything GUI-level, Neovide inherits nvim's behavior, and `neovide.lua` stays a short, flat list of settings. Any change that needs extra logic to work around the shared nvim config gets called out as a drawback when it's proposed.
+
+Neovide's cursor trail was the first thing to go. Neovide also animates scrolling and window placement by default, and Ghostty does neither, so all three are off. The docs don't say whether turning off the main cursor animation also covers short moves while typing, so the short timing is set to 0 too. Padding matches Ghostty at 16 sides and 12 top and bottom. Ghostty's tabs-style title bar has no Neovide equivalent, and changing Neovide's frame needs a launch flag or a separate `config.toml`, so the title bar stays default.
+
+I wanted a completely different color scheme in Neovide. It had to be retro, with a background close to black but not necessarily black. Ghostty and terminal nvim colors were off limits, since I spent a long time on them. This works because Neovide only draws nvim and has no colors of its own. `neovide.lua` loads after gruvbox and replaces it for the GUI session only.
+
+Markdown differentiation turned out to be the hard requirement. Each heading level, bold, quotes, and code have to be distinguishable, as they are in terminal nvim. No built-in nvim 0.12 scheme colors the six treesitter heading levels separately, and `retrobox` is a gruvbox spin-off with gruvbox's exact cream text. Checked against plugin source:
+
+- kanagawa and oldworld give every heading level one color.
+- moonfly is near-black, but H1 and H2 match.
+- tokyonight and catppuccin color every level, but both are modern pastel styles on blue-grey backgrounds.
+
+jellybeans won: a port of the 2009 vim classic, on `#151515`. It's a lazy plugin entry in `init.lua`, loaded only by `neovide.lua`, so terminal nvim never runs it.
+
+I used VS Code as the model for the overrides, but for its approach, not its colors. Overrides exist only where jellybeans would leave two elements looking alike, not to rework the scheme. An early proposal reordered the headings to follow VS Code's rainbow, and I rejected it as customization rather than differentiation.
+
+The first source read missed a second jellybeans file that redefines the heading colors, and testing caught it. H1 and H2 were already distinct, so the planned H1 override was dropped. The planned bold color turned out to be H3's color. Bold moved to jellybeans' mantis green `#70b950`, the most distinct unused palette color by measured color distance. Bright orange `#ffaf00` scored higher, but it's jellybeans' warning color, so bold text could read as a warning.
+
+Quotes should sit close to the background, not the text. The first pick, `#404040`, matched jellybeans' selection color exactly, so selected quote text would vanish. That's not acceptable. Shuttle grey `#535d66` is the darkest palette color that stays visible when selected, at a faint 1.5:1 contrast against the selection.
+
+The font is CommitMono Nerd Font at 13, matching Ghostty. I don't want ligatures, since I use ASCII only. Reading the font's substitution tables confirmed it has none to turn off. There's no `liga` feature, and `calt` only swaps each character for a spacing-adjusted version of itself.
+
+Headless checks confirmed terminal nvim still loads gruvbox and never loads jellybeans. In Neovide mode, every markdown element reads back a distinct color and every setting reads back its planned value. The config sits in one commit on `neovide-look`, `52b73f7`, unpushed. `docs/system.md` now notes Neovide as the exception to Gruvbox colors.
+
+---
+
 ## 2026-11-14 - Neovide replaces Sublime, and file associations become tracked config
 
 I was about to start customizing Sublime, so I looked at alternatives first. Sublime sat in the middle of my editor stack, between nvim in the terminal and VS Code for projects. I used it for single markdown files, the odd settings file, and small Python tweaks. Looking back, I started reaching for it when I was slower with vim. That reason is gone. What I still want is a separate GUI window and a single-file feel, without the project weight of VS Code.
