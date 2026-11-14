@@ -68,6 +68,9 @@ require("lazy").setup({
       vim.cmd("colorscheme gruvbox")
     end,
   },
+  -- Neovide's colour scheme. Loaded on demand by lua/neovide.lua only, so
+  -- terminal nvim keeps gruvbox.
+  { "WTFox/jellybeans.nvim", lazy = true },
 })
 
 -- Neovide overlay: GUI-only settings. Loaded last so it can override the
