@@ -1,5 +1,36 @@
 # Work Log
 
+## 2026-11-14 - Neovide replaces Sublime, and file associations become tracked config
+
+I was about to start customizing Sublime, so I looked at alternatives first. Sublime sat in the middle of my editor stack, between nvim in the terminal and VS Code for projects. I used it for single markdown files, the odd settings file, and small Python tweaks. Looking back, I started reaching for it when I was slower with vim. That reason is gone. What I still want is a separate GUI window and a single-file feel, without the project weight of VS Code.
+
+The hard requirements were a vim mode that can match my shortcuts, light weight, mouse support, and little setup. Zed came close, since one setting turns off all its AI features, but it opens to a workspace, so I ruled it out. Kate, Athas, Lite XL, Pulsar, and MacVim each missed on vim fidelity, maturity, weight, or config reuse. Sublime with NeoVintageous stayed viable. Reading the NeoVintageous source showed it supports the blackhole register and leader mappings that stop and wait for a motion, which is how my `<Space>d` deletes work. Table mode tipped the decision. Sublime has no maintained equivalent of vim-table-mode. Table Editor has been archived since 2017, and MarkdownEditing doesn't format tables. Markdown is the main thing this layer opens, so that gap mattered.
+
+Neovide won over VimR. Neovide is active (0.17.2, early November) and runs my installed nvim, so my shortcuts, table mode, and gruvbox come along with no alignment work. VimR ships its own Neovim build and rests on one maintainer. I chose a shared config with a Neovide-only overlay over a fully separate config, so editing behavior stays one mental model and only GUI behavior can differ. `config/nvim/lua/neovide.lua` loads only when `vim.g.neovide` is set, and it stays empty until the GUI and color plan.
+
+Making Neovide the default editor turned into a broader decision. File associations become tracked config through `duti`, covering every logical file type rather than only Neovide's. The rules are:
+
+- Anything edited, including all programming files, opens in Neovide.
+- Web pages and PDFs open in Chrome, and Safari never does.
+- All audio and video opens in VLC.
+- Ebooks open in calibre's E-book Viewer, not the library app, which imports every book it opens.
+- `rtf` opens in LibreOffice, since Neovide would show raw formatting codes.
+- `.ts` means TypeScript, even though macOS treats it as video.
+- VS Code never opens automatically.
+
+Implementation surfaced several macOS quirks:
+
+- `duti -x` misreports some types. The reliable check reads a real file's type with `mdls`, then the handler for that type with `duti -d`. Even that check lags for a few seconds after an apply.
+- 14 extensions only ever get a dynamic type, because no installed app declares them. macOS refuses to set a handler for those (error -50). I chose not to fix them by hand in Finder, so they're left out and listed in the file header. As a result, `jsx`, `scss`, `gitignore`, and `editorconfig` still open in VS Code, and most ebook formats still open in the calibre library app.
+- macOS blocks setting `https` from a script (error -54). Chrome was already the default browser, so the browser lines came out of the file.
+- Archive lines name macOS type IDs because duti couldn't resolve their extensions.
+
+The Sublime zap only partly succeeded. It deleted the settings folder but hit a protected file it couldn't remove, because the terminal lacks Full Disk Access. A plain uninstall cleared the brew record. yazi now opens `epub` in calibre's viewer only and routes audio to VLC explicitly.
+
+Everything sits in four commits on `neovide-file-associations`, unpushed. Still open are the hands-on checks: opening files from Finder, `<Space>d`, table mode, the mouse, and media. The next plan covers Neovide's GUI and color customization.
+
+---
+
 ## 2026-11-02 - Lid-closed stay-awake tied to the charger
 
 I wanted the Ubuntu behavior from my last laptop: close the lid and the machine keeps running, so Claude Code remote control stays connected while the laptop sits out of the way on the desk. Ubuntu exposes this as two settings, `HandleLidSwitch` and `HandlePowerKey` in `logind.conf`. macOS has neither. Closing the lid always sleeps the Mac, and a quick press of the Touch ID power button only locks the screen.
