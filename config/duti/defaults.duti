@@ -1,0 +1,132 @@
+# macOS default apps, by file type.
+#
+# Apply:  duti -v config/duti/defaults.duti
+#
+# Each line is: bundle_id  .extension  role   (or bundle_id  url_scheme)
+# duti resolves each extension to the macOS file type (UTI) and writes the
+# handler into the LaunchServices database. Nothing is symlinked: edits do
+# nothing until the file is applied again. Re-apply after installing or
+# updating apps that claim file types (VS Code and calibre are the usual
+# offenders).
+#
+# Rules:
+# - Files to edit (text, config, programming) open in Neovide.
+# - Files to view on the web, and PDFs, open in Chrome.
+# - All audio and video opens in VLC.
+# - Ebooks open in calibre's E-book Viewer, not the calibre library app.
+# - VS Code never opens automatically.
+#
+# Known gaps: no installed app declares these extensions, so macOS gives
+# them dynamic file types, and duti can't set a handler for those (error
+# -50). They are left out and keep whatever app macOS picks:
+#   .jsonc .env .gitignore .editorconfig .fish .jsx .scss
+#   .mobi .azw .azw3 .kepub .fb2 .cbz .cbr
+# Files named only with a dot (.gitignore, .env) are generic data to macOS
+# and are not set either.
+
+# --- Neovide (com.neovide.neovide): text and config ---
+com.neovide.neovide  .md            all
+com.neovide.neovide  .markdown      all
+com.neovide.neovide  .txt           all
+com.neovide.neovide  .json          all
+com.neovide.neovide  .yaml          all
+com.neovide.neovide  .yml           all
+com.neovide.neovide  .toml          all
+com.neovide.neovide  .xml           all
+com.neovide.neovide  .ini           all
+com.neovide.neovide  .cfg           all
+com.neovide.neovide  .conf          all
+
+# --- Neovide (com.neovide.neovide): programming ---
+com.neovide.neovide  .py            all
+com.neovide.neovide  .lua           all
+com.neovide.neovide  .rb            all
+com.neovide.neovide  .sh            all
+com.neovide.neovide  .zsh           all
+com.neovide.neovide  .bash          all
+com.neovide.neovide  .js            all
+com.neovide.neovide  .mjs           all
+com.neovide.neovide  .ts            all
+com.neovide.neovide  .tsx           all
+com.neovide.neovide  .css           all
+com.neovide.neovide  .rs            all
+com.neovide.neovide  .go            all
+com.neovide.neovide  .c             all
+com.neovide.neovide  .h             all
+com.neovide.neovide  .cpp           all
+com.neovide.neovide  .java          all
+com.neovide.neovide  .sql           all
+com.neovide.neovide  .diff          all
+com.neovide.neovide  .patch         all
+
+# --- Google Chrome (com.google.Chrome): web pages, PDF, mail ---
+# The default browser (http and https) is set in System Settings. macOS
+# blocks setting https from a script.
+com.google.Chrome    .html          all
+com.google.Chrome    .htm           all
+com.google.Chrome    .xhtml         all
+com.google.Chrome    .svg           all
+com.google.Chrome    .pdf           all
+com.google.Chrome    mailto
+
+# --- VLC (org.videolan.vlc): video ---
+org.videolan.vlc     .mp4           all
+org.videolan.vlc     .m4v           all
+org.videolan.vlc     .mov           all
+org.videolan.vlc     .avi           all
+org.videolan.vlc     .mkv           all
+org.videolan.vlc     .webm          all
+
+# --- VLC (org.videolan.vlc): audio ---
+org.videolan.vlc     .mp3           all
+org.videolan.vlc     .m4a           all
+org.videolan.vlc     .aac           all
+org.videolan.vlc     .wav           all
+org.videolan.vlc     .flac          all
+org.videolan.vlc     .ogg           all
+
+# --- calibre E-book Viewer (com.calibre-ebook.ebook-viewer): ebooks ---
+com.calibre-ebook.ebook-viewer  .epub   all
+
+# --- LibreOffice (org.libreoffice.script): data and office files ---
+org.libreoffice.script  .csv        all
+org.libreoffice.script  .tsv        all
+org.libreoffice.script  .rtf        all
+org.libreoffice.script  .docx       all
+org.libreoffice.script  .doc        all
+org.libreoffice.script  .xlsx       all
+org.libreoffice.script  .xls        all
+org.libreoffice.script  .pptx       all
+org.libreoffice.script  .odt        all
+org.libreoffice.script  .ods        all
+org.libreoffice.script  .odp        all
+
+# --- Preview (com.apple.Preview): images ---
+com.apple.Preview    .png           all
+com.apple.Preview    .jpg           all
+com.apple.Preview    .jpeg          all
+com.apple.Preview    .gif           all
+com.apple.Preview    .webp          all
+com.apple.Preview    .heic          all
+com.apple.Preview    .tiff          all
+com.apple.Preview    .bmp           all
+
+# --- Archive Utility (com.apple.archiveutility): archives ---
+# duti can't resolve these extensions, so lines name the macOS file type.
+com.apple.archiveutility  public.zip-archive            all
+com.apple.archiveutility  public.tar-archive            all
+com.apple.archiveutility  org.gnu.gnu-zip-archive       all
+com.apple.archiveutility  org.gnu.gnu-zip-tar-archive   all
+com.apple.archiveutility  public.bzip2-archive          all
+com.apple.archiveutility  org.tukaani.xz-archive        all
+com.apple.archiveutility  org.7-zip.7-zip-archive       all
+com.apple.archiveutility  com.rarlab.rar-archive        all
+
+# --- Disk images and installers ---
+# duti can't resolve these extensions, so lines name the macOS file type.
+com.apple.DiskImageMounter  com.apple.disk-image-udif              all
+com.apple.DiskImageMounter  public.iso-image                       all
+com.apple.installer         com.apple.installer-package-archive    all
+
+# --- draw.io (com.jgraph.drawio.desktop): diagrams ---
+com.jgraph.drawio.desktop  .drawio  all

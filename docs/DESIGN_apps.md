@@ -31,6 +31,10 @@ Installed with Homebrew unless noted:
 - `neovim`
 - `node`
 
+!<<:
+
+- `duti`
+
 Notes:
 
 - Homebrew Apple Silicon path is `/opt/homebrew/bin`.
@@ -66,6 +70,23 @@ Special cases:
 - `nicotine-plus` is installed as a formula or from upstream, not a cask.
 - Microsoft Excel is deferred until needed.
 - Lightroom is installed from inside Adobe Creative Cloud.
+
+---
+
+!<<:
+
+## File associations
+
+Config: `config/duti/defaults.duti`
+
+duti sets the default app for each file type. It writes into the macOS LaunchServices database, so the file is applied, not symlinked.
+
+- Apply with `duti -v config/duti/defaults.duti`.
+- Edits take effect only after the next apply.
+- Re-apply after installing or updating an app that claims file types. VS Code and calibre are the usual ones.
+- Rules: Neovide for anything edited, Chrome for web pages and PDFs, VLC for all audio and video, calibre's E-book Viewer for ebooks. VS Code never opens automatically.
+- Known gaps: duti can't set extensions that no installed app declares. The file header lists them.
+- `duti -x` misreports some types. To check one, read its type with `mdls -name kMDItemContentType <file>`, then its handler with `duti -d <type>`.
 
 ---
 
